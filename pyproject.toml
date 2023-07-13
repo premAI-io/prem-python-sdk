@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=42", "setuptools_scm[toml]>=3.4"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "prem/_dist_ver.py"
+write_to_template = "__version__ = '{version}'\n"
+
+[project.urls]
+documentation = "https://dev.premai.io/docs/intro"
+repository = "https://github.com/premAI-io/prem-utils"
+changelog = "https://github.com/premAI-io/prem-utils/releases"
+
+[project]
+name = "prem"
+dynamic = ["version"]
+maintainers = [{name = "Casper da Costa-Luis", email = "casper.dcl@physics.org"}]
+description = "WiP"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "Apache-2.0"}
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Programming Language :: Python :: 3 :: Only"]
