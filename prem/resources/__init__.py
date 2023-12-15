@@ -1,1 +1,1 @@
-from .completions import Completions  # noqa
+from .completions.resource import Completions  # noqa

@@ -2,7 +2,7 @@ from prem import PremAI
 
 api_key = "3EC9HA3EFaQgFbzE8TqsOb0OTrTfFxv2x9"
 base_url = "http://localhost:8000"
-prem_ai_client = PremAI(api_key=api_key, base_url=base_url)
+client = PremAI(api_key=api_key, base_url=base_url)
 
 messages = [
     {"role": "system", "content": "You are a helpful assistant."},
@@ -11,7 +11,7 @@ messages = [
 
 model = "gpt-3.5-turbo"
 
-response = prem_ai_client.completions.create(
-    project_id=1, messages=messages, model=model
+response = client.completions.create(
+    project_id=1, messages=messages, model=model, stream=False
 )
 print(response)

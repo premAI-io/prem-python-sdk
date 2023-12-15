@@ -2,37 +2,9 @@ from __future__ import annotations
 
 from typing import Dict, List, Optional, Union
 
-from pydantic import BaseModel
-
-from ..resource import SyncAPIResource
-from ..utils import filter_none_values, required_args
-
-
-class Message(BaseModel):
-    content: str
-    role: str
-
-
-class Choice(BaseModel):
-    finish_reason: str
-    index: int
-    message: Message
-
-
-class Usage(BaseModel):
-    completion_tokens: int
-    prompt_tokens: int
-    total_tokens: int
-
-
-class ChatCompletionResponse(BaseModel):
-    id: str
-    choices: List[Choice]
-    created: int
-    model: str
-    provider_name: str
-    provider_id: str
-    usage: Optional[Usage]
+from ...resource import SyncAPIResource
+from ...utils import filter_none_values, required_args
+from .models import ChatCompletionChunk, ChatCompletionResponse
 
 
 class Completions(SyncAPIResource):
@@ -64,7 +36,8 @@ class Completions(SyncAPIResource):
         tools: Optional[List[Dict[str, Union[str, int]]]] = None,
         top_p: Optional[float] = None,
         user: Optional[str] = None,
-    ) -> Dict[str, Union[str, int]]:
+        stream: Optional[bool] = False,
+    ) -> Union[ChatCompletionResponse, List[ChatCompletionChunk]]:
         body = {
             "project_id": project_id,
             "messages": messages,
@@ -82,9 +55,15 @@ class Completions(SyncAPIResource):
             "tools": tools,
             "top_p": top_p,
             "user": user,
+            "stream": stream,
         }
         response = self._post(
             "v1/chat/completions",
             body=filter_none_values(body),
+            stream=stream,
         )
-        return ChatCompletionResponse(**response)
+        if not stream:
+            return ChatCompletionResponse(**response)
+        else:
+            print
+            return [ChatCompletionChunk(**event) for event in response]
