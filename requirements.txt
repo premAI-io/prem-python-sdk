@@ -1,0 +1,4 @@
+requests
+pydantic
+httpx
+sseclient-py
