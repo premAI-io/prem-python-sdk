@@ -20,6 +20,7 @@ class PremAI:
     """
 
     completions: resources.Completions
+    embeddings: resources.Embeddings
 
     def __init__(self, api_key: str, base_url: str) -> None:
         """
@@ -36,6 +37,7 @@ class PremAI:
         )
 
         self.completions = resources.Completions(self)
+        self.embeddings = resources.Embeddings(self)
 
     def get(self, endpoint: str) -> Union[Dict, List[Dict]]:
         """
