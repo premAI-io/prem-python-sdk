@@ -39,7 +39,7 @@ class PremAI:
         self.completions = resources.Completions(self)
         self.embeddings = resources.Embeddings(self)
 
-    def get(self, endpoint: str) -> Union[Dict, List[Dict]]:
+    def get(self, endpoint: str) -> Dict:
         """
         Make a GET request to the API.
 
@@ -47,7 +47,7 @@ class PremAI:
         - endpoint (str): The API endpoint.
 
         Returns:
-        - Union[Dict, List[Dict]]: The response object.
+        - Dict: The response object.
         """
         response = requests.get(f"{self.base_url}/{endpoint}", headers=self.headers)
         if response.status_code != 200:
