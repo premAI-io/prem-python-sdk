@@ -38,6 +38,7 @@ class PremAI:
 
         self.completions = resources.Completions(self)
         self.embeddings = resources.Embeddings(self)
+        self.datapoints = resources.DataPoints(self)
 
     def get(self, endpoint: str) -> Dict:
         """
@@ -71,7 +72,7 @@ class PremAI:
         response = requests.post(
             f"{self.base_url}/{endpoint}", json=body, headers=self.headers
         )
-        if response.status_code != 200:
+        if response.status_code != 201:
             error_to_exception(response)
         if not stream:
             return response.json()
@@ -82,3 +83,32 @@ class PremAI:
                 if event.data != "[DONE]":
                     events.append(json.loads(event.data))
             return events
+
+    def patch(self, endpoint: str, body: Dict) -> Dict:
+        """
+        Make a PATCH request to the API.
+
+        Parameters:
+        - endpoint (str): The API endpoint.
+        - body (Dict): The JSON body of the request.
+
+        Returns:
+        - Dict: The response object.
+        """
+        response = requests.patch(
+            f"{self.base_url}/{endpoint}", json=body, headers=self.headers
+        )
+        if response.status_code != 200:
+            error_to_exception(response)
+        return response.json()
+
+    def delete(self, endpoint: str) -> None:
+        """
+        Make a DELETE request to the API.
+
+        Parameters:
+        - endpoint (str): The API endpoint.
+        """
+        response = requests.delete(f"{self.base_url}/{endpoint}", headers=self.headers)
+        if response.status_code != 204:
+            error_to_exception(response)

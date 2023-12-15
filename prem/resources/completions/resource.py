@@ -65,5 +65,4 @@ class Completions(SyncAPIResource):
         if not stream:
             return ChatCompletionResponse(**response)
         else:
-            print
             return [ChatCompletionChunk(**event) for event in response]

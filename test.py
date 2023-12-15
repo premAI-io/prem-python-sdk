@@ -24,3 +24,29 @@ input = "What is a transformer?"
 model = "text-embedding-ada-002"
 response = client.embeddings.create(project_id=1, input=input, model=model)
 print(response)
+
+# Test DataPoints
+input = "What is a transformer?"
+# Creating 10 data points
+for _ in range(10):
+    data_point = client.datapoints.create(project_id=1, input=input, positive=True)
+print(data_point)
+
+# Updating the last data point
+patched_data_point = client.datapoints.update(
+    datapoint_id=data_point.id, data={"positive": False}
+)
+
+# Retrieving the udpated data point
+print(client.datapoints.retrieve(datapoint_id=data_point.id))
+
+# Deleting the udpated data point
+print("Deleted data point with ID: " + str(data_point.id))
+client.datapoints.delete(datapoint_id=data_point.id)
+
+# List the data points
+datapoints = client.datapoints.list()
+print("Total number of datapoints", len(datapoints))
+for datapoint in datapoints:
+    print("Deleted data point with ID: " + str(datapoint.id))
+    client.datapoints.delete(datapoint_id=datapoint.id)
