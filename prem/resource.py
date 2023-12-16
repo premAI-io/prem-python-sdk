@@ -6,8 +6,8 @@ class SyncAPIResource:
 
     def __init__(self, client) -> None:
         self._client = client
-        self._get = client.get
-        self._post = client.post
-        self._put = client.put
-        self._patch = client.patch
-        self._delete = client.delete
+        self._get = client._get
+        self._post = client._post
+        self._put = client._put
+        self._patch = client._patch
+        self._delete = client._delete

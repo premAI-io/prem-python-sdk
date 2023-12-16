@@ -12,6 +12,7 @@ class Embeddings(SyncAPIResource):
     Embeddings class for making API requests related to embeddings.
 
     Attributes:
+
     - client (Prem): The client for making API requests.
     """
 
@@ -20,6 +21,7 @@ class Embeddings(SyncAPIResource):
         Initializes the Embeddings resource.
 
         Parameters:
+
         - client (Prem): The client for making API requests.
         """
         super().__init__(client)
@@ -32,6 +34,20 @@ class Embeddings(SyncAPIResource):
         model: Optional[str] = None,
         encoding_format: Optional[str] = "float",
     ) -> EmbeddingsResponse:
+        """
+        Create embeddings based on the provided parameters.
+
+        Parameters:
+
+        - project_id (int): The ID of the project.
+        - input (Union[str, List[str], List[int], List[List[int]]]): The input data for which embeddings are requested.
+        - model (Optional[str]): The language model to use for generating embeddings.
+        - encoding_format (Optional[str]): The encoding format for the embeddings (default is "float").
+
+        Returns:
+
+        - EmbeddingsResponse: The response containing the generated embeddings.
+        """
         body = {
             "project_id": project_id,
             "input": input,
