@@ -10,9 +10,9 @@ from . import resources
 from .exceptions import error_to_exception
 
 
-class PremAI:
+class Prem:
     """
-    PremAI class for making API requests.
+    Prem class for making API requests.
 
     Attributes:
     - api_key (str): The API key for authentication.
@@ -24,7 +24,7 @@ class PremAI:
 
     def __init__(self, api_key: str, base_url: str) -> None:
         """
-        Initialize PremAI with the provided API key and base URL.
+        Initialize Prem with the provided API key and base URL.
 
         Parameters:
         - api_key (str): The API key for authentication.
@@ -40,23 +40,24 @@ class PremAI:
         self.embeddings = resources.Embeddings(self)
         self.datapoints = resources.DataPoints(self)
 
-    def get(self, endpoint: str) -> Dict:
+    def get(self, endpoint: str, status_code: int = 200) -> Dict:
         """
         Make a GET request to the API.
 
         Parameters:
         - endpoint (str): The API endpoint.
+        - status_code (int): The expected status code of the response.
 
         Returns:
         - Dict: The response object.
         """
         response = requests.get(f"{self.base_url}/{endpoint}", headers=self.headers)
-        if response.status_code != 200:
+        if response.status_code != status_code:
             error_to_exception(response)
         return response.json()
 
     def post(
-        self, endpoint: str, body: Dict, stream: bool = False
+        self, endpoint: str, body: Dict, stream: bool = False, status_code: int = 200
     ) -> Union[Dict, List[Dict]]:
         """
         Make a POST request to the API.
@@ -65,6 +66,7 @@ class PremAI:
         - endpoint (str): The API endpoint.
         - body (Dict): The JSON body of the request.
         - stream (bool): If True, stream the response; otherwise, return the response as JSON.
+        - status_code (int): The expected status code of the response.
 
         Returns:
         - Union[Dict, List[Dict]]: The response object.
@@ -72,7 +74,7 @@ class PremAI:
         response = requests.post(
             f"{self.base_url}/{endpoint}", json=body, headers=self.headers
         )
-        if response.status_code != 201:
+        if response.status_code != status_code:
             error_to_exception(response)
         if not stream:
             return response.json()
@@ -84,13 +86,33 @@ class PremAI:
                     events.append(json.loads(event.data))
             return events
 
-    def patch(self, endpoint: str, body: Dict) -> Dict:
+    def put(self, endpoint: str, body: Dict, status_code: int = 201) -> Dict:
+        """
+        Make a PUT request to the API.
+
+        Parameters:
+        - endpoint (str): The API endpoint.
+        - body (Dict): The JSON body of the request.
+        - status_code (int): The expected status code of the response.
+
+        Returns:
+        - Dict: The response object.
+        """
+        response = requests.put(
+            f"{self.base_url}/{endpoint}", json=body, headers=self.headers
+        )
+        if response.status_code != status_code:
+            error_to_exception(response)
+        return response.json()
+
+    def patch(self, endpoint: str, body: Dict, status_code: int = 200) -> Dict:
         """
         Make a PATCH request to the API.
 
         Parameters:
         - endpoint (str): The API endpoint.
         - body (Dict): The JSON body of the request.
+        - status_code (int): The expected status code of the response.
 
         Returns:
         - Dict: The response object.
@@ -98,17 +120,18 @@ class PremAI:
         response = requests.patch(
             f"{self.base_url}/{endpoint}", json=body, headers=self.headers
         )
-        if response.status_code != 200:
+        if response.status_code != status_code:
             error_to_exception(response)
         return response.json()
 
-    def delete(self, endpoint: str) -> None:
+    def delete(self, endpoint: str, status_code: int = 204) -> None:
         """
         Make a DELETE request to the API.
 
         Parameters:
         - endpoint (str): The API endpoint.
+        - status_code (int): The expected status code of the response.
         """
         response = requests.delete(f"{self.base_url}/{endpoint}", headers=self.headers)
-        if response.status_code != 204:
+        if response.status_code != status_code:
             error_to_exception(response)

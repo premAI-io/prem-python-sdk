@@ -13,7 +13,7 @@ class Completions(SyncAPIResource):
         Initializes the Completions resource.
 
         Parameters:
-        - client (PremAI): The client for making API requests.
+        - client (Prem): The client for making API requests.
         """
         super().__init__(client)
 

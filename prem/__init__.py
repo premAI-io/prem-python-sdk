@@ -1,1 +1,1 @@
-from .client import PremAI  # noqa
+from .client import Prem  # noqa

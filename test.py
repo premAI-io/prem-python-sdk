@@ -1,8 +1,8 @@
-from prem import PremAI
+from prem import Prem
 
 api_key = "3EC9HA3EFaQgFbzE8TqsOb0OTrTfFxv2x9"
 base_url = "http://localhost:8000"
-client = PremAI(api_key=api_key, base_url=base_url)
+client = Prem(api_key=api_key, base_url=base_url)
 
 # Test Completions
 messages = [
@@ -17,13 +17,13 @@ print(response)
 response = client.completions.create(
     project_id=1, messages=messages, model=model, stream=True
 )
-print(response)
+print(f"Number of chunks: {len(response)}")
 
 # Test Embeddings
 input = "What is a transformer?"
 model = "text-embedding-ada-002"
 response = client.embeddings.create(project_id=1, input=input, model=model)
-print(response)
+print(f"Embedding dimension: {len(response.data[0])}")
 
 # Test DataPoints
 input = "What is a transformer?"

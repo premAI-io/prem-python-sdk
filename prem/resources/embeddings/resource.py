@@ -12,7 +12,7 @@ class Embeddings(SyncAPIResource):
     Embeddings class for making API requests related to embeddings.
 
     Attributes:
-    - client (PremAI): The client for making API requests.
+    - client (Prem): The client for making API requests.
     """
 
     def __init__(self, client) -> None:
@@ -20,7 +20,7 @@ class Embeddings(SyncAPIResource):
         Initializes the Embeddings resource.
 
         Parameters:
-        - client (PremAI): The client for making API requests.
+        - client (Prem): The client for making API requests.
         """
         super().__init__(client)
 

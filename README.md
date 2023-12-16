@@ -42,15 +42,15 @@
     ```
 ## Usage
 ### Getting Started
-To use the Prem Python SDK, you need to obtain an API key from the Prem platform. You can then create a `PremAI` instance to make requests to the API.
+To use the Prem Python SDK, you need to obtain an API key from the Prem platform. You can then create a `Prem` instance to make requests to the API.
 
 ```python
-from prem import PremAI
+from prem import Prem
 
 api_key = "YOUR_API_KEY"
 base_url = "https://api.prem.com"  # Update with the base URL of the Prem API
 
-client = PremAI(api_key=api_key, base_url=base_url)
+client = Prem(api_key=api_key, base_url=base_url)
 ```
 
 ### Completions

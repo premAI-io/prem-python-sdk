@@ -12,7 +12,7 @@ class DataPoints(SyncAPIResource):
     DataPoints class for handling the datapoint endpoint.
 
     Attributes:
-    - client (PremAI): The client for making API requests.
+    - client (Prem): The client for making API requests.
     """
 
     def __init__(self, client) -> None:
@@ -20,7 +20,7 @@ class DataPoints(SyncAPIResource):
         Initializes the DataPoints.
 
         Parameters:
-        - client (PremAI): The client for making API requests.
+        - client (Prem): The client for making API requests.
         """
         super().__init__(client)
 
@@ -54,7 +54,7 @@ class DataPoints(SyncAPIResource):
             "trace": trace,
         }
         response = self._post(
-            "api/projects/data-points/", body=filter_none_values(body)
+            "api/projects/data-points/", body=filter_none_values(body), status_code=201
         )
         return DataPoint(**response)
 
