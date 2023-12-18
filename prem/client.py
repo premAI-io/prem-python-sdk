@@ -19,7 +19,9 @@ class Prem:
     embeddings: resources.Embeddings
     datapoints: resources.DataPoints
 
-    def __init__(self, api_key: str, base_url: str) -> None:
+    def __init__(
+        self, api_key: str, base_url: str = "https://app.prod.prem.ninja"
+    ) -> None:
         """
         Initialize Prem with the provided API key and base URL.
 
