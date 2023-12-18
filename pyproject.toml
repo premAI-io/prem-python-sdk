@@ -7,18 +7,22 @@ write_to = "prem/_dist_ver.py"
 write_to_template = "__version__ = '{version}'\n"
 
 [project.urls]
-documentation = "https://dev.premai.io/docs/intro"
-repository = "https://github.com/premAI-io/prem-utils"
-changelog = "https://github.com/premAI-io/prem-utils/releases"
+documentation = "WIP"
+readme = "README.md"
+repository = "https://github.com/premAI-io/prem-python-sdk"
+changelog = "https://github.com/premAI-io/prem-python-sdk/releases"
 
 [project]
 name = "prem"
-dynamic = ["version"]
-maintainers = [{name = "Casper da Costa-Luis", email = "casper.dcl@physics.org"}]
-description = "WiP"
+dynamic = ["version", "dependencies"]
+maintainers = [{name = "Nicola Sosio", email = "nicola@premai.io"}]
+description = "The Prem Python SDK is a Python library for interacting with prem-saas"
 readme = "README.md"
 requires-python = ">=3.7"
 license = {text = "Apache-2.0"}
 classifiers = [
     "Development Status :: 1 - Planning",
     "Programming Language :: Python :: 3 :: Only"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
