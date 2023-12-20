@@ -7,7 +7,7 @@ write_to = "prem/_dist_ver.py"
 write_to_template = "__version__ = '{version}'\n"
 
 [project.urls]
-documentation = "WIP"
+documentation = "python.docs.premai.io"
 readme = "README.md"
 repository = "https://github.com/premAI-io/prem-python-sdk"
 changelog = "https://github.com/premAI-io/prem-python-sdk/releases"
