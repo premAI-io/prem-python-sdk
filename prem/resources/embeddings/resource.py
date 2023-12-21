@@ -56,6 +56,6 @@ class Embeddings(SyncAPIResource):
         }
 
         response = self._post(
-            "v1/chat/embeddings", body=filter_none_values(body), stream=False
+            "v1/embeddings", body=filter_none_values(body), stream=False
         )
         return EmbeddingsResponse(**response)
