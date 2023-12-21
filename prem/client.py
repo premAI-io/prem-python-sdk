@@ -20,7 +20,10 @@ class Prem:
     datapoints: resources.DataPoints
 
     def __init__(
-        self, api_key: str, base_url: str = "https://app.prod.prem.ninja"
+        self,
+        api_key: str,
+        base_url: str = "https://app.prod.prem.ninja",
+        options: Dict = {},
     ) -> None:
         """
         Initialize Prem with the provided API key and base URL.
@@ -29,12 +32,15 @@ class Prem:
         :type api_key: str
         :param base_url: The base URL of the API.
         :type base_url: str
+        :param options: Custom headers.
+        :type options: dict
         """
         self.api_key = api_key
         self.base_url = base_url
         self.headers = (
             {"Authorization": f"Bearer {self.api_key}"} if self.api_key else {}
         )
+        self.headers.update(options)
 
         self.completions = resources.Completions(self)
         self.embeddings = resources.Embeddings(self)
