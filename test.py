@@ -1,6 +1,8 @@
+import time
+
 from prem import Prem
 
-api_key = "3EC9HA3EFaQgFbzE8TqsOb0OTrTfFxv2x9"
+api_key = "wCEhrasrf1N35zuF2mfj0Lw2zaLAWRiiM0"
 base_url = "http://localhost:8000"
 client = Prem(api_key=api_key, base_url=base_url)
 
@@ -30,6 +32,7 @@ input = "What is a transformer?"
 # Creating 10 data points
 for _ in range(10):
     data_point = client.datapoints.create(project_id=1, input=input, positive=True)
+    time.sleep(1)
 print(data_point)
 
 # Updating the last data point
@@ -50,3 +53,4 @@ print("Total number of datapoints", len(datapoints))
 for datapoint in datapoints:
     print("Deleted data point with ID: " + str(datapoint.id))
     client.datapoints.delete(datapoint_id=datapoint.id)
+    time.sleep(1)
