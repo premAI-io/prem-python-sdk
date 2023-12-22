@@ -3,9 +3,6 @@ on:
     push:
       tags:
         - '*'
-      branches:
-        - main
-        - bugfix/pypi
 jobs:
   pypi:
     runs-on: ubuntu-latest
