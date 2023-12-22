@@ -22,7 +22,7 @@ class Prem:
     def __init__(
         self,
         api_key: str,
-        base_url: str = "https://app.prod.prem.ninja",
+        base_url: str = "https://app.premai.io",
         options: Dict = {},
     ) -> None:
         """
