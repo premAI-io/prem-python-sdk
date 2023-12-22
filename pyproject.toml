@@ -26,3 +26,7 @@ classifiers = [
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools_scm.version]
+git = true
+root = ".."
