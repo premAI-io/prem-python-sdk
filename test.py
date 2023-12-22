@@ -2,7 +2,7 @@ import time
 
 from prem import Prem
 
-api_key = "wCEhrasrf1N35zuF2mfj0Lw2zaLAWRiiM0"
+api_key = "t3c3WFsG53DPF6JZXWiYpQirc6sSsiLVS9"
 base_url = "http://localhost:8000"
 client = Prem(api_key=api_key, base_url=base_url)
 
@@ -29,9 +29,12 @@ print(f"Embedding dimension: {len(response.data[0])}")
 
 # Test DataPoints
 input = "What is a transformer?"
+output = "A transformer is a deep learning model that uses self-attention."
 # Creating 10 data points
 for _ in range(10):
-    data_point = client.datapoints.create(project_id=1, input=input, positive=True)
+    data_point = client.datapoints.create(
+        project_id=1, input=input, output=output, positive=True
+    )
     time.sleep(1)
 print(data_point)
 

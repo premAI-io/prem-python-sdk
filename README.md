@@ -37,7 +37,6 @@
     cd prem-python-sdk
     python -m venv venv
     source venv/bin/activate
-    pip install -r requirements.txt
     pip install .
     ```
 ## Usage
@@ -84,10 +83,11 @@ print(response)
 The `datapoints` module allows you to manage data points, including creating, updating, retrieving, and deleting. Example:
 ```python
 input_text = "What is a transformer?"
+output_text = "A transformer is a deep learning model that uses self-attention."
 
 # Create 10 data points
 for _ in range(10):
-    data_point = client.datapoints.create(project_id=1, input=input_text, positive=True)
+    data_point = client.datapoints.create(project_id=1, input=input_text, output=output_text, positive=True)
 
 # Update the last data point
 patched_data_point = client.datapoints.update(datapoint_id=data_point.id, data={"positive": False})

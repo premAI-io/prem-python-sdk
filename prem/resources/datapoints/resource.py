@@ -3,8 +3,8 @@ from __future__ import annotations
 from typing import Dict, List, Optional
 
 from ...resource import SyncAPIResource
-from ...utils import filter_none_values, required_args
-from .models import DataPoint, PatchedDataPoint
+from ...utils import required_args
+from .models import DataPoint, InputDataPoint, PatchedDataPoint
 
 
 class DataPoints(SyncAPIResource):
@@ -24,7 +24,7 @@ class DataPoints(SyncAPIResource):
         """
         super().__init__(client)
 
-    @required_args(["project_id", "input", "positive"])
+    @required_args(["project_id", "input", "positive", "input", "output"])
     def create(
         self,
         project_id: int,
@@ -53,9 +53,9 @@ class DataPoints(SyncAPIResource):
             "positive": positive,
             "trace": trace,
         }
-        response = self._post(
-            "api/projects/data-points/", body=filter_none_values(body), status_code=201
-        )
+        InputDataPoint(**body)
+        response = self._post("api/projects/data-points/", body=body, status_code=201)
+        print("create", response)
         return DataPoint(**response)
 
     @required_args(["datapoint_id"])
@@ -70,6 +70,7 @@ class DataPoints(SyncAPIResource):
         - DataPoint: The retrieved data point.
         """
         response = self._get(f"api/projects/data-points/{datapoint_id}/")
+        print("retrieve", response)
         return DataPoint(**response)
 
     def list(self) -> List[DataPoint]:
@@ -80,6 +81,7 @@ class DataPoints(SyncAPIResource):
         - List[DataPoint]: A list of data points.
         """
         response = self._get("api/projects/data-points/")
+        print("list", response)
         return [DataPoint(**data_point) for data_point in response]
 
     @required_args(["datapoint_id", "data"])
@@ -96,6 +98,7 @@ class DataPoints(SyncAPIResource):
         """
         _ = PatchedDataPoint(**data)
         response = self._patch(f"api/projects/data-points/{datapoint_id}/", body=data)
+        print("update", response)
         return DataPoint(**response)
 
     @required_args(["datapoint_id"])

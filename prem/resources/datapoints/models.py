@@ -3,6 +3,27 @@ from typing import Optional
 from pydantic import BaseModel
 
 
+class InputDataPoint(BaseModel):
+    """
+    Represents an input data point with information about input, output, positivity,
+    associated project, and an optional trace.
+
+    Attributes:
+
+    - input (Optional[str]): The input information for the data point.
+    - output (Optional[str]): The output information for the data point.
+    - positive (bool): A boolean indicating whether the data point is positive or not.
+    - project (int): The ID of the project associated with the data point.
+    - trace (Optional[str]): Additional trace information for the data point.
+    """
+
+    input: str = None
+    output: str = None
+    positive: bool
+    project: int
+    trace: Optional[str] = None
+
+
 class DataPoint(BaseModel):
     """
     Represents a data point with input and output information.
@@ -10,20 +31,22 @@ class DataPoint(BaseModel):
     Attributes:
 
     - id (int): The unique identifier of the data point.
-    - created_at (str): The timestamp when the data point was created.
-    - updated_at (str): The timestamp when the data point was last updated.
-    - input (Optional[str]): The input information for the data point (optional).
-    - output (Optional[str]): The output information for the data point (optional).
+    - created_at (Optional[str]): The timestamp when the data point was created.
+    - updated_at (Optional[str]): The timestamp when the data point was last updated.
+    - input (Optional[str]): The input information for the data point.
+    - output (Optional[str]): The output information for the data point.
     - positive (bool): A boolean indicating whether the data point is positive or not.
-    - trace (Optional[str]): Additional trace information for the data point (optional).
+    - project (Optional[int]): The ID of the project.
+    - trace (Optional[str]): Additional trace information for the data point.
     """
 
     id: int
-    created_at: str
-    updated_at: str
-    input: Optional[str] = None
-    output: Optional[str] = None
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
+    input: str = None
+    output: str = None
     positive: bool
+    project: Optional[int] = None
     trace: Optional[str] = None
 
 
