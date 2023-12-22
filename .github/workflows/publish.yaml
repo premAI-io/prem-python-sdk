@@ -5,6 +5,7 @@ on:
         - '*'
       branches:
         - main
+        - bugfix/pypi
 jobs:
   pypi:
     runs-on: ubuntu-latest
