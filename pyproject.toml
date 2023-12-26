@@ -5,13 +5,13 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools_scm]
 
 [project.urls]
-documentation = "http://python.docs.premai.io"
+documentation = "https://premai-io.github.io/prem-python-sdk/"
 readme = "README.md"
 repository = "https://github.com/premAI-io/prem-python-sdk"
 changelog = "https://github.com/premAI-io/prem-python-sdk/releases"
 
 [project]
-name = "prem"
+name = "premai"
 dynamic = ["version", "dependencies"]
 maintainers = [{name = "Nicola Sosio", email = "nicola@premai.io"}]
 description = "The Prem Python SDK is a Python library for interacting with prem-saas"
