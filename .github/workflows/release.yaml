@@ -18,16 +18,16 @@ jobs:
         id: get_last_release
         run: |
           LAST_RELEASE_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-          IFS='.' read -r VERSION MAJOR MINOR PATCH <<< "${LAST_RELEASE_TAG}
+          IFS='.' read -r VERSION MAJOR MINOR PATCH <<< "${LAST_RELEASE_TAG}"
 
           echo "Last Release Tag: $LAST_RELEASE_TAG"
           echo "Major: $MAJOR"
           echo "Minor: $MINOR"
           echo "Patch: $PATCH"
 
-          echo "major_version=${MAJOR}" >> $GITHUB_ENV
-          echo "minor_version=${MINOR}" >> $GITHUB_ENV
-          echo "patch_version=${PATCH}" >> $GITHUB_ENV
+          echo "major_version=$MAJOR" >> $GITHUB_ENV
+          echo "minor_version=$MINOR" >> $GITHUB_ENV
+          echo "patch_version=$PATCH" >> $GITHUB_ENV
 
   bump-version:
     needs: get-last-release
