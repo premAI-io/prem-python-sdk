@@ -18,10 +18,12 @@ jobs:
         id: get_last_release
         run: |
           LAST_RELEASE_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-          echo "Last Release Tag: $LAST_RELEASE_TAG"
+          IFS='.' read -r VERSION MAJOR MINOR PATCH <<< "${LAST_RELEASE_TAG}
 
-          # Extract the version components
-          IFS='.' read -r MAJOR MINOR PATCH <<< "${LAST_RELEASE_TAG:1}"
+          echo "Last Release Tag: $LAST_RELEASE_TAG"
+          echo "Major: $MAJOR"
+          echo "Minor: $MINOR"
+          echo "Patch: $PATCH"
 
           echo "major_version=${MAJOR}" >> $GITHUB_ENV
           echo "minor_version=${MINOR}" >> $GITHUB_ENV
