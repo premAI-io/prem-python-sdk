@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project.urls]
 documentation = "https://premai-io.github.io/prem-python-sdk/"
-readme = "README.md"
+readme = "https://github.com/premAI-io/prem-python-sdk/blob/main/README.md"
 repository = "https://github.com/premAI-io/prem-python-sdk"
 changelog = "https://github.com/premAI-io/prem-python-sdk/releases"
 
