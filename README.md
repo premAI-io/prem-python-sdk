@@ -2,8 +2,8 @@
   <h1 align="center">🚀 Prem Python SDK</h1>
   <p align="center">The Prem Python SDK is a Python library for interacting with the <a href="https://github.com/premAI-io/prem-saas">Prem  API</a></p>
 
+[![PyPI version](https://img.shields.io/pypi/v/premai.svg)](https://pypi.org/project/premai/)
 [![GitHub contributors](https://img.shields.io/github/contributors/premAI-io/prem-python-sdk.svg)](https://github.com/premAI-io/prem-python-sdk/graphs/contributors)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/prem-python-sdk-io/prem-python-sdk.svg)](https://github.com/premAI-io/prem-python-sdk/commits/master)
 [![GitHub last commit](https://img.shields.io/github/last-commit/premAI-io/prem-python-sdk.svg)](https://github.com/premAI-io/prem-python-sdk/commits/master)
 [![GitHub top language](https://img.shields.io/github/languages/top/premAI-io/prem-python-sdk.svg)](https://github.com/premAI-io/prem-python-sdk)
 [![GitHub issues](https://img.shields.io/github/issues/premAI-io/prem-python-sdk.svg)](https://github.com/premAI-io/prem-python-sdk/issues)
@@ -26,6 +26,8 @@
 
 ## Installation
 
+### From Source
+
 1. Clone the Prem Python SDK repository:
 
    ```bash
@@ -39,6 +41,14 @@
     source venv/bin/activate
     pip install .
     ```
+### From PyPI
+You can also install the Prem Python SDK directly from PyPI.
+
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install premai
+```
 ## Usage
 ### Getting Started
 To use the Prem Python SDK, you need to obtain an API key from the Prem platform. You can then create a `Prem` instance to make requests to the API.
