@@ -18,7 +18,7 @@ jobs:
         id: get_last_release
         run: |
           LAST_RELEASE_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-          IFS='.' read -r MAJOR MINOR PATCH <<< "${LAST_RELEASE_TAG}"
+          IFS='.' read -r MAJOR MINOR PATCH <<< "${LAST_RELEASE_TAG:1}"
 
           echo "Last Release Tag: $LAST_RELEASE_TAG"
           echo "Major: $MAJOR"
@@ -37,8 +37,10 @@ jobs:
         id: bump_version
         run: |
           release_type="${{ github.event.inputs.release_type }}"
+          major_version="${{ env.major_version }}"
+          minor_version="${{ env.minor_version }}"
+          patch_version="${{ env.patch_version }}"
 
-          # Your logic to bump the version using major_version, minor_version, patch_version
           if [ "$release_type" == "patch" ]; then
             NEW_PATCH=$((patch_version + 1))
             NEW_VERSION="$major_version.$minor_version.$NEW_PATCH"
