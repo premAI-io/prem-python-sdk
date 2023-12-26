@@ -26,9 +26,9 @@ jobs:
           MINOR="${version_parts[1]}"
           PATCH="${version_parts[2]}"
 
-          echo "major_version=${MAJOR}" >> $GITHUB_OUTPUT
-          echo "minor_version=${MINOR}" >> $GITHUB_OUTPUT
-          echo "patch_version=${PATCH}" >> $GITHUB_OUTPUT
+          echo "major_version=${MAJOR}" >> $GITHUB_ENV
+          echo "minor_version=${MINOR}" >> $GITHUB_ENV
+          echo "patch_version=${PATCH}" >> $GITHUB_ENV
 
   bump-version:
     needs: get-last-release
@@ -38,9 +38,6 @@ jobs:
         id: bump_version
         run: |
           release_type="${{ github.event.inputs.release_type }}"
-          major_version="${{ needs.bump_version.outputs.major_version }}"
-          minor_version="${{ needs.bump_version.outputs.minor_version }}"
-          patch_version="${{ needs.bump_version.outputs.patch_version }}"
 
           # Your logic to bump the version using major_version, minor_version, patch_version
           if [ "$release_type" == "patch" ]; then
@@ -57,7 +54,7 @@ jobs:
             exit 1
           fi
 
-          echo "New Version: $NEW_VERSION"
+          echo "Bumping version from $major_version.$minor_version.$patch_version to $NEW_VERSION"
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
   create-release:
