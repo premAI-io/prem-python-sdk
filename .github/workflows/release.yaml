@@ -21,10 +21,7 @@ jobs:
           echo "Last Release Tag: $LAST_RELEASE_TAG"
 
           # Extract the version components
-          IFS='.' read -r -a version_parts <<< "${LAST_RELEASE_TAG:1}"
-          MAJOR="${version_parts[0]}"
-          MINOR="${version_parts[1]}"
-          PATCH="${version_parts[2]}"
+          IFS='.' read -r MAJOR MINOR PATCH <<< "${LAST_RELEASE_TAG:1}"
 
           echo "major_version=${MAJOR}" >> $GITHUB_ENV
           echo "minor_version=${MINOR}" >> $GITHUB_ENV
