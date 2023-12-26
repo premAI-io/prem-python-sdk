@@ -1,12 +1,28 @@
 name: Create a new patch release
 on: workflow_dispatch
 jobs:
-  github:
+  create-release:
     runs-on: ubuntu-latest
+    outputs:
+      new_version: ${{ steps.create_release.outputs.new_version }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Create new patch release
-        run: .github/scripts/release.py
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Python script
+        id: version_step
+        run: |
+          new_version=$(./.github/scripts/get_version.py)
+          echo "New version: $new_version"
+          echo "::set-output name=new_version::$new_version"
+
+      - name: Create Tag and Release
+        id: create_release
+        uses: actions/create-release@v1
         env:
-            GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version_step.outputs.new_version }}
+          release_name: ${{ steps.version_step.outputs.new_version }}
+          draft: false
+          prerelease: false

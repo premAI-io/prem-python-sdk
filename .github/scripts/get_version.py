@@ -3,8 +3,8 @@ import json
 import subprocess
 
 
-def get_last_version() -> str:
-    """Return the version number of the last release."""
+def get_latest_release_tag() -> str:
+    """Return the tag name of the latest release."""
     json_string = (
         subprocess.run(
             ["gh", "release", "view", "--json", "tagName"],
@@ -19,30 +19,28 @@ def get_last_version() -> str:
     return json.loads(json_string)["tagName"]
 
 
-def bump_patch_number(version_number: str) -> str:
-    """Return a copy of `version_number` with the patch number incremented."""
-    major, minor, patch = version_number.split(".")
+def generate_next_patch_version(current_version: str) -> str:
+    """Generate the next patch version."""
+    major, minor, patch = current_version.split(".")
     return f"{major}.{minor}.{int(patch) + 1}"
 
 
-def create_new_patch_release():
-    """Create a new patch release on GitHub."""
+def main():
+    """Generate a new release tag and name without creating a GitHub release."""
     try:
-        last_version_number = get_last_version()
+        latest_release_tag = get_latest_release_tag()
     except subprocess.CalledProcessError as err:
         if err.stderr.decode("utf8").startswith("HTTP 404:"):
             # The project doesn't have any releases yet.
-            new_version_number = "0.0.1"
+            new_version = "0.0.1"
         else:
             raise
     else:
-        new_version_number = bump_patch_number(last_version_number)
+        new_version = generate_next_patch_version(latest_release_tag)
 
-    subprocess.run(
-        ["gh", "release", "create", "--generate-notes", new_version_number],
-        check=True,
-    )
+    # Print the new release tag and name to stdout
+    print(new_version, end="")
 
 
 if __name__ == "__main__":
-    create_new_patch_release()
+    main()
