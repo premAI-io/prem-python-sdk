@@ -1,4 +1,5 @@
 name: Create a new release
+
 on:
   workflow_dispatch:
     inputs:
@@ -7,18 +8,15 @@ on:
         required: true
 
 jobs:
-  create-release:
+  get-last-release:
     runs-on: ubuntu-latest
-    outputs:
-      new_version: ${{ steps.create_release.outputs.new_version }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Get Last Release Tag
-        id: last_release
+        id: get_last_release
         run: |
-          # Get the last release tag
           LAST_RELEASE_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
           echo "Last Release Tag: $LAST_RELEASE_TAG"
 
@@ -28,32 +26,46 @@ jobs:
           MINOR="${version_parts[1]}"
           PATCH="${version_parts[2]}"
 
-          echo "::set-output name=last_release_tag::$LAST_RELEASE_TAG"
-          echo "::set-output name=major_version::$MAJOR"
-          echo "::set-output name=minor_version::$MINOR"
-          echo "::set-output name=patch_version::$PATCH"
+          echo "major_version=${MAJOR}" >> $GITHUB_OUTPUT
+          echo "minor_version=${MINOR}" >> $GITHUB_OUTPUT
+          echo "patch_version=${PATCH}" >> $GITHUB_OUTPUT
 
+  bump-version:
+    needs: get-last-release
+    runs-on: ubuntu-latest
+    steps:
       - name: Bump Version
         id: bump_version
         run: |
           release_type="${{ github.event.inputs.release_type }}"
+          major_version="${{ needs.bump_version.outputs.major_version }}"
+          minor_version="${{ needs.bump_version.outputs.minor_version }}"
+          patch_version="${{ needs.bump_version.outputs.patch_version }}"
+
+          # Your logic to bump the version using major_version, minor_version, patch_version
           if [ "$release_type" == "patch" ]; then
-            ((PATCH++))
+            NEW_PATCH=$((patch_version + 1))
+            NEW_VERSION="$major_version.$minor_version.$NEW_PATCH"
           elif [ "$release_type" == "minor" ]; then
-            ((MINOR++))
-            PATCH=0
+            NEW_MINOR=$((minor_version + 1))
+            NEW_VERSION="$major_version.$NEW_MINOR.0"
           elif [ "$release_type" == "major" ]; then
-            ((MAJOR++))
-            MINOR=0
-            PATCH=0
+            NEW_MAJOR=$((major_version + 1))
+            NEW_VERSION="$NEW_MAJOR.0.0"
           else
             echo "Invalid release_type. Use 'patch', 'minor', or 'major'."
             exit 1
           fi
 
-          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
           echo "New Version: $NEW_VERSION"
-          echo "::set-output name=new_version::$NEW_VERSION"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+  create-release:
+    needs: bump-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Create Tag and Release
         id: create_release
@@ -61,7 +73,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ steps.bump_version.outputs.new_version }}
-          release_name: v${{ steps.bump_version.outputs.new_version }}
+          tag_name: v${{ needs.bump-version.outputs.new_version }}
+          release_name: v${{ needs.bump-version.outputs.new_version }}
           draft: false
           prerelease: false
