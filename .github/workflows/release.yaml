@@ -20,14 +20,11 @@ jobs:
           LAST_RELEASE_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
           IFS='.' read -r MAJOR MINOR PATCH <<< "${LAST_RELEASE_TAG:1}"
 
-          echo "Last Release Tag: $LAST_RELEASE_TAG"
-          echo "Major: $MAJOR"
-          echo "Minor: $MINOR"
-          echo "Patch: $PATCH"
+          echo "Last Release Tag: v$MAJOR.$MINOR.$PATCH"
 
-          echo "major_version=$MAJOR" >> $GITHUB_ENV
-          echo "minor_version=$MINOR" >> $GITHUB_ENV
-          echo "patch_version=$PATCH" >> $GITHUB_ENV
+          echo "::set-output name=major_version::$MAJOR"
+          echo "::set-output name=minor_version::$MINOR"
+          echo "::set-output name=patch_version::$PATCH"
 
   bump-version:
     needs: get-last-release
@@ -37,9 +34,9 @@ jobs:
         id: bump_version
         run: |
           release_type="${{ github.event.inputs.release_type }}"
-          major_version="${{ env.major_version }}"
-          minor_version="${{ env.minor_version }}"
-          patch_version="${{ env.patch_version }}"
+          major_version="${{ needs.get_last_release.outputs.major_version }}"
+          minor_version="${{ needs.get_last_release.outputs.minor_version }}"
+          patch_version="${{ needs.get_last_release.outputs.patch_version }}"
 
           if [ "$release_type" == "patch" ]; then
             NEW_PATCH=$((patch_version + 1))
