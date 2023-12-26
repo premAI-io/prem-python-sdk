@@ -27,10 +27,6 @@ jobs:
           echo "minor_version=$MINOR" >> $GITHUB_OUTPUT
           echo "patch_version=$PATCH" >> $GITHUB_OUTPUT
 
-  bump-version:
-    needs: get-last-release
-    runs-on: ubuntu-latest
-    steps:
       - name: Bump Version
         id: bump_version
         run: |
@@ -56,20 +52,13 @@ jobs:
           echo "Bumping version from $major_version.$minor_version.$patch_version to $NEW_VERSION"
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
-  create-release:
-    needs: bump-version
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Create Tag and Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ needs.bump-version.outputs.new_version }}
-          release_name: v${{ needs.bump-version.outputs.new_version }}
+          tag_name: v${{ needs.bump_version.outputs.new_version }}
+          release_name: v${{ needs.bump_version.outputs.new_version }}
           draft: false
           prerelease: false
