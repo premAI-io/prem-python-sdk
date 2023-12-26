@@ -5,16 +5,15 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools_scm]
 
 [project.urls]
-documentation = "https://premai-io.github.io/prem-python-sdk/"
-readme = "https://github.com/premAI-io/prem-python-sdk/blob/main/README.md"
-repository = "https://github.com/premAI-io/prem-python-sdk"
-changelog = "https://github.com/premAI-io/prem-python-sdk/releases"
+Homepage = "https://github.com/premAI-io/prem-python-sdk"
+Documentation = "https://premai-io.github.io/prem-python-sdk/"
+Releases = "https://github.com/premAI-io/prem-python-sdk/tags"
 
 [project]
 name = "premai"
 dynamic = ["version", "dependencies"]
 maintainers = [{name = "Nicola Sosio", email = "nicola@premai.io"}]
-description = "The Prem Python SDK is a Python library for interacting with prem-saas"
+description = "The Prem Python SDK is a Python library for interacting with [premai-saas](app.premai.io)"
 readme = "README.md"
 requires-python = ">=3.7"
 license = {text = "Apache-2.0"}
