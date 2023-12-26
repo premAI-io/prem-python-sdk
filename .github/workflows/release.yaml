@@ -1,5 +1,11 @@
-name: Create a new patch release
-on: workflow_dispatch
+name: Create a new release
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Type of release: patch, minor, or major'
+        required: true
+
 jobs:
   create-release:
     runs-on: ubuntu-latest
@@ -9,12 +15,45 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run Python script
-        id: version_step
+      - name: Get Last Release Tag
+        id: last_release
         run: |
-          new_version=$(./.github/scripts/get_version.py)
-          echo "New version: $new_version"
-          echo "::set-output name=new_version::$new_version"
+          # Get the last release tag
+          LAST_RELEASE_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          echo "Last Release Tag: $LAST_RELEASE_TAG"
+
+          # Extract the version components
+          IFS='.' read -r -a version_parts <<< "${LAST_RELEASE_TAG:1}"
+          MAJOR="${version_parts[0]}"
+          MINOR="${version_parts[1]}"
+          PATCH="${version_parts[2]}"
+
+          echo "::set-output name=last_release_tag::$LAST_RELEASE_TAG"
+          echo "::set-output name=major_version::$MAJOR"
+          echo "::set-output name=minor_version::$MINOR"
+          echo "::set-output name=patch_version::$PATCH"
+
+      - name: Bump Version
+        id: bump_version
+        run: |
+          release_type="${{ github.event.inputs.release_type }}"
+          if [ "$release_type" == "patch" ]; then
+            ((PATCH++))
+          elif [ "$release_type" == "minor" ]; then
+            ((MINOR++))
+            PATCH=0
+          elif [ "$release_type" == "major" ]; then
+            ((MAJOR++))
+            MINOR=0
+            PATCH=0
+          else
+            echo "Invalid release_type. Use 'patch', 'minor', or 'major'."
+            exit 1
+          fi
+
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          echo "New Version: $NEW_VERSION"
+          echo "::set-output name=new_version::$NEW_VERSION"
 
       - name: Create Tag and Release
         id: create_release
@@ -22,7 +61,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ steps.version_step.outputs.new_version }}
-          release_name: v${{ steps.version_step.outputs.new_version }}
+          tag_name: v${{ steps.bump_version.outputs.new_version }}
+          release_name: v${{ steps.bump_version.outputs.new_version }}
           draft: false
           prerelease: false
