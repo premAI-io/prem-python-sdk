@@ -13,7 +13,7 @@ Releases = "https://github.com/premAI-io/prem-python-sdk/tags"
 name = "premai"
 dynamic = ["version", "dependencies"]
 maintainers = [{name = "Nicola Sosio", email = "nicola@premai.io"}]
-description = "The Prem Python SDK is a Python library for interacting with [premai-saas](https://app.premai.io)"
+description = "The Prem Python SDK is a Python library for interacting with the Prem API"
 readme = "README.md"
 requires-python = ">=3.7"
 license = {text = "Apache-2.0"}
