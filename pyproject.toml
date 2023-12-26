@@ -3,8 +3,6 @@ requires = ["setuptools>=42", "setuptools_scm[toml]>=3.4"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
-write_to = "prem/_dist_ver.py"
-write_to_template = "__version__ = '{version}'\n"
 
 [project.urls]
 documentation = "http://python.docs.premai.io"
@@ -26,7 +24,3 @@ classifiers = [
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
-
-[tool.setuptools_scm.version]
-git = true
-root = ".."
