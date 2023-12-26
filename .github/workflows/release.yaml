@@ -22,9 +22,10 @@ jobs:
 
           echo "Last Release Tag: v$MAJOR.$MINOR.$PATCH"
 
-          echo "::set-output name=major_version::$MAJOR"
-          echo "::set-output name=minor_version::$MINOR"
-          echo "::set-output name=patch_version::$PATCH"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "major_version=$MAJOR" >> $GITHUB_OUTPUT
+          echo "minor_version=$MINOR" >> $GITHUB_OUTPUT
+          echo "patch_version=$PATCH" >> $GITHUB_OUTPUT
 
   bump-version:
     needs: get-last-release
