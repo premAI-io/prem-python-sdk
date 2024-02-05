@@ -34,7 +34,7 @@ jobs:
           if [ "$VERSION" != "$EXPECTED_VERSION" ]; then
             echo "Version $VERSION matches the branch/tag name $EXPECTED_VERSION."
             exit 1
-          else
+          fi
 
 #      - name: Publish package
 #        uses: pypa/gh-action-pypi-publish@release/v1
