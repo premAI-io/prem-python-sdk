@@ -1,14 +1,10 @@
 name: Delete Specific Package Version from PyPI
 
 on:
-    workflow_dispatch:
-        inputs:
-            package_name:
-                required: true
-                description: 'The name of the package to delete'
-            version_number:
-                required: true
-                description: 'The version number to delete'
+    push:
+        branches: 
+            - '*'
+            - '*/*'
 
 env:
     REQUESTED_PACKAGE_NAME: premai
