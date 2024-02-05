@@ -3,6 +3,7 @@ on:
   push:
     tags: ["v*"]
 
+
 jobs:
   pypi:
     runs-on: ubuntu-latest
@@ -19,7 +20,23 @@ jobs:
           python3 -m pip install --upgrade build
           python3 -m build
 
-      - name: Publish package
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.PYPI_TOKEN }}
+      - name: Check package version
+        env:
+          EXPECTED_VERSION: ${{ github.ref_name }}
+        run: |
+          VERSION=$(grep -e "version\s*=\s*" -m 1 pyproject.toml | awk -F '"' '{print $2}')
+
+          if [ -z "$VERSION" ]; then
+            echo "Version not found"
+            exit 1
+          fi
+
+          if [ "$VERSION" != "$EXPECTED_VERSION" ]; then
+            echo "Version $VERSION matches the branch/tag name $EXPECTED_VERSION."
+            exit 1
+          else
+
+#      - name: Publish package
+#        uses: pypa/gh-action-pypi-publish@release/v1
+#        with:
+#          password: ${{ secrets.PYPI_TOKEN }}
