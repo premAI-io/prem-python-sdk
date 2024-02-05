@@ -1,0 +1,26 @@
+name: Delete Specific Package Version from PyPI
+
+on:
+  workflow_dispatch:
+    inputs:
+      package_name:
+        required: true
+        description: 'The name of the package to delete'
+      version_number:
+        required: true
+        description: 'The version number to delete'
+
+jobs:
+  delete-package-version:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Delete specific package version from PyPI
+      uses: curlimages/curl:latest
+      env:
+        PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        REQUESTED_PACKAGE_NAME: premai
+        REQUESTED_VERSION: 1.0.0
+      with:
+        args: >-
+            -X DELETE -H "Authorization: token $PYPI_API_TOKEN" https://pypi.org/pypi/$REQUESTED_PACKAGE_NAME/$REQUESTED_VERSION/json
+
