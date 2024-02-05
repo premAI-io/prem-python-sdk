@@ -15,7 +15,7 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Set up Python
+      - name: Build python package
         run: |
           python3 -m pip install --upgrade build
           python3 -m build
@@ -31,12 +31,12 @@ jobs:
             exit 1
           fi
 
-          if [ "$VERSION" != "$EXPECTED_VERSION" ]; then
-            echo "Version $VERSION matches the branch/tag name $EXPECTED_VERSION."
+          if [ "v$VERSION" != "$EXPECTED_VERSION" ]; then
+            echo "Version $VERSION matches the tag name $EXPECTED_VERSION ."
             exit 1
           fi
 
-#      - name: Publish package
+#      - name: Publish package to PyPI
 #        uses: pypa/gh-action-pypi-publish@release/v1
 #        with:
 #          password: ${{ secrets.PYPI_TOKEN }}
