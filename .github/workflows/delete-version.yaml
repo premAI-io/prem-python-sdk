@@ -16,10 +16,9 @@ env:
     PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
 
 jobs:
-  delete-package-version:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Delete specific package version from PyPI
-    run: |
-    curl -X DELETE -H "Authorization: token ${{env.PYPI_API_TOKEN}}" https://pypi.org/pypi/${{env.REQUESTED_PACKAGE_NAME}}/${{env.REQUESTED_VERSION}}/json
+    delete-package-version:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Delete specific package version from PyPI
+              run: |
+                curl -X DELETE -H "Authorization: token ${{env.PYPI_API_TOKEN}}" https://pypi.org/pypi/${{env.REQUESTED_PACKAGE_NAME}}/${{env.REQUESTED_VERSION}}/json
