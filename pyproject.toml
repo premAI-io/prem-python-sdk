@@ -1,25 +1,26 @@
-[build-system]
-requires = ["setuptools>=42", "setuptools_scm[toml]>=3.4"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools_scm]
-
-[project.urls]
-Homepage = "https://github.com/premAI-io/prem-python-sdk"
-Documentation = "https://premai-io.github.io/prem-python-sdk/"
-Releases = "https://github.com/premAI-io/prem-python-sdk/tags"
-
-[project]
+[tool.poetry]
 name = "premai"
-dynamic = ["version", "dependencies"]
-maintainers = [{name = "Nicola Sosio", email = "nicola@premai.io"}]
-description = "The Prem Python SDK is a Python library for interacting with the Prem API"
+version = "0.1.9"
+description = "A client library for accessing Prem APIs"
+authors = []
 readme = "README.md"
-requires-python = ">=3.7"
-license = {text = "Apache-2.0"}
-classifiers = [
-    "Development Status :: 1 - Planning",
-    "Programming Language :: Python :: 3 :: Only"]
+packages = [
+    {include = "premai"},
+]
+include = ["CHANGELOG.md", "premai/py.typed"]
 
-[tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
+
+[tool.poetry.dependencies]
+python = "^3.8"
+httpx = ">=0.20.0,<0.27.0"
+attrs = ">=21.3.0"
+python-dateutil = "^2.8.0"
+typing_extensions = ">=4.9.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+select = ["F", "I", "UP"]
+line-length = 120
