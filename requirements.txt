@@ -1,3 +1,0 @@
-requests
-pydantic
-sseclient-py
