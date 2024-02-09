@@ -19,10 +19,11 @@ class ChatCompletionInputMessagesItemDict(TypedDict):
 class ChatCompletionInputMessagesItem:
     """
     Attributes:
-        role (ChatCompletionInputMessagesItemRole): The role of the sender (e.g., 'user' or 'system').
+        role (ChatCompletionInputMessagesItemRole): The role of the sender (e.g., 'user', 'assistant' or 'system').
 
             * `user` - user
             * `system` - system
+            * `assistant` - assistant
         content (str): The content of the message.
     """
 

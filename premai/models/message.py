@@ -19,10 +19,11 @@ class MessageDict(TypedDict):
 class Message:
     """
     Attributes:
-        role (MessageRole): The role of the sender (e.g., 'user' or 'system').
+        role (MessageRole): The role of the sender (e.g., 'user', 'assistant' or 'system').
 
             * `user` - user
             * `system` - system
+            * `assistant` - assistant
         content (str): The content of the message.
     """
 

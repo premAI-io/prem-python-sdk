@@ -21,10 +21,12 @@ class V1ChatCompletionsCreateDataBodyMessagesItemDict(TypedDict):
 class V1ChatCompletionsCreateDataBodyMessagesItem:
     """
     Attributes:
-        role (V1ChatCompletionsCreateDataBodyMessagesItemRole): The role of the sender (e.g., 'user' or 'system').
+        role (V1ChatCompletionsCreateDataBodyMessagesItemRole): The role of the sender (e.g., 'user', 'assistant' or
+            'system').
 
             * `user` - user
             * `system` - system
+            * `assistant` - assistant
         content (str): The content of the message.
     """
 

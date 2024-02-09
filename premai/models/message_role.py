@@ -13,10 +13,11 @@ class MessageRoleDict(TypedDict):
 
 @_attrs_define
 class MessageRole:
-    """The role of the sender (e.g., 'user' or 'system').
+    """The role of the sender (e.g., 'user', 'assistant' or 'system').
 
     * `user` - user
     * `system` - system
+    * `assistant` - assistant
 
     """
 

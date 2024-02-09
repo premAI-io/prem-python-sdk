@@ -21,10 +21,12 @@ class V1ChatCompletionsCreateFilesBodyMessagesItemDict(TypedDict):
 class V1ChatCompletionsCreateFilesBodyMessagesItem:
     """
     Attributes:
-        role (V1ChatCompletionsCreateFilesBodyMessagesItemRole): The role of the sender (e.g., 'user' or 'system').
+        role (V1ChatCompletionsCreateFilesBodyMessagesItemRole): The role of the sender (e.g., 'user', 'assistant' or
+            'system').
 
             * `user` - user
             * `system` - system
+            * `assistant` - assistant
         content (str): The content of the message.
     """
 

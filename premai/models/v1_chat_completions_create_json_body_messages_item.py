@@ -21,10 +21,12 @@ class V1ChatCompletionsCreateJsonBodyMessagesItemDict(TypedDict):
 class V1ChatCompletionsCreateJsonBodyMessagesItem:
     """
     Attributes:
-        role (V1ChatCompletionsCreateJsonBodyMessagesItemRole): The role of the sender (e.g., 'user' or 'system').
+        role (V1ChatCompletionsCreateJsonBodyMessagesItemRole): The role of the sender (e.g., 'user', 'assistant' or
+            'system').
 
             * `user` - user
             * `system` - system
+            * `assistant` - assistant
         content (str): The content of the message.
     """
 
