@@ -1,21 +1,40 @@
-from typing import Dict, Union , List, Type, TypeVar
+from http import HTTPStatus
+from typing import Dict, Optional, Union, TypeVar, List, Type
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from typing_extensions import Any, Unpack
-import re
+
 import httpx
 import json
+from typing_extensions import Any, Unpack
 
-from ...models.v1_chat_completions_create_json_body import V1ChatCompletionsCreateJsonBody
-from ...models.v1_chat_completions_create_response_200 import V1ChatCompletionsCreateResponse200, V1ChatCompletionsCreateResponse200ChoicesItem
-from ...models.v1_chat_completions_create_response_200_usage import V1ChatCompletionsCreateResponse200Usage
-from ...types import UNSET, Unset
+from ... import errors
+from ...models.api_response_validation_error import APIResponseValidationError
+from ...models.authentication_error import AuthenticationError
+from ...models.catch_all_error import CatchAllError
+from ...models.chat_completion_input import ChatCompletionInput
+from ...models.chat_completion_response import ChatCompletionResponse
+from ...models.conflict_error import ConflictError
+from ...models.model_not_found_error import ModelNotFoundError
+from ...models.permission_denied_error import PermissionDeniedError
+from ...models.provider_api_connection_error import ProviderAPIConnectionError
+from ...models.provider_api_status_error import ProviderAPIStatusError
+from ...models.provider_api_timeout_error import ProviderAPITimeoutError
+from ...models.provider_internal_server_error import ProviderInternalServerError
+from ...models.provider_not_found_error import ProviderNotFoundError
+from ...models.rate_limit_error import RateLimitError
+from ...models.unprocessable_entity_error import UnprocessableEntityError
+from ...models.validation_error import ValidationError
+from ...models.usage import Usage
+from ...models.response_choice import ResponseChoice
+from ...types import Response, UNSET, Unset
 
-T = TypeVar("T", bound="V1ChatCompletionsCreateResponse200ChoicesItem")
 
+# from ...client import AuthenticatedClient, Client
+from ...types import Response
+T = TypeVar("T", bound="ResponseChoice")
 
 def _get_kwargs(
-    **body: Unpack[V1ChatCompletionsCreateJsonBody],
+    **body: Unpack[ChatCompletionInput],
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -33,39 +52,124 @@ def _get_kwargs(
     return _kwargs
 
 
+def _parse_response(
+    *, client, response: httpx.Response
+) -> Optional[
+    Union[
+        AuthenticationError,
+        ChatCompletionResponse,
+        ConflictError,
+        PermissionDeniedError,
+        RateLimitError,
+        Union[
+            "APIResponseValidationError",
+            "CatchAllError",
+            "ProviderAPIConnectionError",
+            "ProviderAPIStatusError",
+            "ProviderAPITimeoutError",
+            "ProviderInternalServerError",
+        ],
+        Union["ModelNotFoundError", "ProviderNotFoundError"],
+        UnprocessableEntityError,
+        ValidationError,
+    ]
+]:
+    if response.status_code == HTTPStatus.OK:
+        response_200 = ChatCompletionResponse.from_dict(response.json())
+
+        return response_200
+    if client.raise_on_unexpected_status:
+        raise errors.UnexpectedStatus(response.status_code, response.content)
+    else:
+        return None
+
+
+def _build_response(
+    *, client, response: httpx.Response
+) -> Response[
+    Union[
+        AuthenticationError,
+        ChatCompletionResponse,
+        ConflictError,
+        PermissionDeniedError,
+        RateLimitError,
+        Union[
+            "APIResponseValidationError",
+            "CatchAllError",
+            "ProviderAPIConnectionError",
+            "ProviderAPIStatusError",
+            "ProviderAPITimeoutError",
+            "ProviderInternalServerError",
+        ],
+        Union["ModelNotFoundError", "ProviderNotFoundError"],
+        UnprocessableEntityError,
+        ValidationError,
+    ]
+]:
+    return Response(
+        status_code=HTTPStatus(response.status_code),
+        content=response.content,
+        headers=response.headers,
+        parsed=_parse_response(client=client, response=response),
+    )
+
+
 def v1_chat_completions_create_wrapper(client):
     def v1_chat_completions_create_wrapped(
-        **body: Unpack[V1ChatCompletionsCreateJsonBody],
-    ) -> Union[V1ChatCompletionsCreateResponse200, V1ChatCompletionsCreateResponse200StreamContainer]:
+        **body: Unpack[ChatCompletionInput],
+    ) -> Union[
+        AuthenticationError,
+        ChatCompletionResponse,
+        ConflictError,
+        PermissionDeniedError,
+        RateLimitError,
+        Union[
+            "APIResponseValidationError",
+            "CatchAllError",
+            "ProviderAPIConnectionError",
+            "ProviderAPIStatusError",
+            "ProviderAPITimeoutError",
+            "ProviderInternalServerError",
+        ],
+        Union["ModelNotFoundError", "ProviderNotFoundError"],
+        UnprocessableEntityError,
+        ValidationError,
+    ]:
         """Creates a model response for the given chat conversation.
 
         Args:
-            body (V1ChatCompletionsCreateJsonBody):
+            authorization (str):
+            body (ChatCompletionInput):
+            body (ChatCompletionInput):
+            body (ChatCompletionInput):
 
         Raises:
             errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
             httpx.TimeoutException: If the request takes longer than Client.timeout.
 
         Returns:
-            Union[V1ChatCompletionsCreateResponse200, V1ChatCompletionsCreateResponse200StreamContainer]
+            Response[Union[AuthenticationError, ChatCompletionResponse, ConflictError, PermissionDeniedError, RateLimitError, Union['APIResponseValidationError', 'CatchAllError', 'ProviderAPIConnectionError', 'ProviderAPIStatusError', 'ProviderAPITimeoutError', 'ProviderInternalServerError'], Union['ModelNotFoundError', 'ProviderNotFoundError'], UnprocessableEntityError, ValidationError]]
         """
+
         kwargs = _get_kwargs(
             **body,
         )
+
         httpx_client = client.get_httpx_client()
         if ('stream' in body) and (body['stream']):
             stream = httpx_client.stream(**kwargs)
-            return V1ChatCompletionsCreateResponse200StreamContainer(stream)
+            return ChatCompletionResponseStreamContainer(stream)
         else:
             response = httpx_client.request(
                 **kwargs,
             )
-            return V1ChatCompletionsCreateResponse200.from_dict(response.json())
+            return _build_response(client=client, response=response).parsed
     return v1_chat_completions_create_wrapped
 
 
 END_STREAM = 'done'
-class V1ChatCompletionsCreateResponse200StreamContainer:
+import re
+class ChatCompletionResponseStreamContainer:
     _pattern = '(?<={key}: )(.*)'
     trace_id: str = None
 
@@ -76,7 +180,7 @@ class V1ChatCompletionsCreateResponse200StreamContainer:
         match = re.search(self._pattern.format(key='data'), text)
         if match:
             data = json.loads(match.group(1))
-            parsed_data: V1ChatCompletionsCreateResponse200Stream = V1ChatCompletionsCreateResponse200Stream.from_dict(data)
+            parsed_data: ChatCompletionResponseStream = ChatCompletionResponseStream.from_dict(data)
             return parsed_data
         else:   return None
 
@@ -105,25 +209,24 @@ class V1ChatCompletionsCreateResponse200StreamContainer:
     
 
 @_attrs_define
-class V1ChatCompletionsCreateResponse200Stream:
+class ChatCompletionResponseStream:
     """
     Attributes:
         id (str): A unique identifier for the chat completion. Each chunk has the same ID.
-        choices (List['V1ChatCompletionsCreateResponse200ChoicesItem']): A list of chat completion choices. Can be more
+        choices (List['ChatCompletionResponseChoicesItem']): A list of chat completion choices. Can be more
             than one if n is greater than 1.
         created (int): The Unix timestamp (in seconds) of when the chat completion was created. Each chunk has the same
             timestamp.
         model (str): The model to generate the completion.
         provider_name (str): The name of the provider that generated the completion.
         provider_id (str): The ID of the provider that generated the completion.
-        usage (Union[Unset, V1ChatCompletionsCreateResponse200Usage]): The usage statistics for the completion.
+        usage (Union[Unset, ChatCompletionResponseUsage]): The usage statistics for the completion.
     """
-
     id: str
-    choices: List["V1ChatCompletionsCreateResponse200ChoicesItemStream"]
+    choices: List["ResponseChoiceStream"]
     created: int
     model: str
-    usage: Union[Unset, "V1ChatCompletionsCreateResponse200Usage"] = UNSET
+    usage: Union[Unset, "Usage"] = UNSET
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -138,7 +241,6 @@ class V1ChatCompletionsCreateResponse200Stream:
         created = self.created
 
         model = self.model
-        
 
         usage: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.usage, Unset):
@@ -168,20 +270,19 @@ class V1ChatCompletionsCreateResponse200Stream:
         choices = []
         _choices = d.pop("choices")
         for choices_item_data in _choices:
-            choices_item = V1ChatCompletionsCreateResponse200ChoicesItemStream.from_dict(choices_item_data)
+            choices_item = ResponseChoiceStream.from_dict(choices_item_data)
 
             choices.append(choices_item)
 
         created = d.pop("created")
-
         model = d.pop("model")
 
         _usage = d.pop("usage", UNSET)
-        usage: Union[Unset, V1ChatCompletionsCreateResponse200Usage]
+        usage: Union[Unset, Usage]
         if isinstance(_usage, Unset):
             usage = UNSET
         else:
-            usage = V1ChatCompletionsCreateResponse200Usage.from_dict(_usage)
+            usage = Usage.from_dict(_usage)
 
         v1_chat_completions_create_response_200 = cls(
             id=id,
@@ -212,7 +313,7 @@ class V1ChatCompletionsCreateResponse200Stream:
 
 
 @_attrs_define
-class V1ChatCompletionsCreateResponse200ChoicesItemStream:
+class ResponseChoiceStream:
     """
     Attributes:
         message (str): The generated message in the chat completion choice.

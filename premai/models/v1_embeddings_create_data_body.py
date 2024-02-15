@@ -12,8 +12,8 @@ T = TypeVar("T", bound="V1EmbeddingsCreateDataBody")
 
 class V1EmbeddingsCreateDataBodyDict(TypedDict):
     project_id: int
+    model: str
     input_: List[Union[List[List[int]], List[int], List[str], str]]
-    model: NotRequired[Union[Unset, str]]
     encoding_format: NotRequired[Union[Unset, V1EmbeddingsCreateDataBodyEncodingFormat]]
     pass
 
@@ -23,20 +23,22 @@ class V1EmbeddingsCreateDataBody:
     """
     Attributes:
         project_id (int): The ID of the project to use.
+        model (str): The model to generate the embeddings.
         input_ (List[Union[List[List[int]], List[int], List[str], str]]): Embedding Input
-        model (Union[Unset, str]):
         encoding_format (Union[Unset, V1EmbeddingsCreateDataBodyEncodingFormat]):
     """
 
     project_id: int
+    model: str
     input_: List[Union[List[List[int]], List[int], List[str], str]]
-    model: Union[Unset, str] = UNSET
     encoding_format: Union[Unset, "V1EmbeddingsCreateDataBodyEncodingFormat"] = UNSET
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         project_id = self.project_id
+
+        model = self.model
 
         input_ = []
         for input_item_data in self.input_:
@@ -58,8 +60,6 @@ class V1EmbeddingsCreateDataBody:
                 input_item = input_item_data
             input_.append(input_item)
 
-        model = self.model
-
         encoding_format: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.encoding_format, Unset):
             encoding_format = self.encoding_format.to_dict()
@@ -69,11 +69,10 @@ class V1EmbeddingsCreateDataBody:
         field_dict.update(
             {
                 "project_id": project_id,
+                "model": model,
                 "input": input_,
             }
         )
-        if model is not UNSET:
-            field_dict["model"] = model
         if encoding_format is not UNSET:
             field_dict["encoding_format"] = encoding_format
 
@@ -85,6 +84,8 @@ class V1EmbeddingsCreateDataBody:
 
         d = src_dict.copy() if src_dict else {}
         project_id = d.pop("project_id")
+
+        model = d.pop("model")
 
         input_ = []
         _input_ = d.pop("input")
@@ -126,8 +127,6 @@ class V1EmbeddingsCreateDataBody:
 
             input_.append(input_item)
 
-        model = d.pop("model", UNSET)
-
         _encoding_format = d.pop("encoding_format", UNSET)
         encoding_format: Union[Unset, V1EmbeddingsCreateDataBodyEncodingFormat]
         if isinstance(_encoding_format, Unset):
@@ -137,8 +136,8 @@ class V1EmbeddingsCreateDataBody:
 
         v1_embeddings_create_data_body = cls(
             project_id=project_id,
-            input_=input_,
             model=model,
+            input_=input_,
             encoding_format=encoding_format,
         )
 

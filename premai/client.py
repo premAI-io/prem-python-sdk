@@ -8,15 +8,11 @@ from attrs import define, evolve, field
 from typing_extensions import Any
 
 from .api import (
-    ApiModule,
     AuthTokenModule,
     ChatCompletionsModule,
     DatapointsModule,
     EmbeddingsModule,
     FinetuningModule,
-    PlaygroundsModule,
-    ProvidersModule,
-    TracesModule,
 )
 
 
@@ -31,7 +27,7 @@ class Client:
             argument to the constructor.
     """
 
-    raise_on_unexpected_status: bool = field(default=False, kw_only=True)
+    raise_on_unexpected_status: bool = field(default=True, kw_only=True)
     _base_url: str
     _cookies: Dict[str, str] = field(factory=dict, kw_only=True)
     _headers: Dict[str, str] = field(factory=dict, kw_only=True)
@@ -143,7 +139,7 @@ class AuthenticatedClient:
         auth_header_name: The name of the Authorization header
     """
 
-    raise_on_unexpected_status: bool = field(default=False, kw_only=True)
+    raise_on_unexpected_status: bool = field(default=True, kw_only=True)
     _base_url: str
     _cookies: Dict[str, str] = field(factory=dict, kw_only=True)
     _headers: Dict[str, str] = field(factory=dict, kw_only=True)
@@ -248,25 +244,17 @@ class AuthenticatedClient:
 
 
 class Prem:
-    playgrounds: PlaygroundsModule
-    datapoints: DatapointsModule
-    traces: TracesModule
-    providers: ProvidersModule
-    api: ApiModule
     auth_token: AuthTokenModule
     chat_completions: ChatCompletionsModule
+    datapoints: DatapointsModule
     embeddings: EmbeddingsModule
     finetuning: FinetuningModule
 
     def __init__(self, api_key: str = "", base_url="https://app.premai.io"):
         client = AuthenticatedClient(token=api_key, base_url=base_url)
         # Init modules
-        self.playgrounds = PlaygroundsModule(client)
-        self.datapoints = DatapointsModule(client)
-        self.traces = TracesModule(client)
-        self.providers = ProvidersModule(client)
-        self.api = ApiModule(client)
         self.auth_token = AuthTokenModule(client)
         self.chat_completions = ChatCompletionsModule(client)
+        self.datapoints = DatapointsModule(client)
         self.embeddings = EmbeddingsModule(client)
         self.finetuning = FinetuningModule(client)

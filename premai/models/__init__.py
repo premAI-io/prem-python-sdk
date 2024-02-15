@@ -1,75 +1,8 @@
 """ Contains all the data models used in inputs/outputs """
 
-from .api_projects_data_points_create_data_body import (
-    ApiProjectsDataPointsCreateDataBody,
-    ApiProjectsDataPointsCreateDataBodyDict,
-)
-from .api_projects_data_points_create_files_body import (
-    ApiProjectsDataPointsCreateFilesBody,
-    ApiProjectsDataPointsCreateFilesBodyDict,
-)
-from .api_projects_data_points_create_json_body import (
-    ApiProjectsDataPointsCreateJsonBody,
-    ApiProjectsDataPointsCreateJsonBodyDict,
-)
-from .api_projects_data_points_create_response_201 import ApiProjectsDataPointsCreateResponse201
-from .api_projects_data_points_list_response_200_item import ApiProjectsDataPointsListResponse200Item
-from .api_projects_data_points_partial_update_data_body import (
-    ApiProjectsDataPointsPartialUpdateDataBody,
-    ApiProjectsDataPointsPartialUpdateDataBodyDict,
-)
-from .api_projects_data_points_partial_update_files_body import (
-    ApiProjectsDataPointsPartialUpdateFilesBody,
-    ApiProjectsDataPointsPartialUpdateFilesBodyDict,
-)
-from .api_projects_data_points_partial_update_json_body import (
-    ApiProjectsDataPointsPartialUpdateJsonBody,
-    ApiProjectsDataPointsPartialUpdateJsonBodyDict,
-)
-from .api_projects_data_points_partial_update_response_200 import ApiProjectsDataPointsPartialUpdateResponse200
-from .api_projects_data_points_retrieve_response_200 import ApiProjectsDataPointsRetrieveResponse200
-from .api_projects_data_points_update_data_body import (
-    ApiProjectsDataPointsUpdateDataBody,
-    ApiProjectsDataPointsUpdateDataBodyDict,
-)
-from .api_projects_data_points_update_files_body import (
-    ApiProjectsDataPointsUpdateFilesBody,
-    ApiProjectsDataPointsUpdateFilesBodyDict,
-)
-from .api_projects_data_points_update_json_body import (
-    ApiProjectsDataPointsUpdateJsonBody,
-    ApiProjectsDataPointsUpdateJsonBodyDict,
-)
-from .api_projects_data_points_update_response_200 import ApiProjectsDataPointsUpdateResponse200
-from .api_projects_traces_create_data_body import ApiProjectsTracesCreateDataBody, ApiProjectsTracesCreateDataBodyDict
-from .api_projects_traces_create_data_body_raw_request_type_0 import ApiProjectsTracesCreateDataBodyRawRequestType0
-from .api_projects_traces_create_data_body_raw_response_type_0 import ApiProjectsTracesCreateDataBodyRawResponseType0
-from .api_projects_traces_create_files_body import (
-    ApiProjectsTracesCreateFilesBody,
-    ApiProjectsTracesCreateFilesBodyDict,
-)
-from .api_projects_traces_create_files_body_raw_request_type_0 import ApiProjectsTracesCreateFilesBodyRawRequestType0
-from .api_projects_traces_create_files_body_raw_response_type_0 import ApiProjectsTracesCreateFilesBodyRawResponseType0
-from .api_projects_traces_create_json_body import ApiProjectsTracesCreateJsonBody, ApiProjectsTracesCreateJsonBodyDict
-from .api_projects_traces_create_json_body_raw_request_type_0 import ApiProjectsTracesCreateJsonBodyRawRequestType0
-from .api_projects_traces_create_json_body_raw_response_type_0 import ApiProjectsTracesCreateJsonBodyRawResponseType0
-from .api_projects_traces_create_response_201 import ApiProjectsTracesCreateResponse201
-from .api_projects_traces_create_response_201_raw_request_type_0 import (
-    ApiProjectsTracesCreateResponse201RawRequestType0,
-)
-from .api_projects_traces_create_response_201_raw_response_type_0 import (
-    ApiProjectsTracesCreateResponse201RawResponseType0,
-)
-from .api_providers_leaderboard_retrieve_response_200 import ApiProvidersLeaderboardRetrieveResponse200
-from .api_providers_leaderboard_retrieve_response_200_leaderboard_item import (
-    ApiProvidersLeaderboardRetrieveResponse200LeaderboardItem,
-)
 from .api_response_validation_error import APIResponseValidationError
 from .api_response_validation_error_code import APIResponseValidationErrorCode
 from .api_response_validation_error_code_enum import APIResponseValidationErrorCodeEnum
-from .api_schema_retrieve_format import ApiSchemaRetrieveFormat
-from .api_schema_retrieve_lang import ApiSchemaRetrieveLang
-from .api_schema_retrieve_response_200 import ApiSchemaRetrieveResponse200
 from .auth_token import AuthToken
 from .auth_token_create_data_body import AuthTokenCreateDataBody, AuthTokenCreateDataBodyDict
 from .auth_token_create_files_body import AuthTokenCreateFilesBody, AuthTokenCreateFilesBodyDict
@@ -119,9 +52,6 @@ from .internal_server_error_type_4 import InternalServerErrorType4
 from .internal_server_error_type_4_code import InternalServerErrorType4Code
 from .internal_server_error_type_5 import InternalServerErrorType5
 from .internal_server_error_type_5_code import InternalServerErrorType5Code
-from .leaderboard_item import LeaderboardItem
-from .leaderboard_response import LeaderboardResponse
-from .leaderboard_response_leaderboard_item import LeaderboardResponseLeaderboardItem
 from .message import Message
 from .message_role import MessageRole
 from .model_not_found_error import ModelNotFoundError
@@ -156,9 +86,6 @@ from .rate_limit_error_code_enum import RateLimitErrorCodeEnum
 from .response_choice import ResponseChoice
 from .retrieve_fine_tuning_response import RetrieveFineTuningResponse
 from .role_enum import RoleEnum
-from .trace import Trace
-from .trace_raw_request_type_0 import TraceRawRequestType0
-from .trace_raw_response_type_0 import TraceRawResponseType0
 from .unprocessable_entity_error import UnprocessableEntityError
 from .unprocessable_entity_error_code import UnprocessableEntityErrorCode
 from .unprocessable_entity_error_code_enum import UnprocessableEntityErrorCodeEnum
@@ -228,6 +155,29 @@ from .v1_chat_completions_create_response_500_type_4 import V1ChatCompletionsCre
 from .v1_chat_completions_create_response_500_type_4_code import V1ChatCompletionsCreateResponse500Type4Code
 from .v1_chat_completions_create_response_500_type_5 import V1ChatCompletionsCreateResponse500Type5
 from .v1_chat_completions_create_response_500_type_5_code import V1ChatCompletionsCreateResponse500Type5Code
+from .v1_data_points_create_data_body import V1DataPointsCreateDataBody, V1DataPointsCreateDataBodyDict
+from .v1_data_points_create_files_body import V1DataPointsCreateFilesBody, V1DataPointsCreateFilesBodyDict
+from .v1_data_points_create_json_body import V1DataPointsCreateJsonBody, V1DataPointsCreateJsonBodyDict
+from .v1_data_points_create_response_201 import V1DataPointsCreateResponse201
+from .v1_data_points_list_response_200_item import V1DataPointsListResponse200Item
+from .v1_data_points_partial_update_data_body import (
+    V1DataPointsPartialUpdateDataBody,
+    V1DataPointsPartialUpdateDataBodyDict,
+)
+from .v1_data_points_partial_update_files_body import (
+    V1DataPointsPartialUpdateFilesBody,
+    V1DataPointsPartialUpdateFilesBodyDict,
+)
+from .v1_data_points_partial_update_json_body import (
+    V1DataPointsPartialUpdateJsonBody,
+    V1DataPointsPartialUpdateJsonBodyDict,
+)
+from .v1_data_points_partial_update_response_200 import V1DataPointsPartialUpdateResponse200
+from .v1_data_points_retrieve_response_200 import V1DataPointsRetrieveResponse200
+from .v1_data_points_update_data_body import V1DataPointsUpdateDataBody, V1DataPointsUpdateDataBodyDict
+from .v1_data_points_update_files_body import V1DataPointsUpdateFilesBody, V1DataPointsUpdateFilesBodyDict
+from .v1_data_points_update_json_body import V1DataPointsUpdateJsonBody, V1DataPointsUpdateJsonBodyDict
+from .v1_data_points_update_response_200 import V1DataPointsUpdateResponse200
 from .v1_embeddings_create_data_body import V1EmbeddingsCreateDataBody, V1EmbeddingsCreateDataBodyDict
 from .v1_embeddings_create_data_body_encoding_format import V1EmbeddingsCreateDataBodyEncodingFormat
 from .v1_embeddings_create_files_body import V1EmbeddingsCreateFilesBody, V1EmbeddingsCreateFilesBodyDict
@@ -365,40 +315,9 @@ from .validation_error_details_additional_property_error_messages_item import (
 )
 
 __all__ = (
-    "ApiProjectsDataPointsCreateDataBody",
-    "ApiProjectsDataPointsCreateFilesBody",
-    "ApiProjectsDataPointsCreateJsonBody",
-    "ApiProjectsDataPointsCreateResponse201",
-    "ApiProjectsDataPointsListResponse200Item",
-    "ApiProjectsDataPointsPartialUpdateDataBody",
-    "ApiProjectsDataPointsPartialUpdateFilesBody",
-    "ApiProjectsDataPointsPartialUpdateJsonBody",
-    "ApiProjectsDataPointsPartialUpdateResponse200",
-    "ApiProjectsDataPointsRetrieveResponse200",
-    "ApiProjectsDataPointsUpdateDataBody",
-    "ApiProjectsDataPointsUpdateFilesBody",
-    "ApiProjectsDataPointsUpdateJsonBody",
-    "ApiProjectsDataPointsUpdateResponse200",
-    "ApiProjectsTracesCreateDataBody",
-    "ApiProjectsTracesCreateDataBodyRawRequestType0",
-    "ApiProjectsTracesCreateDataBodyRawResponseType0",
-    "ApiProjectsTracesCreateFilesBody",
-    "ApiProjectsTracesCreateFilesBodyRawRequestType0",
-    "ApiProjectsTracesCreateFilesBodyRawResponseType0",
-    "ApiProjectsTracesCreateJsonBody",
-    "ApiProjectsTracesCreateJsonBodyRawRequestType0",
-    "ApiProjectsTracesCreateJsonBodyRawResponseType0",
-    "ApiProjectsTracesCreateResponse201",
-    "ApiProjectsTracesCreateResponse201RawRequestType0",
-    "ApiProjectsTracesCreateResponse201RawResponseType0",
-    "ApiProvidersLeaderboardRetrieveResponse200",
-    "ApiProvidersLeaderboardRetrieveResponse200LeaderboardItem",
     "APIResponseValidationError",
     "APIResponseValidationErrorCode",
     "APIResponseValidationErrorCodeEnum",
-    "ApiSchemaRetrieveFormat",
-    "ApiSchemaRetrieveLang",
-    "ApiSchemaRetrieveResponse200",
     "AuthenticationError",
     "AuthenticationErrorCode",
     "AuthenticationErrorCodeEnum",
@@ -448,9 +367,6 @@ __all__ = (
     "InternalServerErrorType4Code",
     "InternalServerErrorType5",
     "InternalServerErrorType5Code",
-    "LeaderboardItem",
-    "LeaderboardResponse",
-    "LeaderboardResponseLeaderboardItem",
     "Message",
     "MessageRole",
     "ModelNotFoundError",
@@ -485,9 +401,6 @@ __all__ = (
     "ResponseChoice",
     "RetrieveFineTuningResponse",
     "RoleEnum",
-    "Trace",
-    "TraceRawRequestType0",
-    "TraceRawResponseType0",
     "UnprocessableEntityError",
     "UnprocessableEntityErrorCode",
     "UnprocessableEntityErrorCodeEnum",
@@ -544,6 +457,20 @@ __all__ = (
     "V1ChatCompletionsCreateResponse500Type4Code",
     "V1ChatCompletionsCreateResponse500Type5",
     "V1ChatCompletionsCreateResponse500Type5Code",
+    "V1DataPointsCreateDataBody",
+    "V1DataPointsCreateFilesBody",
+    "V1DataPointsCreateJsonBody",
+    "V1DataPointsCreateResponse201",
+    "V1DataPointsListResponse200Item",
+    "V1DataPointsPartialUpdateDataBody",
+    "V1DataPointsPartialUpdateFilesBody",
+    "V1DataPointsPartialUpdateJsonBody",
+    "V1DataPointsPartialUpdateResponse200",
+    "V1DataPointsRetrieveResponse200",
+    "V1DataPointsUpdateDataBody",
+    "V1DataPointsUpdateFilesBody",
+    "V1DataPointsUpdateJsonBody",
+    "V1DataPointsUpdateResponse200",
     "V1EmbeddingsCreateDataBody",
     "V1EmbeddingsCreateDataBodyEncodingFormat",
     "V1EmbeddingsCreateFilesBody",
@@ -665,24 +592,21 @@ __all__ = (
     "ValidationErrorDetails",
     "ValidationErrorDetailsAdditionalProperty",
     "ValidationErrorDetailsAdditionalPropertyErrorMessagesItem",
-    "ApiProjectsDataPointsCreateJsonBodyDict",
-    "ApiProjectsDataPointsCreateDataBodyDict",
-    "ApiProjectsDataPointsCreateFilesBodyDict",
-    "ApiProjectsDataPointsUpdateJsonBodyDict",
-    "ApiProjectsDataPointsUpdateDataBodyDict",
-    "ApiProjectsDataPointsUpdateFilesBodyDict",
-    "ApiProjectsDataPointsPartialUpdateJsonBodyDict",
-    "ApiProjectsDataPointsPartialUpdateDataBodyDict",
-    "ApiProjectsDataPointsPartialUpdateFilesBodyDict",
-    "ApiProjectsTracesCreateJsonBodyDict",
-    "ApiProjectsTracesCreateDataBodyDict",
-    "ApiProjectsTracesCreateFilesBodyDict",
     "AuthTokenCreateDataBodyDict",
     "AuthTokenCreateFilesBodyDict",
     "AuthTokenCreateJsonBodyDict",
     "V1ChatCompletionsCreateJsonBodyDict",
     "V1ChatCompletionsCreateDataBodyDict",
     "V1ChatCompletionsCreateFilesBodyDict",
+    "V1DataPointsCreateJsonBodyDict",
+    "V1DataPointsCreateDataBodyDict",
+    "V1DataPointsCreateFilesBodyDict",
+    "V1DataPointsUpdateJsonBodyDict",
+    "V1DataPointsUpdateDataBodyDict",
+    "V1DataPointsUpdateFilesBodyDict",
+    "V1DataPointsPartialUpdateJsonBodyDict",
+    "V1DataPointsPartialUpdateDataBodyDict",
+    "V1DataPointsPartialUpdateFilesBodyDict",
     "V1EmbeddingsCreateJsonBodyDict",
     "V1EmbeddingsCreateDataBodyDict",
     "V1EmbeddingsCreateFilesBodyDict",
