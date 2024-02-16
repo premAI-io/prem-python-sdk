@@ -4,7 +4,6 @@
 from typing_extensions import Unpack
 
 from ..models import (
-    AuthTokenCreateDataBodyDict,
     V1ChatCompletionsCreateJsonBodyDict,
     V1DataPointsCreateJsonBodyDict,
     V1DataPointsPartialUpdateJsonBodyDict,
@@ -12,7 +11,6 @@ from ..models import (
     V1EmbeddingsCreateJsonBodyDict,
     V1FinetuningCreateJsonBodyDict,
 )
-from .auth_token.auth_token_create import auth_token_create_wrapper
 from .chat_completions.v1_chat_completions_create import v1_chat_completions_create_wrapper
 from .datapoints.v1_data_points_create import v1_data_points_create_wrapper
 from .datapoints.v1_data_points_destroy import v1_data_points_destroy_wrapper
@@ -23,14 +21,6 @@ from .datapoints.v1_data_points_update import v1_data_points_update_wrapper
 from .embeddings.v1_embeddings_create import v1_embeddings_create_wrapper
 from .finetuning.v1_finetuning_create import v1_finetuning_create_wrapper
 from .finetuning.v1_finetuning_retrieve import v1_finetuning_retrieve_wrapper
-
-
-class AuthTokenModule:
-    def __init__(self, client):
-        self._client = client
-
-    def create(self, **kwargs: Unpack[AuthTokenCreateDataBodyDict]):
-        return auth_token_create_wrapper(self._client)(**kwargs)
 
 
 class ChatCompletionsModule:
@@ -98,13 +88,6 @@ class FinetuningModule:
         return v1_finetuning_retrieve_wrapper(self._client)(
             job_id,
         )
-
-
-class AuthModuleWrapper:
-    token: AuthTokenModule
-
-    def __init__(self, client):
-        self.token = AuthTokenModule(client)
 
 
 class ChatModuleWrapper:

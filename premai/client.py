@@ -8,7 +8,6 @@ from attrs import define, evolve, field
 from typing_extensions import Any
 
 from .api import (
-    AuthTokenModule,
     ChatCompletionsModule,
     DatapointsModule,
     EmbeddingsModule,
@@ -244,7 +243,6 @@ class AuthenticatedClient:
 
 
 class Prem:
-    auth_token: AuthTokenModule
     chat_completions: ChatCompletionsModule
     datapoints: DatapointsModule
     embeddings: EmbeddingsModule
@@ -253,7 +251,6 @@ class Prem:
     def __init__(self, api_key: str = "", base_url="https://app.premai.io"):
         client = AuthenticatedClient(token=api_key, base_url=base_url)
         # Init modules
-        self.auth_token = AuthTokenModule(client)
         self.chat_completions = ChatCompletionsModule(client)
         self.datapoints = DatapointsModule(client)
         self.embeddings = EmbeddingsModule(client)

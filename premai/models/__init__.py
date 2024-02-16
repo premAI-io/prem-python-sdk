@@ -3,11 +3,6 @@
 from .api_response_validation_error import APIResponseValidationError
 from .api_response_validation_error_code import APIResponseValidationErrorCode
 from .api_response_validation_error_code_enum import APIResponseValidationErrorCodeEnum
-from .auth_token import AuthToken
-from .auth_token_create_data_body import AuthTokenCreateDataBody, AuthTokenCreateDataBodyDict
-from .auth_token_create_files_body import AuthTokenCreateFilesBody, AuthTokenCreateFilesBodyDict
-from .auth_token_create_json_body import AuthTokenCreateJsonBody, AuthTokenCreateJsonBodyDict
-from .auth_token_create_response_200 import AuthTokenCreateResponse200
 from .authentication_error import AuthenticationError
 from .authentication_error_code import AuthenticationErrorCode
 from .authentication_error_code_enum import AuthenticationErrorCodeEnum
@@ -321,11 +316,6 @@ __all__ = (
     "AuthenticationError",
     "AuthenticationErrorCode",
     "AuthenticationErrorCodeEnum",
-    "AuthToken",
-    "AuthTokenCreateDataBody",
-    "AuthTokenCreateFilesBody",
-    "AuthTokenCreateJsonBody",
-    "AuthTokenCreateResponse200",
     "CatchAllError",
     "CatchAllErrorCode",
     "CatchAllErrorCodeEnum",
@@ -592,9 +582,6 @@ __all__ = (
     "ValidationErrorDetails",
     "ValidationErrorDetailsAdditionalProperty",
     "ValidationErrorDetailsAdditionalPropertyErrorMessagesItem",
-    "AuthTokenCreateDataBodyDict",
-    "AuthTokenCreateFilesBodyDict",
-    "AuthTokenCreateJsonBodyDict",
     "V1ChatCompletionsCreateJsonBodyDict",
     "V1ChatCompletionsCreateDataBodyDict",
     "V1ChatCompletionsCreateFilesBodyDict",
