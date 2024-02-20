@@ -4,14 +4,14 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.provider_api_timeout_error_code import ProviderAPITimeoutErrorCode
+from ..models.provider_api_timeout_error_code_enum import ProviderAPITimeoutErrorCodeEnum
 
 T = TypeVar("T", bound="ProviderAPITimeoutError")
 
 
 class ProviderAPITimeoutErrorDict(TypedDict):
     message: str
-    code: ProviderAPITimeoutErrorCode
+    code: ProviderAPITimeoutErrorCodeEnum
     pass
 
 
@@ -20,11 +20,11 @@ class ProviderAPITimeoutError:
     """
     Attributes:
         message (str):
-        code (ProviderAPITimeoutErrorCode): * `ProviderAPITimeoutError` - ProviderAPITimeoutError
+        code (ProviderAPITimeoutErrorCodeEnum): * `ProviderAPITimeoutError` - ProviderAPITimeoutError
     """
 
     message: str
-    code: ProviderAPITimeoutErrorCode
+    code: ProviderAPITimeoutErrorCodeEnum
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -49,7 +49,7 @@ class ProviderAPITimeoutError:
         d = src_dict.copy() if src_dict else {}
         message = d.pop("message")
 
-        code = ProviderAPITimeoutErrorCode(d.pop("code"))
+        code = ProviderAPITimeoutErrorCodeEnum(d.pop("code"))
 
         provider_api_timeout_error = cls(
             message=message,

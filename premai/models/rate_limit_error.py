@@ -4,14 +4,14 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.rate_limit_error_code import RateLimitErrorCode
+from ..models.rate_limit_error_code_enum import RateLimitErrorCodeEnum
 
 T = TypeVar("T", bound="RateLimitError")
 
 
 class RateLimitErrorDict(TypedDict):
     message: str
-    code: RateLimitErrorCode
+    code: RateLimitErrorCodeEnum
     pass
 
 
@@ -20,11 +20,11 @@ class RateLimitError:
     """
     Attributes:
         message (str):
-        code (RateLimitErrorCode): * `RateLimitError` - RateLimitError
+        code (RateLimitErrorCodeEnum): * `RateLimitError` - RateLimitError
     """
 
     message: str
-    code: RateLimitErrorCode
+    code: RateLimitErrorCodeEnum
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -49,7 +49,7 @@ class RateLimitError:
         d = src_dict.copy() if src_dict else {}
         message = d.pop("message")
 
-        code = RateLimitErrorCode(d.pop("code"))
+        code = RateLimitErrorCodeEnum(d.pop("code"))
 
         rate_limit_error = cls(
             message=message,

@@ -4,14 +4,14 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.unprocessable_entity_error_code import UnprocessableEntityErrorCode
+from ..models.unprocessable_entity_error_code_enum import UnprocessableEntityErrorCodeEnum
 
 T = TypeVar("T", bound="UnprocessableEntityError")
 
 
 class UnprocessableEntityErrorDict(TypedDict):
     message: str
-    code: UnprocessableEntityErrorCode
+    code: UnprocessableEntityErrorCodeEnum
     pass
 
 
@@ -20,11 +20,11 @@ class UnprocessableEntityError:
     """
     Attributes:
         message (str):
-        code (UnprocessableEntityErrorCode): * `UnprocessableEntityError` - UnprocessableEntityError
+        code (UnprocessableEntityErrorCodeEnum): * `UnprocessableEntityError` - UnprocessableEntityError
     """
 
     message: str
-    code: UnprocessableEntityErrorCode
+    code: UnprocessableEntityErrorCodeEnum
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -49,7 +49,7 @@ class UnprocessableEntityError:
         d = src_dict.copy() if src_dict else {}
         message = d.pop("message")
 
-        code = UnprocessableEntityErrorCode(d.pop("code"))
+        code = UnprocessableEntityErrorCodeEnum(d.pop("code"))
 
         unprocessable_entity_error = cls(
             message=message,

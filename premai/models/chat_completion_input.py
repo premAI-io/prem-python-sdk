@@ -1,13 +1,14 @@
-from typing import Dict, List, Type, Union, cast
+import json
+from typing import Dict, List, Tuple, Type, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, NotRequired, TypedDict, TypeVar
 
 from ..models.chat_completion_input_logit_bias_type_0 import ChatCompletionInputLogitBiasType0
-from ..models.chat_completion_input_messages_item import ChatCompletionInputMessagesItem
 from ..models.chat_completion_input_response_format_type_0 import ChatCompletionInputResponseFormatType0
 from ..models.chat_completion_input_tools_item import ChatCompletionInputToolsItem
+from ..models.message import Message
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="ChatCompletionInput")
@@ -15,8 +16,9 @@ T = TypeVar("T", bound="ChatCompletionInput")
 
 class ChatCompletionInputDict(TypedDict):
     project_id: int
-    messages: List["ChatCompletionInputMessagesItem"]
+    messages: List["Message"]
     model: NotRequired[Union[Unset, str]]
+    system_prompt: NotRequired[Union[Unset, str]]
     frequency_penalty: NotRequired[Union[Unset, float]]
     logit_bias: NotRequired[Union["ChatCompletionInputLogitBiasType0", None, Unset]]
     max_tokens: NotRequired[Union[None, Unset, int]]
@@ -38,8 +40,9 @@ class ChatCompletionInput:
     """
     Attributes:
         project_id (int): The ID of the project to use.
-        messages (List['ChatCompletionInputMessagesItem']): A list of messages comprising the conversation so far.
+        messages (List['Message']): A list of messages comprising the conversation so far.
         model (Union[Unset, str]): ID of the model to use. See the model endpoint compatibility table for details.
+        system_prompt (Union[Unset, str]): The system prompt to use.
         frequency_penalty (Union[Unset, float]): Number between -2.0 and 2.0. Positive values penalize new tokens based
             on their existing frequency.
         logit_bias (Union['ChatCompletionInputLogitBiasType0', None, Unset]): JSON object that maps tokens to an
@@ -62,8 +65,9 @@ class ChatCompletionInput:
     """
 
     project_id: int
-    messages: List["ChatCompletionInputMessagesItem"]
+    messages: List["Message"]
     model: Union[Unset, str] = UNSET
+    system_prompt: Union[Unset, str] = UNSET
     frequency_penalty: Union[Unset, float] = UNSET
     logit_bias: Union["ChatCompletionInputLogitBiasType0", None, Unset] = UNSET
     max_tokens: Union[None, Unset, int] = UNSET
@@ -92,6 +96,8 @@ class ChatCompletionInput:
             messages.append(messages_item)
 
         model = self.model
+
+        system_prompt = self.system_prompt
 
         frequency_penalty = self.frequency_penalty
 
@@ -170,6 +176,148 @@ class ChatCompletionInput:
         )
         if model is not UNSET:
             field_dict["model"] = model
+        if system_prompt is not UNSET:
+            field_dict["system_prompt"] = system_prompt
+        if frequency_penalty is not UNSET:
+            field_dict["frequency_penalty"] = frequency_penalty
+        if logit_bias is not UNSET:
+            field_dict["logit_bias"] = logit_bias
+        if max_tokens is not UNSET:
+            field_dict["max_tokens"] = max_tokens
+        if n is not UNSET:
+            field_dict["n"] = n
+        if presence_penalty is not UNSET:
+            field_dict["presence_penalty"] = presence_penalty
+        if response_format is not UNSET:
+            field_dict["response_format"] = response_format
+        if seed is not UNSET:
+            field_dict["seed"] = seed
+        if stop is not UNSET:
+            field_dict["stop"] = stop
+        if stream is not UNSET:
+            field_dict["stream"] = stream
+        if temperature is not UNSET:
+            field_dict["temperature"] = temperature
+        if top_p is not UNSET:
+            field_dict["top_p"] = top_p
+        if tools is not UNSET:
+            field_dict["tools"] = tools
+        if user is not UNSET:
+            field_dict["user"] = user
+
+        return field_dict
+
+    def to_multipart(self) -> Dict[str, Any]:
+        project_id = (
+            self.project_id
+            if isinstance(self.project_id, Unset)
+            else (None, str(self.project_id).encode(), "text/plain")
+        )
+
+        _temp_messages = []
+        for messages_item_data in self.messages:
+            messages_item = messages_item_data.to_dict()
+            _temp_messages.append(messages_item)
+        messages = (None, json.dumps(_temp_messages).encode(), "application/json")
+
+        model = self.model if isinstance(self.model, Unset) else (None, str(self.model).encode(), "text/plain")
+
+        system_prompt = (
+            self.system_prompt
+            if isinstance(self.system_prompt, Unset)
+            else (None, str(self.system_prompt).encode(), "text/plain")
+        )
+
+        frequency_penalty = (
+            self.frequency_penalty
+            if isinstance(self.frequency_penalty, Unset)
+            else (None, str(self.frequency_penalty).encode(), "text/plain")
+        )
+
+        logit_bias: Union[None, Tuple[None, bytes, str], Unset]
+        if isinstance(self.logit_bias, Unset):
+            logit_bias = UNSET
+        elif isinstance(self.logit_bias, ChatCompletionInputLogitBiasType0):
+            logit_bias = (None, json.dumps(self.logit_bias.to_dict()).encode(), "application/json")
+        else:
+            logit_bias = self.logit_bias
+
+        max_tokens: Union[None, Unset, int]
+        if isinstance(self.max_tokens, Unset):
+            max_tokens = UNSET
+        else:
+            max_tokens = self.max_tokens
+
+        n = self.n if isinstance(self.n, Unset) else (None, str(self.n).encode(), "text/plain")
+
+        presence_penalty = (
+            self.presence_penalty
+            if isinstance(self.presence_penalty, Unset)
+            else (None, str(self.presence_penalty).encode(), "text/plain")
+        )
+
+        response_format: Union[None, Tuple[None, bytes, str], Unset]
+        if isinstance(self.response_format, Unset):
+            response_format = UNSET
+        elif isinstance(self.response_format, ChatCompletionInputResponseFormatType0):
+            response_format = (None, json.dumps(self.response_format.to_dict()).encode(), "application/json")
+        else:
+            response_format = self.response_format
+
+        seed: Union[None, Unset, int]
+        if isinstance(self.seed, Unset):
+            seed = UNSET
+        else:
+            seed = self.seed
+
+        stop: Union[None, Unset, str]
+        if isinstance(self.stop, Unset):
+            stop = UNSET
+        else:
+            stop = self.stop
+
+        stream = self.stream if isinstance(self.stream, Unset) else (None, str(self.stream).encode(), "text/plain")
+
+        temperature: Union[None, Unset, float]
+        if isinstance(self.temperature, Unset):
+            temperature = UNSET
+        else:
+            temperature = self.temperature
+
+        top_p: Union[None, Unset, float]
+        if isinstance(self.top_p, Unset):
+            top_p = UNSET
+        else:
+            top_p = self.top_p
+
+        tools: Union[Unset, Tuple[None, bytes, str]] = UNSET
+        if not isinstance(self.tools, Unset):
+            _temp_tools = []
+            for tools_item_data in self.tools:
+                tools_item = tools_item_data.to_dict()
+                _temp_tools.append(tools_item)
+            tools = (None, json.dumps(_temp_tools).encode(), "application/json")
+
+        user: Union[None, Unset, str]
+        if isinstance(self.user, Unset):
+            user = UNSET
+        else:
+            user = self.user
+
+        field_dict: Dict[str, Any] = {}
+        field_dict.update(
+            {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
+        )
+        field_dict.update(
+            {
+                "project_id": project_id,
+                "messages": messages,
+            }
+        )
+        if model is not UNSET:
+            field_dict["model"] = model
+        if system_prompt is not UNSET:
+            field_dict["system_prompt"] = system_prompt
         if frequency_penalty is not UNSET:
             field_dict["frequency_penalty"] = frequency_penalty
         if logit_bias is not UNSET:
@@ -202,9 +350,9 @@ class ChatCompletionInput:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.chat_completion_input_logit_bias_type_0 import ChatCompletionInputLogitBiasType0
-        from ..models.chat_completion_input_messages_item import ChatCompletionInputMessagesItem
         from ..models.chat_completion_input_response_format_type_0 import ChatCompletionInputResponseFormatType0
         from ..models.chat_completion_input_tools_item import ChatCompletionInputToolsItem
+        from ..models.message import Message
 
         d = src_dict.copy() if src_dict else {}
         project_id = d.pop("project_id")
@@ -212,11 +360,13 @@ class ChatCompletionInput:
         messages = []
         _messages = d.pop("messages")
         for messages_item_data in _messages:
-            messages_item = ChatCompletionInputMessagesItem.from_dict(messages_item_data)
+            messages_item = Message.from_dict(messages_item_data)
 
             messages.append(messages_item)
 
         model = d.pop("model", UNSET)
+
+        system_prompt = d.pop("system_prompt", UNSET)
 
         frequency_penalty = d.pop("frequency_penalty", UNSET)
 
@@ -325,6 +475,7 @@ class ChatCompletionInput:
             project_id=project_id,
             messages=messages,
             model=model,
+            system_prompt=system_prompt,
             frequency_penalty=frequency_penalty,
             logit_bias=logit_bias,
             max_tokens=max_tokens,

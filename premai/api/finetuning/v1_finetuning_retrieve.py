@@ -5,21 +5,21 @@ import httpx
 from typing_extensions import Any
 
 from ... import errors
-from ...models.v1_finetuning_retrieve_response_200 import V1FinetuningRetrieveResponse200
-from ...models.v1_finetuning_retrieve_response_400 import V1FinetuningRetrieveResponse400
-from ...models.v1_finetuning_retrieve_response_401 import V1FinetuningRetrieveResponse401
-from ...models.v1_finetuning_retrieve_response_403 import V1FinetuningRetrieveResponse403
-from ...models.v1_finetuning_retrieve_response_404_type_0 import V1FinetuningRetrieveResponse404Type0
-from ...models.v1_finetuning_retrieve_response_404_type_1 import V1FinetuningRetrieveResponse404Type1
-from ...models.v1_finetuning_retrieve_response_409 import V1FinetuningRetrieveResponse409
-from ...models.v1_finetuning_retrieve_response_422 import V1FinetuningRetrieveResponse422
-from ...models.v1_finetuning_retrieve_response_429 import V1FinetuningRetrieveResponse429
-from ...models.v1_finetuning_retrieve_response_500_type_0 import V1FinetuningRetrieveResponse500Type0
-from ...models.v1_finetuning_retrieve_response_500_type_1 import V1FinetuningRetrieveResponse500Type1
-from ...models.v1_finetuning_retrieve_response_500_type_2 import V1FinetuningRetrieveResponse500Type2
-from ...models.v1_finetuning_retrieve_response_500_type_3 import V1FinetuningRetrieveResponse500Type3
-from ...models.v1_finetuning_retrieve_response_500_type_4 import V1FinetuningRetrieveResponse500Type4
-from ...models.v1_finetuning_retrieve_response_500_type_5 import V1FinetuningRetrieveResponse500Type5
+from ...models.api_response_validation_error import APIResponseValidationError
+from ...models.authentication_error import AuthenticationError
+from ...models.catch_all_error import CatchAllError
+from ...models.conflict_error import ConflictError
+from ...models.model_not_found_error import ModelNotFoundError
+from ...models.permission_denied_error import PermissionDeniedError
+from ...models.provider_api_connection_error import ProviderAPIConnectionError
+from ...models.provider_api_status_error import ProviderAPIStatusError
+from ...models.provider_api_timeout_error import ProviderAPITimeoutError
+from ...models.provider_internal_server_error import ProviderInternalServerError
+from ...models.provider_not_found_error import ProviderNotFoundError
+from ...models.rate_limit_error import RateLimitError
+from ...models.retrieve_fine_tuning_response import RetrieveFineTuningResponse
+from ...models.unprocessable_entity_error import UnprocessableEntityError
+from ...models.validation_error import ValidationError
 
 # from ...client import AuthenticatedClient, Client
 from ...types import Response
@@ -43,26 +43,26 @@ def _parse_response(
     *, client, response: httpx.Response
 ) -> Optional[
     Union[
-        Union["V1FinetuningRetrieveResponse404Type0", "V1FinetuningRetrieveResponse404Type1"],
+        AuthenticationError,
+        ConflictError,
+        PermissionDeniedError,
+        RateLimitError,
+        RetrieveFineTuningResponse,
         Union[
-            "V1FinetuningRetrieveResponse500Type0",
-            "V1FinetuningRetrieveResponse500Type1",
-            "V1FinetuningRetrieveResponse500Type2",
-            "V1FinetuningRetrieveResponse500Type3",
-            "V1FinetuningRetrieveResponse500Type4",
-            "V1FinetuningRetrieveResponse500Type5",
+            "APIResponseValidationError",
+            "CatchAllError",
+            "ProviderAPIConnectionError",
+            "ProviderAPIStatusError",
+            "ProviderAPITimeoutError",
+            "ProviderInternalServerError",
         ],
-        V1FinetuningRetrieveResponse200,
-        V1FinetuningRetrieveResponse400,
-        V1FinetuningRetrieveResponse401,
-        V1FinetuningRetrieveResponse403,
-        V1FinetuningRetrieveResponse409,
-        V1FinetuningRetrieveResponse422,
-        V1FinetuningRetrieveResponse429,
+        Union["ModelNotFoundError", "ProviderNotFoundError"],
+        UnprocessableEntityError,
+        ValidationError,
     ]
 ]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = V1FinetuningRetrieveResponse200.from_dict(response.json())
+        response_200 = RetrieveFineTuningResponse.from_dict(response.json())
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -75,22 +75,22 @@ def _build_response(
     *, client, response: httpx.Response
 ) -> Response[
     Union[
-        Union["V1FinetuningRetrieveResponse404Type0", "V1FinetuningRetrieveResponse404Type1"],
+        AuthenticationError,
+        ConflictError,
+        PermissionDeniedError,
+        RateLimitError,
+        RetrieveFineTuningResponse,
         Union[
-            "V1FinetuningRetrieveResponse500Type0",
-            "V1FinetuningRetrieveResponse500Type1",
-            "V1FinetuningRetrieveResponse500Type2",
-            "V1FinetuningRetrieveResponse500Type3",
-            "V1FinetuningRetrieveResponse500Type4",
-            "V1FinetuningRetrieveResponse500Type5",
+            "APIResponseValidationError",
+            "CatchAllError",
+            "ProviderAPIConnectionError",
+            "ProviderAPIStatusError",
+            "ProviderAPITimeoutError",
+            "ProviderInternalServerError",
         ],
-        V1FinetuningRetrieveResponse200,
-        V1FinetuningRetrieveResponse400,
-        V1FinetuningRetrieveResponse401,
-        V1FinetuningRetrieveResponse403,
-        V1FinetuningRetrieveResponse409,
-        V1FinetuningRetrieveResponse422,
-        V1FinetuningRetrieveResponse429,
+        Union["ModelNotFoundError", "ProviderNotFoundError"],
+        UnprocessableEntityError,
+        ValidationError,
     ]
 ]:
     return Response(
@@ -105,22 +105,22 @@ def v1_finetuning_retrieve_wrapper(client):
     def v1_finetuning_retrieve_wrapped(
         job_id: str,
     ) -> Union[
-        Union["V1FinetuningRetrieveResponse404Type0", "V1FinetuningRetrieveResponse404Type1"],
+        AuthenticationError,
+        ConflictError,
+        PermissionDeniedError,
+        RateLimitError,
+        RetrieveFineTuningResponse,
         Union[
-            "V1FinetuningRetrieveResponse500Type0",
-            "V1FinetuningRetrieveResponse500Type1",
-            "V1FinetuningRetrieveResponse500Type2",
-            "V1FinetuningRetrieveResponse500Type3",
-            "V1FinetuningRetrieveResponse500Type4",
-            "V1FinetuningRetrieveResponse500Type5",
+            "APIResponseValidationError",
+            "CatchAllError",
+            "ProviderAPIConnectionError",
+            "ProviderAPIStatusError",
+            "ProviderAPITimeoutError",
+            "ProviderInternalServerError",
         ],
-        V1FinetuningRetrieveResponse200,
-        V1FinetuningRetrieveResponse400,
-        V1FinetuningRetrieveResponse401,
-        V1FinetuningRetrieveResponse403,
-        V1FinetuningRetrieveResponse409,
-        V1FinetuningRetrieveResponse422,
-        V1FinetuningRetrieveResponse429,
+        Union["ModelNotFoundError", "ProviderNotFoundError"],
+        UnprocessableEntityError,
+        ValidationError,
     ]:
         """Retrieve a finetuning job.
 
@@ -133,7 +133,7 @@ def v1_finetuning_retrieve_wrapper(client):
             httpx.TimeoutException: If the request takes longer than Client.timeout.
 
         Returns:
-            Response[Union[Union['V1FinetuningRetrieveResponse404Type0', 'V1FinetuningRetrieveResponse404Type1'], Union['V1FinetuningRetrieveResponse500Type0', 'V1FinetuningRetrieveResponse500Type1', 'V1FinetuningRetrieveResponse500Type2', 'V1FinetuningRetrieveResponse500Type3', 'V1FinetuningRetrieveResponse500Type4', 'V1FinetuningRetrieveResponse500Type5'], V1FinetuningRetrieveResponse200, V1FinetuningRetrieveResponse400, V1FinetuningRetrieveResponse401, V1FinetuningRetrieveResponse403, V1FinetuningRetrieveResponse409, V1FinetuningRetrieveResponse422, V1FinetuningRetrieveResponse429]]
+            Response[Union[AuthenticationError, ConflictError, PermissionDeniedError, RateLimitError, RetrieveFineTuningResponse, Union['APIResponseValidationError', 'CatchAllError', 'ProviderAPIConnectionError', 'ProviderAPIStatusError', 'ProviderAPITimeoutError', 'ProviderInternalServerError'], Union['ModelNotFoundError', 'ProviderNotFoundError'], UnprocessableEntityError, ValidationError]]
         """
 
         kwargs = _get_kwargs(

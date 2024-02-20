@@ -4,19 +4,19 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, NotRequired, TypedDict, TypeVar
 
-from ..models.embeddings_response_data_item import EmbeddingsResponseDataItem
-from ..models.embeddings_response_usage import EmbeddingsResponseUsage
+from ..models.embedding import Embedding
+from ..models.usage import Usage
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="EmbeddingsResponse")
 
 
 class EmbeddingsResponseDict(TypedDict):
-    data: List["EmbeddingsResponseDataItem"]
+    data: List["Embedding"]
     model: str
     provider_name: str
     provider_id: str
-    usage: NotRequired[Union[Unset, EmbeddingsResponseUsage]]
+    usage: NotRequired[Union[Unset, Usage]]
     pass
 
 
@@ -24,18 +24,18 @@ class EmbeddingsResponseDict(TypedDict):
 class EmbeddingsResponse:
     """
     Attributes:
-        data (List['EmbeddingsResponseDataItem']): The embeddings for the input.
+        data (List['Embedding']): The embeddings for the input.
         model (str): The model to generate the embeddings.
         provider_name (str): The name of the provider that generated the completion.
         provider_id (str): The ID of the provider that generated the completion.
-        usage (Union[Unset, EmbeddingsResponseUsage]): The usage statistics for the completion.
+        usage (Union[Unset, Usage]):
     """
 
-    data: List["EmbeddingsResponseDataItem"]
+    data: List["Embedding"]
     model: str
     provider_name: str
     provider_id: str
-    usage: Union[Unset, "EmbeddingsResponseUsage"] = UNSET
+    usage: Union[Unset, "Usage"] = UNSET
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -72,14 +72,14 @@ class EmbeddingsResponse:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.embeddings_response_data_item import EmbeddingsResponseDataItem
-        from ..models.embeddings_response_usage import EmbeddingsResponseUsage
+        from ..models.embedding import Embedding
+        from ..models.usage import Usage
 
         d = src_dict.copy() if src_dict else {}
         data = []
         _data = d.pop("data")
         for data_item_data in _data:
-            data_item = EmbeddingsResponseDataItem.from_dict(data_item_data)
+            data_item = Embedding.from_dict(data_item_data)
 
             data.append(data_item)
 
@@ -90,11 +90,11 @@ class EmbeddingsResponse:
         provider_id = d.pop("provider_id")
 
         _usage = d.pop("usage", UNSET)
-        usage: Union[Unset, EmbeddingsResponseUsage]
+        usage: Union[Unset, Usage]
         if isinstance(_usage, Unset):
             usage = UNSET
         else:
-            usage = EmbeddingsResponseUsage.from_dict(_usage)
+            usage = Usage.from_dict(_usage)
 
         embeddings_response = cls(
             data=data,

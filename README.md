@@ -19,8 +19,6 @@ from premai import Prem
 client = Prem(
     api_key=YOUR_API_KEY
 )
-
-project_id = YOUR_PROJECT_ID
 ```
 
 ### Chat completion
@@ -28,16 +26,18 @@ The `chat.completions` module allows you to generate completions based on user i
 
 ```python
 messages = [
-    {"role": "system", "content": "You are a helpful assistant."},
     {"role": "user", "content": "Who won the world series in 2020?"},
 ]
-model = "gpt-3.5-turbo"
+model = "gpt-3.5-turbo" # optional
+system_prompt = "You are a helpful assistant." # optional
+project_id = YOUR_PROJECT_ID
 
 # Create completion
 response = client.chat.completions.create(
     project_id=project_id,
     messages=messages,
     model=model,
+    system_prompt=system_prompt,
     stream=False
 )
 
@@ -48,6 +48,7 @@ response = client.chat.completions.create(
     project_id=project_id,
     messages=messages,
     model=model,
+    system_prompt=system_prompt,
     stream=True
 )
 

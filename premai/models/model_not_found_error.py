@@ -4,14 +4,14 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.model_not_found_error_code import ModelNotFoundErrorCode
+from ..models.model_not_found_error_code_enum import ModelNotFoundErrorCodeEnum
 
 T = TypeVar("T", bound="ModelNotFoundError")
 
 
 class ModelNotFoundErrorDict(TypedDict):
     message: str
-    code: ModelNotFoundErrorCode
+    code: ModelNotFoundErrorCodeEnum
     pass
 
 
@@ -20,11 +20,11 @@ class ModelNotFoundError:
     """
     Attributes:
         message (str):
-        code (ModelNotFoundErrorCode): * `ModelNotFoundError` - ModelNotFoundError
+        code (ModelNotFoundErrorCodeEnum): * `ModelNotFoundError` - ModelNotFoundError
     """
 
     message: str
-    code: ModelNotFoundErrorCode
+    code: ModelNotFoundErrorCodeEnum
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -49,7 +49,7 @@ class ModelNotFoundError:
         d = src_dict.copy() if src_dict else {}
         message = d.pop("message")
 
-        code = ModelNotFoundErrorCode(d.pop("code"))
+        code = ModelNotFoundErrorCodeEnum(d.pop("code"))
 
         model_not_found_error = cls(
             message=message,

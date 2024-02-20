@@ -4,14 +4,14 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.permission_denied_error_code import PermissionDeniedErrorCode
+from ..models.permission_denied_error_code_enum import PermissionDeniedErrorCodeEnum
 
 T = TypeVar("T", bound="PermissionDeniedError")
 
 
 class PermissionDeniedErrorDict(TypedDict):
     message: str
-    code: PermissionDeniedErrorCode
+    code: PermissionDeniedErrorCodeEnum
     pass
 
 
@@ -20,11 +20,11 @@ class PermissionDeniedError:
     """
     Attributes:
         message (str):
-        code (PermissionDeniedErrorCode): * `PermissionDeniedError` - PermissionDeniedError
+        code (PermissionDeniedErrorCodeEnum): * `PermissionDeniedError` - PermissionDeniedError
     """
 
     message: str
-    code: PermissionDeniedErrorCode
+    code: PermissionDeniedErrorCodeEnum
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -49,7 +49,7 @@ class PermissionDeniedError:
         d = src_dict.copy() if src_dict else {}
         message = d.pop("message")
 
-        code = PermissionDeniedErrorCode(d.pop("code"))
+        code = PermissionDeniedErrorCodeEnum(d.pop("code"))
 
         permission_denied_error = cls(
             message=message,

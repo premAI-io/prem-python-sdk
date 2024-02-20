@@ -4,8 +4,8 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, NotRequired, TypedDict, TypeVar
 
-from ..models.chat_completion_response_choices_item import ChatCompletionResponseChoicesItem
-from ..models.chat_completion_response_usage import ChatCompletionResponseUsage
+from ..models.response_choice import ResponseChoice
+from ..models.usage import Usage
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="ChatCompletionResponse")
@@ -13,12 +13,12 @@ T = TypeVar("T", bound="ChatCompletionResponse")
 
 class ChatCompletionResponseDict(TypedDict):
     id: str
-    choices: List["ChatCompletionResponseChoicesItem"]
+    choices: List["ResponseChoice"]
     created: int
     model: str
     provider_name: str
     provider_id: str
-    usage: NotRequired[Union[Unset, ChatCompletionResponseUsage]]
+    usage: NotRequired[Union[Unset, Usage]]
     pass
 
 
@@ -27,23 +27,23 @@ class ChatCompletionResponse:
     """
     Attributes:
         id (str): A unique identifier for the chat completion. Each chunk has the same ID.
-        choices (List['ChatCompletionResponseChoicesItem']): A list of chat completion choices. Can be more than one if
-            n is greater than 1.
+        choices (List['ResponseChoice']): A list of chat completion choices. Can be more than one if n is greater than
+            1.
         created (int): The Unix timestamp (in seconds) of when the chat completion was created. Each chunk has the same
             timestamp.
         model (str): The model to generate the completion.
         provider_name (str): The name of the provider that generated the completion.
         provider_id (str): The ID of the provider that generated the completion.
-        usage (Union[Unset, ChatCompletionResponseUsage]): The usage statistics for the completion.
+        usage (Union[Unset, Usage]):
     """
 
     id: str
-    choices: List["ChatCompletionResponseChoicesItem"]
+    choices: List["ResponseChoice"]
     created: int
     model: str
     provider_name: str
     provider_id: str
-    usage: Union[Unset, "ChatCompletionResponseUsage"] = UNSET
+    usage: Union[Unset, "Usage"] = UNSET
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -86,8 +86,8 @@ class ChatCompletionResponse:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.chat_completion_response_choices_item import ChatCompletionResponseChoicesItem
-        from ..models.chat_completion_response_usage import ChatCompletionResponseUsage
+        from ..models.response_choice import ResponseChoice
+        from ..models.usage import Usage
 
         d = src_dict.copy() if src_dict else {}
         id = d.pop("id")
@@ -95,7 +95,7 @@ class ChatCompletionResponse:
         choices = []
         _choices = d.pop("choices")
         for choices_item_data in _choices:
-            choices_item = ChatCompletionResponseChoicesItem.from_dict(choices_item_data)
+            choices_item = ResponseChoice.from_dict(choices_item_data)
 
             choices.append(choices_item)
 
@@ -108,11 +108,11 @@ class ChatCompletionResponse:
         provider_id = d.pop("provider_id")
 
         _usage = d.pop("usage", UNSET)
-        usage: Union[Unset, ChatCompletionResponseUsage]
+        usage: Union[Unset, Usage]
         if isinstance(_usage, Unset):
             usage = UNSET
         else:
-            usage = ChatCompletionResponseUsage.from_dict(_usage)
+            usage = Usage.from_dict(_usage)
 
         chat_completion_response = cls(
             id=id,

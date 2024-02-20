@@ -4,7 +4,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.validation_error_details_additional_property import ValidationErrorDetailsAdditionalProperty
+from ..models.validation_detail import ValidationDetail
 
 T = TypeVar("T", bound="ValidationErrorDetails")
 
@@ -17,9 +17,7 @@ class ValidationErrorDetailsDict(TypedDict):
 class ValidationErrorDetails:
     """Detailed information about the validation errors."""
 
-    additional_properties: Dict[str, "ValidationErrorDetailsAdditionalProperty"] = _attrs_field(
-        init=False, factory=dict
-    )
+    additional_properties: Dict[str, "ValidationDetail"] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         field_dict: Dict[str, Any] = {}
@@ -31,14 +29,14 @@ class ValidationErrorDetails:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.validation_error_details_additional_property import ValidationErrorDetailsAdditionalProperty
+        from ..models.validation_detail import ValidationDetail
 
         d = src_dict.copy() if src_dict else {}
         validation_error_details = cls()
 
         additional_properties = {}
         for prop_name, prop_dict in d.items():
-            additional_property = ValidationErrorDetailsAdditionalProperty.from_dict(prop_dict)
+            additional_property = ValidationDetail.from_dict(prop_dict)
 
             additional_properties[prop_name] = additional_property
 
@@ -49,10 +47,10 @@ class ValidationErrorDetails:
     def additional_keys(self) -> List[str]:
         return list(self.additional_properties.keys())
 
-    def __getitem__(self, key: str) -> "ValidationErrorDetailsAdditionalProperty":
+    def __getitem__(self, key: str) -> "ValidationDetail":
         return self.additional_properties[key]
 
-    def __setitem__(self, key: str, value: "ValidationErrorDetailsAdditionalProperty") -> None:
+    def __setitem__(self, key: str, value: "ValidationDetail") -> None:
         self.additional_properties[key] = value
 
     def __delitem__(self, key: str) -> None:

@@ -4,14 +4,14 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.api_response_validation_error_code import APIResponseValidationErrorCode
+from ..models.api_response_validation_error_code_enum import APIResponseValidationErrorCodeEnum
 
 T = TypeVar("T", bound="APIResponseValidationError")
 
 
 class APIResponseValidationErrorDict(TypedDict):
     message: str
-    code: APIResponseValidationErrorCode
+    code: APIResponseValidationErrorCodeEnum
     pass
 
 
@@ -20,11 +20,11 @@ class APIResponseValidationError:
     """
     Attributes:
         message (str):
-        code (APIResponseValidationErrorCode): * `APIResponseValidationError` - APIResponseValidationError
+        code (APIResponseValidationErrorCodeEnum): * `APIResponseValidationError` - APIResponseValidationError
     """
 
     message: str
-    code: APIResponseValidationErrorCode
+    code: APIResponseValidationErrorCodeEnum
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -49,7 +49,7 @@ class APIResponseValidationError:
         d = src_dict.copy() if src_dict else {}
         message = d.pop("message")
 
-        code = APIResponseValidationErrorCode(d.pop("code"))
+        code = APIResponseValidationErrorCodeEnum(d.pop("code"))
 
         api_response_validation_error = cls(
             message=message,

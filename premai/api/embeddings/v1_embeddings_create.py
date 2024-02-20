@@ -5,29 +5,29 @@ import httpx
 from typing_extensions import Any, Unpack
 
 from ... import errors
-from ...models.v1_embeddings_create_json_body import V1EmbeddingsCreateJsonBody
-from ...models.v1_embeddings_create_response_200 import V1EmbeddingsCreateResponse200
-from ...models.v1_embeddings_create_response_400 import V1EmbeddingsCreateResponse400
-from ...models.v1_embeddings_create_response_401 import V1EmbeddingsCreateResponse401
-from ...models.v1_embeddings_create_response_403 import V1EmbeddingsCreateResponse403
-from ...models.v1_embeddings_create_response_404_type_0 import V1EmbeddingsCreateResponse404Type0
-from ...models.v1_embeddings_create_response_404_type_1 import V1EmbeddingsCreateResponse404Type1
-from ...models.v1_embeddings_create_response_409 import V1EmbeddingsCreateResponse409
-from ...models.v1_embeddings_create_response_422 import V1EmbeddingsCreateResponse422
-from ...models.v1_embeddings_create_response_429 import V1EmbeddingsCreateResponse429
-from ...models.v1_embeddings_create_response_500_type_0 import V1EmbeddingsCreateResponse500Type0
-from ...models.v1_embeddings_create_response_500_type_1 import V1EmbeddingsCreateResponse500Type1
-from ...models.v1_embeddings_create_response_500_type_2 import V1EmbeddingsCreateResponse500Type2
-from ...models.v1_embeddings_create_response_500_type_3 import V1EmbeddingsCreateResponse500Type3
-from ...models.v1_embeddings_create_response_500_type_4 import V1EmbeddingsCreateResponse500Type4
-from ...models.v1_embeddings_create_response_500_type_5 import V1EmbeddingsCreateResponse500Type5
+from ...models.api_response_validation_error import APIResponseValidationError
+from ...models.authentication_error import AuthenticationError
+from ...models.catch_all_error import CatchAllError
+from ...models.conflict_error import ConflictError
+from ...models.embeddings_input import EmbeddingsInput
+from ...models.embeddings_response import EmbeddingsResponse
+from ...models.model_not_found_error import ModelNotFoundError
+from ...models.permission_denied_error import PermissionDeniedError
+from ...models.provider_api_connection_error import ProviderAPIConnectionError
+from ...models.provider_api_status_error import ProviderAPIStatusError
+from ...models.provider_api_timeout_error import ProviderAPITimeoutError
+from ...models.provider_internal_server_error import ProviderInternalServerError
+from ...models.provider_not_found_error import ProviderNotFoundError
+from ...models.rate_limit_error import RateLimitError
+from ...models.unprocessable_entity_error import UnprocessableEntityError
+from ...models.validation_error import ValidationError
 
 # from ...client import AuthenticatedClient, Client
 from ...types import Response
 
 
 def _get_kwargs(
-    **body: Unpack[V1EmbeddingsCreateJsonBody],
+    **body: Unpack[EmbeddingsInput],
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -49,26 +49,26 @@ def _parse_response(
     *, client, response: httpx.Response
 ) -> Optional[
     Union[
-        Union["V1EmbeddingsCreateResponse404Type0", "V1EmbeddingsCreateResponse404Type1"],
+        AuthenticationError,
+        ConflictError,
+        EmbeddingsResponse,
+        PermissionDeniedError,
+        RateLimitError,
         Union[
-            "V1EmbeddingsCreateResponse500Type0",
-            "V1EmbeddingsCreateResponse500Type1",
-            "V1EmbeddingsCreateResponse500Type2",
-            "V1EmbeddingsCreateResponse500Type3",
-            "V1EmbeddingsCreateResponse500Type4",
-            "V1EmbeddingsCreateResponse500Type5",
+            "APIResponseValidationError",
+            "CatchAllError",
+            "ProviderAPIConnectionError",
+            "ProviderAPIStatusError",
+            "ProviderAPITimeoutError",
+            "ProviderInternalServerError",
         ],
-        V1EmbeddingsCreateResponse200,
-        V1EmbeddingsCreateResponse400,
-        V1EmbeddingsCreateResponse401,
-        V1EmbeddingsCreateResponse403,
-        V1EmbeddingsCreateResponse409,
-        V1EmbeddingsCreateResponse422,
-        V1EmbeddingsCreateResponse429,
+        Union["ModelNotFoundError", "ProviderNotFoundError"],
+        UnprocessableEntityError,
+        ValidationError,
     ]
 ]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = V1EmbeddingsCreateResponse200.from_dict(response.json())
+        response_200 = EmbeddingsResponse.from_dict(response.json())
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -81,22 +81,22 @@ def _build_response(
     *, client, response: httpx.Response
 ) -> Response[
     Union[
-        Union["V1EmbeddingsCreateResponse404Type0", "V1EmbeddingsCreateResponse404Type1"],
+        AuthenticationError,
+        ConflictError,
+        EmbeddingsResponse,
+        PermissionDeniedError,
+        RateLimitError,
         Union[
-            "V1EmbeddingsCreateResponse500Type0",
-            "V1EmbeddingsCreateResponse500Type1",
-            "V1EmbeddingsCreateResponse500Type2",
-            "V1EmbeddingsCreateResponse500Type3",
-            "V1EmbeddingsCreateResponse500Type4",
-            "V1EmbeddingsCreateResponse500Type5",
+            "APIResponseValidationError",
+            "CatchAllError",
+            "ProviderAPIConnectionError",
+            "ProviderAPIStatusError",
+            "ProviderAPITimeoutError",
+            "ProviderInternalServerError",
         ],
-        V1EmbeddingsCreateResponse200,
-        V1EmbeddingsCreateResponse400,
-        V1EmbeddingsCreateResponse401,
-        V1EmbeddingsCreateResponse403,
-        V1EmbeddingsCreateResponse409,
-        V1EmbeddingsCreateResponse422,
-        V1EmbeddingsCreateResponse429,
+        Union["ModelNotFoundError", "ProviderNotFoundError"],
+        UnprocessableEntityError,
+        ValidationError,
     ]
 ]:
     return Response(
@@ -109,39 +109,39 @@ def _build_response(
 
 def v1_embeddings_create_wrapper(client):
     def v1_embeddings_create_wrapped(
-        **body: Unpack[V1EmbeddingsCreateJsonBody],
+        **body: Unpack[EmbeddingsInput],
     ) -> Union[
-        Union["V1EmbeddingsCreateResponse404Type0", "V1EmbeddingsCreateResponse404Type1"],
+        AuthenticationError,
+        ConflictError,
+        EmbeddingsResponse,
+        PermissionDeniedError,
+        RateLimitError,
         Union[
-            "V1EmbeddingsCreateResponse500Type0",
-            "V1EmbeddingsCreateResponse500Type1",
-            "V1EmbeddingsCreateResponse500Type2",
-            "V1EmbeddingsCreateResponse500Type3",
-            "V1EmbeddingsCreateResponse500Type4",
-            "V1EmbeddingsCreateResponse500Type5",
+            "APIResponseValidationError",
+            "CatchAllError",
+            "ProviderAPIConnectionError",
+            "ProviderAPIStatusError",
+            "ProviderAPITimeoutError",
+            "ProviderInternalServerError",
         ],
-        V1EmbeddingsCreateResponse200,
-        V1EmbeddingsCreateResponse400,
-        V1EmbeddingsCreateResponse401,
-        V1EmbeddingsCreateResponse403,
-        V1EmbeddingsCreateResponse409,
-        V1EmbeddingsCreateResponse422,
-        V1EmbeddingsCreateResponse429,
+        Union["ModelNotFoundError", "ProviderNotFoundError"],
+        UnprocessableEntityError,
+        ValidationError,
     ]:
         """Creates embeddings for the given input.
 
         Args:
             authorization (str):
-            body (V1EmbeddingsCreateJsonBody):
-            body (V1EmbeddingsCreateDataBody):
-            body (V1EmbeddingsCreateFilesBody):
+            body (EmbeddingsInput):
+            body (EmbeddingsInput):
+            body (EmbeddingsInput):
 
         Raises:
             errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
             httpx.TimeoutException: If the request takes longer than Client.timeout.
 
         Returns:
-            Response[Union[Union['V1EmbeddingsCreateResponse404Type0', 'V1EmbeddingsCreateResponse404Type1'], Union['V1EmbeddingsCreateResponse500Type0', 'V1EmbeddingsCreateResponse500Type1', 'V1EmbeddingsCreateResponse500Type2', 'V1EmbeddingsCreateResponse500Type3', 'V1EmbeddingsCreateResponse500Type4', 'V1EmbeddingsCreateResponse500Type5'], V1EmbeddingsCreateResponse200, V1EmbeddingsCreateResponse400, V1EmbeddingsCreateResponse401, V1EmbeddingsCreateResponse403, V1EmbeddingsCreateResponse409, V1EmbeddingsCreateResponse422, V1EmbeddingsCreateResponse429]]
+            Response[Union[AuthenticationError, ConflictError, EmbeddingsResponse, PermissionDeniedError, RateLimitError, Union['APIResponseValidationError', 'CatchAllError', 'ProviderAPIConnectionError', 'ProviderAPIStatusError', 'ProviderAPITimeoutError', 'ProviderInternalServerError'], Union['ModelNotFoundError', 'ProviderNotFoundError'], UnprocessableEntityError, ValidationError]]
         """
 
         kwargs = _get_kwargs(

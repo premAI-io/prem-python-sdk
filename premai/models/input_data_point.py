@@ -83,6 +83,53 @@ class InputDataPoint:
 
         return field_dict
 
+    def to_multipart(self) -> Dict[str, Any]:
+        id = self.id if isinstance(self.id, Unset) else (None, str(self.id).encode(), "text/plain")
+
+        positive = (
+            self.positive if isinstance(self.positive, Unset) else (None, str(self.positive).encode(), "text/plain")
+        )
+
+        project = self.project if isinstance(self.project, Unset) else (None, str(self.project).encode(), "text/plain")
+
+        input_: Union[None, Unset, str]
+        if isinstance(self.input_, Unset):
+            input_ = UNSET
+        else:
+            input_ = self.input_
+
+        output: Union[None, Unset, str]
+        if isinstance(self.output, Unset):
+            output = UNSET
+        else:
+            output = self.output
+
+        trace: Union[None, Unset, str]
+        if isinstance(self.trace, Unset):
+            trace = UNSET
+        else:
+            trace = self.trace
+
+        field_dict: Dict[str, Any] = {}
+        field_dict.update(
+            {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
+        )
+        field_dict.update(
+            {
+                "id": id,
+                "positive": positive,
+                "project": project,
+            }
+        )
+        if input_ is not UNSET:
+            field_dict["input"] = input_
+        if output is not UNSET:
+            field_dict["output"] = output
+        if trace is not UNSET:
+            field_dict["trace"] = trace
+
+        return field_dict
+
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy() if src_dict else {}

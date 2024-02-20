@@ -4,14 +4,14 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.provider_internal_server_error_code import ProviderInternalServerErrorCode
+from ..models.provider_internal_server_error_code_enum import ProviderInternalServerErrorCodeEnum
 
 T = TypeVar("T", bound="ProviderInternalServerError")
 
 
 class ProviderInternalServerErrorDict(TypedDict):
     message: str
-    code: ProviderInternalServerErrorCode
+    code: ProviderInternalServerErrorCodeEnum
     pass
 
 
@@ -20,11 +20,11 @@ class ProviderInternalServerError:
     """
     Attributes:
         message (str):
-        code (ProviderInternalServerErrorCode): * `ProviderInternalServerError` - ProviderInternalServerError
+        code (ProviderInternalServerErrorCodeEnum): * `ProviderInternalServerError` - ProviderInternalServerError
     """
 
     message: str
-    code: ProviderInternalServerErrorCode
+    code: ProviderInternalServerErrorCodeEnum
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -49,7 +49,7 @@ class ProviderInternalServerError:
         d = src_dict.copy() if src_dict else {}
         message = d.pop("message")
 
-        code = ProviderInternalServerErrorCode(d.pop("code"))
+        code = ProviderInternalServerErrorCodeEnum(d.pop("code"))
 
         provider_internal_server_error = cls(
             message=message,

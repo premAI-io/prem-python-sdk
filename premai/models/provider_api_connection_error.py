@@ -4,14 +4,14 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.provider_api_connection_error_code import ProviderAPIConnectionErrorCode
+from ..models.provider_api_connection_error_code_enum import ProviderAPIConnectionErrorCodeEnum
 
 T = TypeVar("T", bound="ProviderAPIConnectionError")
 
 
 class ProviderAPIConnectionErrorDict(TypedDict):
     message: str
-    code: ProviderAPIConnectionErrorCode
+    code: ProviderAPIConnectionErrorCodeEnum
     pass
 
 
@@ -20,11 +20,11 @@ class ProviderAPIConnectionError:
     """
     Attributes:
         message (str):
-        code (ProviderAPIConnectionErrorCode): * `ProviderAPIConnectionError` - ProviderAPIConnectionError
+        code (ProviderAPIConnectionErrorCodeEnum): * `ProviderAPIConnectionError` - ProviderAPIConnectionError
     """
 
     message: str
-    code: ProviderAPIConnectionErrorCode
+    code: ProviderAPIConnectionErrorCodeEnum
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -49,7 +49,7 @@ class ProviderAPIConnectionError:
         d = src_dict.copy() if src_dict else {}
         message = d.pop("message")
 
-        code = ProviderAPIConnectionErrorCode(d.pop("code"))
+        code = ProviderAPIConnectionErrorCodeEnum(d.pop("code"))
 
         provider_api_connection_error = cls(
             message=message,

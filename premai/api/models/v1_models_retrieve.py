@@ -2,10 +2,10 @@ from http import HTTPStatus
 from typing import Dict, Optional
 
 import httpx
-from typing_extensions import Any, Unpack
+from typing_extensions import Any
 
 from ... import errors
-from ...models.input_data_point import InputDataPoint
+from ...models.models import Models
 
 # from ...client import AuthenticatedClient, Client
 from ...types import Response
@@ -13,27 +13,18 @@ from ...types import Response
 
 def _get_kwargs(
     id: int,
-    **body: Unpack[InputDataPoint],
 ) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
-
     _kwargs: Dict[str, Any] = {
-        "method": "put",
-        "url": f"/v1/data-points/{id}/",
+        "method": "get",
+        "url": f"/v1/models/{id}/",
     }
 
-    _json_body = body
-
-    _kwargs["json"] = _json_body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
     return _kwargs
 
 
-def _parse_response(*, client, response: httpx.Response) -> Optional[InputDataPoint]:
+def _parse_response(*, client, response: httpx.Response) -> Optional[Models]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = InputDataPoint.from_dict(response.json())
+        response_200 = Models.from_dict(response.json())
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -42,7 +33,7 @@ def _parse_response(*, client, response: httpx.Response) -> Optional[InputDataPo
         return None
 
 
-def _build_response(*, client, response: httpx.Response) -> Response[InputDataPoint]:
+def _build_response(*, client, response: httpx.Response) -> Response[Models]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -51,29 +42,24 @@ def _build_response(*, client, response: httpx.Response) -> Response[InputDataPo
     )
 
 
-def v1_data_points_update_wrapper(client):
-    def v1_data_points_update_wrapped(
+def v1_models_retrieve_wrapper(client):
+    def v1_models_retrieve_wrapped(
         id: int,
-        **body: Unpack[InputDataPoint],
-    ) -> InputDataPoint:
+    ) -> Models:
         """
         Args:
             id (int):
-            body (InputDataPoint):
-            body (InputDataPoint):
-            body (InputDataPoint):
 
         Raises:
             errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
             httpx.TimeoutException: If the request takes longer than Client.timeout.
 
         Returns:
-            Response[InputDataPoint]
+            Response[Models]
         """
 
         kwargs = _get_kwargs(
             id=id,
-            **body,
         )
 
         httpx_client = client.get_httpx_client()
@@ -84,4 +70,4 @@ def v1_data_points_update_wrapper(client):
 
         return _build_response(client=client, response=response).parsed
 
-    return v1_data_points_update_wrapped
+    return v1_models_retrieve_wrapped

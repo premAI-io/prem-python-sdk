@@ -4,14 +4,14 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.provider_not_found_error_code import ProviderNotFoundErrorCode
+from ..models.provider_not_found_error_code_enum import ProviderNotFoundErrorCodeEnum
 
 T = TypeVar("T", bound="ProviderNotFoundError")
 
 
 class ProviderNotFoundErrorDict(TypedDict):
     message: str
-    code: ProviderNotFoundErrorCode
+    code: ProviderNotFoundErrorCodeEnum
     pass
 
 
@@ -20,11 +20,11 @@ class ProviderNotFoundError:
     """
     Attributes:
         message (str):
-        code (ProviderNotFoundErrorCode): * `ProviderNotFoundError` - ProviderNotFoundError
+        code (ProviderNotFoundErrorCodeEnum): * `ProviderNotFoundError` - ProviderNotFoundError
     """
 
     message: str
-    code: ProviderNotFoundErrorCode
+    code: ProviderNotFoundErrorCodeEnum
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -49,7 +49,7 @@ class ProviderNotFoundError:
         d = src_dict.copy() if src_dict else {}
         message = d.pop("message")
 
-        code = ProviderNotFoundErrorCode(d.pop("code"))
+        code = ProviderNotFoundErrorCodeEnum(d.pop("code"))
 
         provider_not_found_error = cls(
             message=message,

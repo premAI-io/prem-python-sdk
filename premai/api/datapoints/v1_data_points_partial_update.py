@@ -5,8 +5,8 @@ import httpx
 from typing_extensions import Any, Unpack
 
 from ... import errors
-from ...models.v1_data_points_partial_update_json_body import V1DataPointsPartialUpdateJsonBody
-from ...models.v1_data_points_partial_update_response_200 import V1DataPointsPartialUpdateResponse200
+from ...models.data_point import DataPoint
+from ...models.patched_data_point import PatchedDataPoint
 
 # from ...client import AuthenticatedClient, Client
 from ...types import Response
@@ -14,7 +14,7 @@ from ...types import Response
 
 def _get_kwargs(
     id: int,
-    **body: Unpack[V1DataPointsPartialUpdateJsonBody],
+    **body: Unpack[PatchedDataPoint],
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -32,9 +32,9 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client, response: httpx.Response) -> Optional[V1DataPointsPartialUpdateResponse200]:
+def _parse_response(*, client, response: httpx.Response) -> Optional[DataPoint]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = V1DataPointsPartialUpdateResponse200.from_dict(response.json())
+        response_200 = DataPoint.from_dict(response.json())
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -43,7 +43,7 @@ def _parse_response(*, client, response: httpx.Response) -> Optional[V1DataPoint
         return None
 
 
-def _build_response(*, client, response: httpx.Response) -> Response[V1DataPointsPartialUpdateResponse200]:
+def _build_response(*, client, response: httpx.Response) -> Response[DataPoint]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,21 +55,21 @@ def _build_response(*, client, response: httpx.Response) -> Response[V1DataPoint
 def v1_data_points_partial_update_wrapper(client):
     def v1_data_points_partial_update_wrapped(
         id: int,
-        **body: Unpack[V1DataPointsPartialUpdateJsonBody],
-    ) -> V1DataPointsPartialUpdateResponse200:
+        **body: Unpack[PatchedDataPoint],
+    ) -> DataPoint:
         """
         Args:
             id (int):
-            body (V1DataPointsPartialUpdateJsonBody):
-            body (V1DataPointsPartialUpdateDataBody):
-            body (V1DataPointsPartialUpdateFilesBody):
+            body (PatchedDataPoint):
+            body (PatchedDataPoint):
+            body (PatchedDataPoint):
 
         Raises:
             errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
             httpx.TimeoutException: If the request takes longer than Client.timeout.
 
         Returns:
-            Response[V1DataPointsPartialUpdateResponse200]
+            Response[DataPoint]
         """
 
         kwargs = _get_kwargs(

@@ -1,10 +1,11 @@
-from typing import Dict, List, Type, Union, cast
+import json
+from typing import Dict, List, Tuple, Type, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from typing_extensions import Any, NotRequired, TypedDict, TypeVar
+from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.embeddings_input_encoding_format import EmbeddingsInputEncodingFormat
+from ..models.encoding_format_enum import EncodingFormatEnum
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="EmbeddingsInput")
@@ -14,7 +15,7 @@ class EmbeddingsInputDict(TypedDict):
     project_id: int
     model: str
     input_: List[Union[List[List[int]], List[int], List[str], str]]
-    encoding_format: NotRequired[Union[Unset, EmbeddingsInputEncodingFormat]]
+    encoding_format: Union[Unset, EncodingFormatEnum] = EncodingFormatEnum.FLOAT
     pass
 
 
@@ -25,13 +26,14 @@ class EmbeddingsInput:
         project_id (int): The ID of the project to use.
         model (str): The model to generate the embeddings.
         input_ (List[Union[List[List[int]], List[int], List[str], str]]): Embedding Input
-        encoding_format (Union[Unset, EmbeddingsInputEncodingFormat]):
+        encoding_format (Union[Unset, EncodingFormatEnum]): * `float` - float
+            * `base64` - base64 Default: EncodingFormatEnum.FLOAT.
     """
 
     project_id: int
     model: str
     input_: List[Union[List[List[int]], List[int], List[str], str]]
-    encoding_format: Union[Unset, "EmbeddingsInputEncodingFormat"] = UNSET
+    encoding_format: Union[Unset, EncodingFormatEnum] = EncodingFormatEnum.FLOAT
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -60,9 +62,9 @@ class EmbeddingsInput:
                 input_item = input_item_data
             input_.append(input_item)
 
-        encoding_format: Union[Unset, Dict[str, Any]] = UNSET
+        encoding_format: Union[Unset, str] = UNSET
         if not isinstance(self.encoding_format, Unset):
-            encoding_format = self.encoding_format.to_dict()
+            encoding_format = self.encoding_format.value
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -78,10 +80,58 @@ class EmbeddingsInput:
 
         return field_dict
 
+    def to_multipart(self) -> Dict[str, Any]:
+        project_id = (
+            self.project_id
+            if isinstance(self.project_id, Unset)
+            else (None, str(self.project_id).encode(), "text/plain")
+        )
+
+        model = self.model if isinstance(self.model, Unset) else (None, str(self.model).encode(), "text/plain")
+
+        _temp_input_ = []
+        for input_item_data in self.input_:
+            input_item: Union[List[List[int]], List[int], List[str], str]
+            if isinstance(input_item_data, list):
+                input_item = input_item_data
+
+            elif isinstance(input_item_data, list):
+                input_item = input_item_data
+
+            elif isinstance(input_item_data, list):
+                input_item = []
+                for input_item_type_3_item_data in input_item_data:
+                    input_item_type_3_item = input_item_type_3_item_data
+
+                    input_item.append(input_item_type_3_item)
+
+            else:
+                input_item = input_item_data
+            _temp_input_.append(input_item)
+        input_ = (None, json.dumps(_temp_input_).encode(), "application/json")
+
+        encoding_format: Union[Unset, Tuple[None, bytes, str]] = UNSET
+        if not isinstance(self.encoding_format, Unset):
+            encoding_format = (None, str(self.encoding_format.value).encode(), "text/plain")
+
+        field_dict: Dict[str, Any] = {}
+        field_dict.update(
+            {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
+        )
+        field_dict.update(
+            {
+                "project_id": project_id,
+                "model": model,
+                "input": input_,
+            }
+        )
+        if encoding_format is not UNSET:
+            field_dict["encoding_format"] = encoding_format
+
+        return field_dict
+
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.embeddings_input_encoding_format import EmbeddingsInputEncodingFormat
-
         d = src_dict.copy() if src_dict else {}
         project_id = d.pop("project_id")
 
@@ -128,11 +178,11 @@ class EmbeddingsInput:
             input_.append(input_item)
 
         _encoding_format = d.pop("encoding_format", UNSET)
-        encoding_format: Union[Unset, EmbeddingsInputEncodingFormat]
+        encoding_format: Union[Unset, EncodingFormatEnum]
         if isinstance(_encoding_format, Unset):
             encoding_format = UNSET
         else:
-            encoding_format = EmbeddingsInputEncodingFormat.from_dict(_encoding_format)
+            encoding_format = EncodingFormatEnum(_encoding_format)
 
         embeddings_input = cls(
             project_id=project_id,

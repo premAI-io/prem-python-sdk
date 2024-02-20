@@ -4,14 +4,14 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.conflict_error_code import ConflictErrorCode
+from ..models.conflict_error_code_enum import ConflictErrorCodeEnum
 
 T = TypeVar("T", bound="ConflictError")
 
 
 class ConflictErrorDict(TypedDict):
     message: str
-    code: ConflictErrorCode
+    code: ConflictErrorCodeEnum
     pass
 
 
@@ -20,11 +20,11 @@ class ConflictError:
     """
     Attributes:
         message (str):
-        code (ConflictErrorCode): * `ConflictError` - ConflictError
+        code (ConflictErrorCodeEnum): * `ConflictError` - ConflictError
     """
 
     message: str
-    code: ConflictErrorCode
+    code: ConflictErrorCodeEnum
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -49,7 +49,7 @@ class ConflictError:
         d = src_dict.copy() if src_dict else {}
         message = d.pop("message")
 
-        code = ConflictErrorCode(d.pop("code"))
+        code = ConflictErrorCodeEnum(d.pop("code"))
 
         conflict_error = cls(
             message=message,

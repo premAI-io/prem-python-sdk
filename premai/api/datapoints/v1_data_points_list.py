@@ -5,7 +5,7 @@ import httpx
 from typing_extensions import Any
 
 from ... import errors
-from ...models.v1_data_points_list_response_200_item import V1DataPointsListResponse200Item
+from ...models.data_point import DataPoint
 
 # from ...client import AuthenticatedClient, Client
 from ...types import Response
@@ -20,12 +20,12 @@ def _get_kwargs() -> Dict[str, Any]:
     return _kwargs
 
 
-def _parse_response(*, client, response: httpx.Response) -> Optional[List["V1DataPointsListResponse200Item"]]:
+def _parse_response(*, client, response: httpx.Response) -> Optional[List["DataPoint"]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
-            response_200_item = V1DataPointsListResponse200Item.from_dict(response_200_item_data)
+            response_200_item = DataPoint.from_dict(response_200_item_data)
 
             response_200.append(response_200_item)
 
@@ -36,7 +36,7 @@ def _parse_response(*, client, response: httpx.Response) -> Optional[List["V1Dat
         return None
 
 
-def _build_response(*, client, response: httpx.Response) -> Response[List["V1DataPointsListResponse200Item"]]:
+def _build_response(*, client, response: httpx.Response) -> Response[List["DataPoint"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -46,14 +46,14 @@ def _build_response(*, client, response: httpx.Response) -> Response[List["V1Dat
 
 
 def v1_data_points_list_wrapper(client):
-    def v1_data_points_list_wrapped() -> List["V1DataPointsListResponse200Item"]:
+    def v1_data_points_list_wrapped() -> List["DataPoint"]:
         """
         Raises:
             errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
             httpx.TimeoutException: If the request takes longer than Client.timeout.
 
         Returns:
-            Response[List['V1DataPointsListResponse200Item']]
+            Response[List['DataPoint']]
         """
 
         kwargs = _get_kwargs()

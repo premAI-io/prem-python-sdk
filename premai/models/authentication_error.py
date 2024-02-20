@@ -4,14 +4,14 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.authentication_error_code import AuthenticationErrorCode
+from ..models.authentication_error_code_enum import AuthenticationErrorCodeEnum
 
 T = TypeVar("T", bound="AuthenticationError")
 
 
 class AuthenticationErrorDict(TypedDict):
     message: str
-    code: AuthenticationErrorCode
+    code: AuthenticationErrorCodeEnum
     pass
 
 
@@ -20,11 +20,11 @@ class AuthenticationError:
     """
     Attributes:
         message (str):
-        code (AuthenticationErrorCode): * `AuthenticationError` - AuthenticationError
+        code (AuthenticationErrorCodeEnum): * `AuthenticationError` - AuthenticationError
     """
 
     message: str
-    code: AuthenticationErrorCode
+    code: AuthenticationErrorCodeEnum
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -49,7 +49,7 @@ class AuthenticationError:
         d = src_dict.copy() if src_dict else {}
         message = d.pop("message")
 
-        code = AuthenticationErrorCode(d.pop("code"))
+        code = AuthenticationErrorCodeEnum(d.pop("code"))
 
         authentication_error = cls(
             message=message,

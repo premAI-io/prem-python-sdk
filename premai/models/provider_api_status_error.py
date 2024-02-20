@@ -4,14 +4,14 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.provider_api_status_error_code import ProviderAPIStatusErrorCode
+from ..models.provider_api_status_error_code_enum import ProviderAPIStatusErrorCodeEnum
 
 T = TypeVar("T", bound="ProviderAPIStatusError")
 
 
 class ProviderAPIStatusErrorDict(TypedDict):
     message: str
-    code: ProviderAPIStatusErrorCode
+    code: ProviderAPIStatusErrorCodeEnum
     pass
 
 
@@ -20,11 +20,11 @@ class ProviderAPIStatusError:
     """
     Attributes:
         message (str):
-        code (ProviderAPIStatusErrorCode): * `ProviderAPIStatusError` - ProviderAPIStatusError
+        code (ProviderAPIStatusErrorCodeEnum): * `ProviderAPIStatusError` - ProviderAPIStatusError
     """
 
     message: str
-    code: ProviderAPIStatusErrorCode
+    code: ProviderAPIStatusErrorCodeEnum
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -49,7 +49,7 @@ class ProviderAPIStatusError:
         d = src_dict.copy() if src_dict else {}
         message = d.pop("message")
 
-        code = ProviderAPIStatusErrorCode(d.pop("code"))
+        code = ProviderAPIStatusErrorCodeEnum(d.pop("code"))
 
         provider_api_status_error = cls(
             message=message,

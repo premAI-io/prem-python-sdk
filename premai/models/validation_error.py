@@ -4,7 +4,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.validation_error_code import ValidationErrorCode
+from ..models.validation_error_code_enum import ValidationErrorCodeEnum
 from ..models.validation_error_details import ValidationErrorDetails
 
 T = TypeVar("T", bound="ValidationError")
@@ -13,7 +13,7 @@ T = TypeVar("T", bound="ValidationError")
 class ValidationErrorDict(TypedDict):
     message: str
     details: "ValidationErrorDetails"
-    code: ValidationErrorCode
+    code: ValidationErrorCodeEnum
     pass
 
 
@@ -23,12 +23,12 @@ class ValidationError:
     Attributes:
         message (str): A description of the validation error.
         details (ValidationErrorDetails): Detailed information about the validation errors.
-        code (ValidationErrorCode): * `ValidationError` - ValidationError
+        code (ValidationErrorCodeEnum): * `ValidationError` - ValidationError
     """
 
     message: str
     details: "ValidationErrorDetails"
-    code: ValidationErrorCode
+    code: ValidationErrorCodeEnum
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -60,7 +60,7 @@ class ValidationError:
 
         details = ValidationErrorDetails.from_dict(d.pop("details"))
 
-        code = ValidationErrorCode(d.pop("code"))
+        code = ValidationErrorCodeEnum(d.pop("code"))
 
         validation_error = cls(
             message=message,

@@ -5,15 +5,14 @@ import httpx
 from typing_extensions import Any, Unpack
 
 from ... import errors
-from ...models.v1_data_points_create_json_body import V1DataPointsCreateJsonBody
-from ...models.v1_data_points_create_response_201 import V1DataPointsCreateResponse201
+from ...models.input_data_point import InputDataPoint
 
 # from ...client import AuthenticatedClient, Client
 from ...types import Response
 
 
 def _get_kwargs(
-    **body: Unpack[V1DataPointsCreateJsonBody],
+    **body: Unpack[InputDataPoint],
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -31,9 +30,9 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client, response: httpx.Response) -> Optional[V1DataPointsCreateResponse201]:
+def _parse_response(*, client, response: httpx.Response) -> Optional[InputDataPoint]:
     if response.status_code == HTTPStatus.CREATED:
-        response_201 = V1DataPointsCreateResponse201.from_dict(response.json())
+        response_201 = InputDataPoint.from_dict(response.json())
 
         return response_201
     if client.raise_on_unexpected_status:
@@ -42,7 +41,7 @@ def _parse_response(*, client, response: httpx.Response) -> Optional[V1DataPoint
         return None
 
 
-def _build_response(*, client, response: httpx.Response) -> Response[V1DataPointsCreateResponse201]:
+def _build_response(*, client, response: httpx.Response) -> Response[InputDataPoint]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -53,20 +52,20 @@ def _build_response(*, client, response: httpx.Response) -> Response[V1DataPoint
 
 def v1_data_points_create_wrapper(client):
     def v1_data_points_create_wrapped(
-        **body: Unpack[V1DataPointsCreateJsonBody],
-    ) -> V1DataPointsCreateResponse201:
+        **body: Unpack[InputDataPoint],
+    ) -> InputDataPoint:
         """
         Args:
-            body (V1DataPointsCreateJsonBody):
-            body (V1DataPointsCreateDataBody):
-            body (V1DataPointsCreateFilesBody):
+            body (InputDataPoint):
+            body (InputDataPoint):
+            body (InputDataPoint):
 
         Raises:
             errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
             httpx.TimeoutException: If the request takes longer than Client.timeout.
 
         Returns:
-            Response[V1DataPointsCreateResponse201]
+            Response[InputDataPoint]
         """
 
         kwargs = _get_kwargs(
