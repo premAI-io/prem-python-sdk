@@ -12,6 +12,7 @@ class ModelProviderEnum(str, Enum):
     MISTRALAI = "mistralai"
     OCTOAI = "octoai"
     OPENAI = "openai"
+    PREM = "prem"
     REPLICATE = "replicate"
     TOGETHER = "together"
 
