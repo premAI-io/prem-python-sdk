@@ -17,6 +17,7 @@ T = TypeVar("T", bound="ChatCompletionInput")
 class ChatCompletionInputDict(TypedDict):
     project_id: int
     messages: List["Message"]
+    session_id: NotRequired[Union[Unset, str]]
     model: NotRequired[Union[Unset, str]]
     system_prompt: NotRequired[Union[Unset, str]]
     frequency_penalty: NotRequired[Union[Unset, float]]
@@ -41,6 +42,7 @@ class ChatCompletionInput:
     Attributes:
         project_id (int): The ID of the project to use.
         messages (List['Message']): A list of messages comprising the conversation so far.
+        session_id (Union[Unset, str]): The ID of the session to use. It helps to track the chat history.
         model (Union[Unset, str]): ID of the model to use. See the model endpoint compatibility table for details.
         system_prompt (Union[Unset, str]): The system prompt to use.
         frequency_penalty (Union[Unset, float]): Number between -2.0 and 2.0. Positive values penalize new tokens based
@@ -66,6 +68,7 @@ class ChatCompletionInput:
 
     project_id: int
     messages: List["Message"]
+    session_id: Union[Unset, str] = UNSET
     model: Union[Unset, str] = UNSET
     system_prompt: Union[Unset, str] = UNSET
     frequency_penalty: Union[Unset, float] = UNSET
@@ -94,6 +97,8 @@ class ChatCompletionInput:
         for messages_item_data in self.messages:
             messages_item = messages_item_data.to_dict()
             messages.append(messages_item)
+
+        session_id = self.session_id
 
         model = self.model
 
@@ -174,6 +179,8 @@ class ChatCompletionInput:
                 "messages": messages,
             }
         )
+        if session_id is not UNSET:
+            field_dict["session_id"] = session_id
         if model is not UNSET:
             field_dict["model"] = model
         if system_prompt is not UNSET:
@@ -219,6 +226,12 @@ class ChatCompletionInput:
             messages_item = messages_item_data.to_dict()
             _temp_messages.append(messages_item)
         messages = (None, json.dumps(_temp_messages).encode(), "application/json")
+
+        session_id = (
+            self.session_id
+            if isinstance(self.session_id, Unset)
+            else (None, str(self.session_id).encode(), "text/plain")
+        )
 
         model = self.model if isinstance(self.model, Unset) else (None, str(self.model).encode(), "text/plain")
 
@@ -314,6 +327,8 @@ class ChatCompletionInput:
                 "messages": messages,
             }
         )
+        if session_id is not UNSET:
+            field_dict["session_id"] = session_id
         if model is not UNSET:
             field_dict["model"] = model
         if system_prompt is not UNSET:
@@ -363,6 +378,8 @@ class ChatCompletionInput:
             messages_item = Message.from_dict(messages_item_data)
 
             messages.append(messages_item)
+
+        session_id = d.pop("session_id", UNSET)
 
         model = d.pop("model", UNSET)
 
@@ -474,6 +491,7 @@ class ChatCompletionInput:
         chat_completion_input = cls(
             project_id=project_id,
             messages=messages,
+            session_id=session_id,
             model=model,
             system_prompt=system_prompt,
             frequency_penalty=frequency_penalty,

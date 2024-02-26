@@ -10,9 +10,9 @@ T = TypeVar("T", bound="Usage")
 
 
 class UsageDict(TypedDict):
+    prompt_tokens: int
+    total_tokens: int
     completion_tokens: NotRequired[Union[Unset, int]]
-    prompt_tokens: NotRequired[Union[Unset, int]]
-    total_tokens: NotRequired[Union[Unset, int]]
     pass
 
 
@@ -20,49 +20,50 @@ class UsageDict(TypedDict):
 class Usage:
     """
     Attributes:
+        prompt_tokens (int):
+        total_tokens (int):
         completion_tokens (Union[Unset, int]):
-        prompt_tokens (Union[Unset, int]):
-        total_tokens (Union[Unset, int]):
     """
 
+    prompt_tokens: int
+    total_tokens: int
     completion_tokens: Union[Unset, int] = UNSET
-    prompt_tokens: Union[Unset, int] = UNSET
-    total_tokens: Union[Unset, int] = UNSET
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        completion_tokens = self.completion_tokens
-
         prompt_tokens = self.prompt_tokens
 
         total_tokens = self.total_tokens
 
+        completion_tokens = self.completion_tokens
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update(
+            {
+                "prompt_tokens": prompt_tokens,
+                "total_tokens": total_tokens,
+            }
+        )
         if completion_tokens is not UNSET:
             field_dict["completion_tokens"] = completion_tokens
-        if prompt_tokens is not UNSET:
-            field_dict["prompt_tokens"] = prompt_tokens
-        if total_tokens is not UNSET:
-            field_dict["total_tokens"] = total_tokens
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy() if src_dict else {}
+        prompt_tokens = d.pop("prompt_tokens")
+
+        total_tokens = d.pop("total_tokens")
+
         completion_tokens = d.pop("completion_tokens", UNSET)
 
-        prompt_tokens = d.pop("prompt_tokens", UNSET)
-
-        total_tokens = d.pop("total_tokens", UNSET)
-
         usage = cls(
-            completion_tokens=completion_tokens,
             prompt_tokens=prompt_tokens,
             total_tokens=total_tokens,
+            completion_tokens=completion_tokens,
         )
 
         usage.additional_properties = d

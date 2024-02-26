@@ -10,7 +10,6 @@ T = TypeVar("T", bound="InputDataPoint")
 
 
 class InputDataPointDict(TypedDict):
-    id: int
     positive: bool
     project: int
     input_: NotRequired[Union[None, Unset, str]]
@@ -23,7 +22,6 @@ class InputDataPointDict(TypedDict):
 class InputDataPoint:
     """
     Attributes:
-        id (int):
         positive (bool):
         project (int):
         input_ (Union[None, Unset, str]):
@@ -31,7 +29,6 @@ class InputDataPoint:
         trace (Union[None, Unset, str]):
     """
 
-    id: int
     positive: bool
     project: int
     input_: Union[None, Unset, str] = UNSET
@@ -41,8 +38,6 @@ class InputDataPoint:
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        id = self.id
-
         positive = self.positive
 
         project = self.project
@@ -69,7 +64,6 @@ class InputDataPoint:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "id": id,
                 "positive": positive,
                 "project": project,
             }
@@ -84,8 +78,6 @@ class InputDataPoint:
         return field_dict
 
     def to_multipart(self) -> Dict[str, Any]:
-        id = self.id if isinstance(self.id, Unset) else (None, str(self.id).encode(), "text/plain")
-
         positive = (
             self.positive if isinstance(self.positive, Unset) else (None, str(self.positive).encode(), "text/plain")
         )
@@ -116,7 +108,6 @@ class InputDataPoint:
         )
         field_dict.update(
             {
-                "id": id,
                 "positive": positive,
                 "project": project,
             }
@@ -133,8 +124,6 @@ class InputDataPoint:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy() if src_dict else {}
-        id = d.pop("id")
-
         positive = d.pop("positive")
 
         project = d.pop("project")
@@ -167,7 +156,6 @@ class InputDataPoint:
         trace = _parse_trace(d.pop("trace", UNSET))
 
         input_data_point = cls(
-            id=id,
             positive=positive,
             project=project,
             input_=input_,

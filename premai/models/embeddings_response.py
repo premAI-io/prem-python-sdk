@@ -1,12 +1,11 @@
-from typing import Dict, List, Type, Union
+from typing import Dict, List, Type
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from typing_extensions import Any, NotRequired, TypedDict, TypeVar
+from typing_extensions import Any, TypedDict, TypeVar
 
 from ..models.embedding import Embedding
 from ..models.usage import Usage
-from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="EmbeddingsResponse")
 
@@ -14,9 +13,9 @@ T = TypeVar("T", bound="EmbeddingsResponse")
 class EmbeddingsResponseDict(TypedDict):
     data: List["Embedding"]
     model: str
+    usage: "Usage"
     provider_name: str
     provider_id: str
-    usage: NotRequired[Union[Unset, Usage]]
     pass
 
 
@@ -26,16 +25,16 @@ class EmbeddingsResponse:
     Attributes:
         data (List['Embedding']): The embeddings for the input.
         model (str): The model to generate the embeddings.
+        usage (Usage):
         provider_name (str): The name of the provider that generated the completion.
         provider_id (str): The ID of the provider that generated the completion.
-        usage (Union[Unset, Usage]):
     """
 
     data: List["Embedding"]
     model: str
+    usage: "Usage"
     provider_name: str
     provider_id: str
-    usage: Union[Unset, "Usage"] = UNSET
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -47,13 +46,11 @@ class EmbeddingsResponse:
 
         model = self.model
 
+        usage = self.usage.to_dict()
+
         provider_name = self.provider_name
 
         provider_id = self.provider_id
-
-        usage: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.usage, Unset):
-            usage = self.usage.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -61,12 +58,11 @@ class EmbeddingsResponse:
             {
                 "data": data,
                 "model": model,
+                "usage": usage,
                 "provider_name": provider_name,
                 "provider_id": provider_id,
             }
         )
-        if usage is not UNSET:
-            field_dict["usage"] = usage
 
         return field_dict
 
@@ -85,23 +81,18 @@ class EmbeddingsResponse:
 
         model = d.pop("model")
 
+        usage = Usage.from_dict(d.pop("usage"))
+
         provider_name = d.pop("provider_name")
 
         provider_id = d.pop("provider_id")
 
-        _usage = d.pop("usage", UNSET)
-        usage: Union[Unset, Usage]
-        if isinstance(_usage, Unset):
-            usage = UNSET
-        else:
-            usage = Usage.from_dict(_usage)
-
         embeddings_response = cls(
             data=data,
             model=model,
+            usage=usage,
             provider_name=provider_name,
             provider_id=provider_id,
-            usage=usage,
         )
 
         embeddings_response.additional_properties = d
