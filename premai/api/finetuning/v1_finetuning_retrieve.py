@@ -28,14 +28,11 @@ from ...types import Response
 def _get_kwargs(
     job_id: str,
 ) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
-
     _kwargs: Dict[str, Any] = {
         "method": "get",
         "url": f"/v1/finetuning/{job_id}",
     }
 
-    _kwargs["headers"] = headers
     return _kwargs
 
 
@@ -126,7 +123,6 @@ def v1_finetuning_retrieve_wrapper(client):
 
         Args:
             job_id (str):
-            authorization (str):
 
         Raises:
             errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

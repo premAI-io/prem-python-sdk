@@ -131,7 +131,6 @@ def v1_embeddings_create_wrapper(client):
         """Creates embeddings for the given input.
 
         Args:
-            authorization (str):
             body (EmbeddingsInput):
             body (EmbeddingsInput):
             body (EmbeddingsInput):

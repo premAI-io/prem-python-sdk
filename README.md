@@ -3,14 +3,16 @@
 
 ## Installation
 
-You can also install the Prem Python SDK directly from PyPI.
+You can install the Prem Python SDK directly from PyPI.
 
 ```bash
 pip install premai
 ```
 
 ## Usage
+
 ### Getting Started
+
 To use the Prem Python SDK, you need to obtain an API key from the Prem platform. You can then create a `Prem` instance to make requests to the API.
 
 ```python
@@ -22,6 +24,7 @@ client = Prem(
 ```
 
 ### Chat completion
+
 The `chat.completions` module allows you to generate completions based on user input. Here's an example:
 
 ```python
@@ -30,13 +33,15 @@ messages = [
 ]
 model = "gpt-3.5-turbo" # optional
 system_prompt = "You are a helpful assistant." # optional
-project_id = YOUR_PROJECT_ID
+session_id = "my-session" # optional: a unique identifier to maintain session context, useful for tracking conversations or data across multiple requests
+project_id = PROJECT_ID
 
 # Create completion
 response = client.chat.completions.create(
     project_id=project_id,
     messages=messages,
     model=model,
+    session_id=session_id,
     system_prompt=system_prompt,
     stream=False
 )
@@ -48,6 +53,7 @@ response = client.chat.completions.create(
     project_id=project_id,
     messages=messages,
     model=model,
+    session_id=session_id,
     system_prompt=system_prompt,
     stream=True
 )
@@ -58,4 +64,3 @@ for chunk in response:
 
 print(f"\nTrace ID: {response.trace_id}")
 ```
-

@@ -131,7 +131,6 @@ def v1_finetuning_create_wrapper(client):
         """Creates a finetuning job.
 
         Args:
-            authorization (str):
             body (FineTuningInput):
             body (FineTuningInput):
             body (FineTuningInput):
