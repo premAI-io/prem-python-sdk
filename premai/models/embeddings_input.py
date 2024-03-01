@@ -14,7 +14,7 @@ T = TypeVar("T", bound="EmbeddingsInput")
 class EmbeddingsInputDict(TypedDict):
     project_id: int
     model: str
-    input_: List[Union[List[List[int]], List[int], List[str], str]]
+    input_: Union[List[List[int]], List[int], List[str], str]
     encoding_format: Union[Unset, EncodingFormatEnum] = EncodingFormatEnum.FLOAT
     pass
 
@@ -25,14 +25,14 @@ class EmbeddingsInput:
     Attributes:
         project_id (int): The ID of the project to use.
         model (str): The model to generate the embeddings.
-        input_ (List[Union[List[List[int]], List[int], List[str], str]]): Embedding Input
+        input_ (Union[List[List[int]], List[int], List[str], str]): Embedding Input
         encoding_format (Union[Unset, EncodingFormatEnum]): * `float` - float
             * `base64` - base64 Default: EncodingFormatEnum.FLOAT.
     """
 
     project_id: int
     model: str
-    input_: List[Union[List[List[int]], List[int], List[str], str]]
+    input_: Union[List[List[int]], List[int], List[str], str]
     encoding_format: Union[Unset, EncodingFormatEnum] = EncodingFormatEnum.FLOAT
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -42,25 +42,22 @@ class EmbeddingsInput:
 
         model = self.model
 
-        input_ = []
-        for input_item_data in self.input_:
-            input_item: Union[List[List[int]], List[int], List[str], str]
-            if isinstance(input_item_data, list):
-                input_item = input_item_data
+        input_: Union[List[List[int]], List[int], List[str], str]
+        if isinstance(self.input_, list):
+            input_ = self.input_
 
-            elif isinstance(input_item_data, list):
-                input_item = input_item_data
+        elif isinstance(self.input_, list):
+            input_ = self.input_
 
-            elif isinstance(input_item_data, list):
-                input_item = []
-                for input_item_type_3_item_data in input_item_data:
-                    input_item_type_3_item = input_item_type_3_item_data
+        elif isinstance(self.input_, list):
+            input_ = []
+            for input_type_3_item_data in self.input_:
+                input_type_3_item = input_type_3_item_data
 
-                    input_item.append(input_item_type_3_item)
+                input_.append(input_type_3_item)
 
-            else:
-                input_item = input_item_data
-            input_.append(input_item)
+        else:
+            input_ = self.input_
 
         encoding_format: Union[Unset, str] = UNSET
         if not isinstance(self.encoding_format, Unset):
@@ -89,26 +86,25 @@ class EmbeddingsInput:
 
         model = self.model if isinstance(self.model, Unset) else (None, str(self.model).encode(), "text/plain")
 
-        _temp_input_ = []
-        for input_item_data in self.input_:
-            input_item: Union[List[List[int]], List[int], List[str], str]
-            if isinstance(input_item_data, list):
-                input_item = input_item_data
+        input_: Union[Tuple[None, bytes, str], str]
+        if isinstance(self.input_, list):
+            _temp_input_ = self.input_
+            input_ = (None, json.dumps(_temp_input_).encode(), "application/json")
 
-            elif isinstance(input_item_data, list):
-                input_item = input_item_data
+        elif isinstance(self.input_, list):
+            _temp_input_ = self.input_
+            input_ = (None, json.dumps(_temp_input_).encode(), "application/json")
 
-            elif isinstance(input_item_data, list):
-                input_item = []
-                for input_item_type_3_item_data in input_item_data:
-                    input_item_type_3_item = input_item_type_3_item_data
+        elif isinstance(self.input_, list):
+            _temp_input_ = []
+            for input_type_3_item_data in self.input_:
+                input_type_3_item = input_type_3_item_data
 
-                    input_item.append(input_item_type_3_item)
+                _temp_input_.append(input_type_3_item)
+            input_ = (None, json.dumps(_temp_input_).encode(), "application/json")
 
-            else:
-                input_item = input_item_data
-            _temp_input_.append(input_item)
-        input_ = (None, json.dumps(_temp_input_).encode(), "application/json")
+        else:
+            input_ = self.input_
 
         encoding_format: Union[Unset, Tuple[None, bytes, str]] = UNSET
         if not isinstance(self.encoding_format, Unset):
@@ -137,45 +133,39 @@ class EmbeddingsInput:
 
         model = d.pop("model")
 
-        input_ = []
-        _input_ = d.pop("input")
-        for input_item_data in _input_:
+        def _parse_input_(data: object) -> Union[List[List[int]], List[int], List[str], str]:
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                input_type_1 = cast(List[str], data)
 
-            def _parse_input_item(data: object) -> Union[List[List[int]], List[int], List[str], str]:
-                try:
-                    if not isinstance(data, list):
-                        raise TypeError()
-                    input_item_type_1 = cast(List[str], data)
+                return input_type_1
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                input_type_2 = cast(List[int], data)
 
-                    return input_item_type_1
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, list):
-                        raise TypeError()
-                    input_item_type_2 = cast(List[int], data)
+                return input_type_2
+            except:  # noqa: E722
+                pass
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                input_type_3 = []
+                _input_type_3 = data
+                for input_type_3_item_data in _input_type_3:
+                    input_type_3_item = cast(List[int], input_type_3_item_data)
 
-                    return input_item_type_2
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, list):
-                        raise TypeError()
-                    input_item_type_3 = []
-                    _input_item_type_3 = data
-                    for input_item_type_3_item_data in _input_item_type_3:
-                        input_item_type_3_item = cast(List[int], input_item_type_3_item_data)
+                    input_type_3.append(input_type_3_item)
 
-                        input_item_type_3.append(input_item_type_3_item)
+                return input_type_3
+            except:  # noqa: E722
+                pass
+            return cast(Union[List[List[int]], List[int], List[str], str], data)
 
-                    return input_item_type_3
-                except:  # noqa: E722
-                    pass
-                return cast(Union[List[List[int]], List[int], List[str], str], data)
-
-            input_item = _parse_input_item(input_item_data)
-
-            input_.append(input_item)
+        input_ = _parse_input_(d.pop("input"))
 
         _encoding_format = d.pop("encoding_format", UNSET)
         encoding_format: Union[Unset, EncodingFormatEnum]
