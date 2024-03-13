@@ -8,6 +8,7 @@ from typing_extensions import Any, NotRequired, TypedDict, TypeVar
 from ..models.chat_completion_input_logit_bias_type_0 import ChatCompletionInputLogitBiasType0
 from ..models.chat_completion_input_response_format_type_0 import ChatCompletionInputResponseFormatType0
 from ..models.chat_completion_input_tools_item import ChatCompletionInputToolsItem
+from ..models.enhancement import Enhancement
 from ..models.message import Message
 from ..types import UNSET, Unset
 
@@ -18,12 +19,12 @@ class ChatCompletionInputDict(TypedDict):
     project_id: int
     messages: List["Message"]
     session_id: NotRequired[Union[Unset, str]]
+    repositories: NotRequired[Union[Unset, Enhancement]]
     model: NotRequired[Union[Unset, str]]
     system_prompt: NotRequired[Union[Unset, str]]
     frequency_penalty: NotRequired[Union[Unset, float]]
     logit_bias: NotRequired[Union["ChatCompletionInputLogitBiasType0", None, Unset]]
     max_tokens: NotRequired[Union[None, Unset, int]]
-    n: NotRequired[Union[Unset, int]]
     presence_penalty: NotRequired[Union[Unset, float]]
     response_format: NotRequired[Union["ChatCompletionInputResponseFormatType0", None, Unset]]
     seed: NotRequired[Union[None, Unset, int]]
@@ -43,6 +44,7 @@ class ChatCompletionInput:
         project_id (int): The ID of the project to use.
         messages (List['Message']): A list of messages comprising the conversation so far.
         session_id (Union[Unset, str]): The ID of the session to use. It helps to track the chat history.
+        repositories (Union[Unset, Enhancement]):
         model (Union[Unset, str]): ID of the model to use. See the model endpoint compatibility table for details.
         system_prompt (Union[Unset, str]): The system prompt to use.
         frequency_penalty (Union[Unset, float]): Number between -2.0 and 2.0. Positive values penalize new tokens based
@@ -50,7 +52,6 @@ class ChatCompletionInput:
         logit_bias (Union['ChatCompletionInputLogitBiasType0', None, Unset]): JSON object that maps tokens to an
             associated bias value from -100 to 100.
         max_tokens (Union[None, Unset, int]): The maximum number of tokens to generate in the chat completion.
-        n (Union[Unset, int]): How many chat completion choices to generate for each input message.
         presence_penalty (Union[Unset, float]): Number between -2.0 and 2.0. Positive values penalize new tokens based
             on whether they appear in the text so far.
         response_format (Union['ChatCompletionInputResponseFormatType0', None, Unset]): An object specifying the format
@@ -69,12 +70,12 @@ class ChatCompletionInput:
     project_id: int
     messages: List["Message"]
     session_id: Union[Unset, str] = UNSET
+    repositories: Union[Unset, "Enhancement"] = UNSET
     model: Union[Unset, str] = UNSET
     system_prompt: Union[Unset, str] = UNSET
     frequency_penalty: Union[Unset, float] = UNSET
     logit_bias: Union["ChatCompletionInputLogitBiasType0", None, Unset] = UNSET
     max_tokens: Union[None, Unset, int] = UNSET
-    n: Union[Unset, int] = UNSET
     presence_penalty: Union[Unset, float] = UNSET
     response_format: Union["ChatCompletionInputResponseFormatType0", None, Unset] = UNSET
     seed: Union[None, Unset, int] = UNSET
@@ -100,6 +101,10 @@ class ChatCompletionInput:
 
         session_id = self.session_id
 
+        repositories: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.repositories, Unset):
+            repositories = self.repositories.to_dict()
+
         model = self.model
 
         system_prompt = self.system_prompt
@@ -119,8 +124,6 @@ class ChatCompletionInput:
             max_tokens = UNSET
         else:
             max_tokens = self.max_tokens
-
-        n = self.n
 
         presence_penalty = self.presence_penalty
 
@@ -181,6 +184,8 @@ class ChatCompletionInput:
         )
         if session_id is not UNSET:
             field_dict["session_id"] = session_id
+        if repositories is not UNSET:
+            field_dict["repositories"] = repositories
         if model is not UNSET:
             field_dict["model"] = model
         if system_prompt is not UNSET:
@@ -191,8 +196,6 @@ class ChatCompletionInput:
             field_dict["logit_bias"] = logit_bias
         if max_tokens is not UNSET:
             field_dict["max_tokens"] = max_tokens
-        if n is not UNSET:
-            field_dict["n"] = n
         if presence_penalty is not UNSET:
             field_dict["presence_penalty"] = presence_penalty
         if response_format is not UNSET:
@@ -233,6 +236,10 @@ class ChatCompletionInput:
             else (None, str(self.session_id).encode(), "text/plain")
         )
 
+        repositories: Union[Unset, Tuple[None, bytes, str]] = UNSET
+        if not isinstance(self.repositories, Unset):
+            repositories = (None, json.dumps(self.repositories.to_dict()).encode(), "application/json")
+
         model = self.model if isinstance(self.model, Unset) else (None, str(self.model).encode(), "text/plain")
 
         system_prompt = (
@@ -260,8 +267,6 @@ class ChatCompletionInput:
             max_tokens = UNSET
         else:
             max_tokens = self.max_tokens
-
-        n = self.n if isinstance(self.n, Unset) else (None, str(self.n).encode(), "text/plain")
 
         presence_penalty = (
             self.presence_penalty
@@ -329,6 +334,8 @@ class ChatCompletionInput:
         )
         if session_id is not UNSET:
             field_dict["session_id"] = session_id
+        if repositories is not UNSET:
+            field_dict["repositories"] = repositories
         if model is not UNSET:
             field_dict["model"] = model
         if system_prompt is not UNSET:
@@ -339,8 +346,6 @@ class ChatCompletionInput:
             field_dict["logit_bias"] = logit_bias
         if max_tokens is not UNSET:
             field_dict["max_tokens"] = max_tokens
-        if n is not UNSET:
-            field_dict["n"] = n
         if presence_penalty is not UNSET:
             field_dict["presence_penalty"] = presence_penalty
         if response_format is not UNSET:
@@ -367,6 +372,7 @@ class ChatCompletionInput:
         from ..models.chat_completion_input_logit_bias_type_0 import ChatCompletionInputLogitBiasType0
         from ..models.chat_completion_input_response_format_type_0 import ChatCompletionInputResponseFormatType0
         from ..models.chat_completion_input_tools_item import ChatCompletionInputToolsItem
+        from ..models.enhancement import Enhancement
         from ..models.message import Message
 
         d = src_dict.copy() if src_dict else {}
@@ -380,6 +386,13 @@ class ChatCompletionInput:
             messages.append(messages_item)
 
         session_id = d.pop("session_id", UNSET)
+
+        _repositories = d.pop("repositories", UNSET)
+        repositories: Union[Unset, Enhancement]
+        if isinstance(_repositories, Unset):
+            repositories = UNSET
+        else:
+            repositories = Enhancement.from_dict(_repositories)
 
         model = d.pop("model", UNSET)
 
@@ -412,8 +425,6 @@ class ChatCompletionInput:
             return cast(Union[None, Unset, int], data)
 
         max_tokens = _parse_max_tokens(d.pop("max_tokens", UNSET))
-
-        n = d.pop("n", UNSET)
 
         presence_penalty = d.pop("presence_penalty", UNSET)
 
@@ -492,12 +503,12 @@ class ChatCompletionInput:
             project_id=project_id,
             messages=messages,
             session_id=session_id,
+            repositories=repositories,
             model=model,
             system_prompt=system_prompt,
             frequency_penalty=frequency_penalty,
             logit_bias=logit_bias,
             max_tokens=max_tokens,
-            n=n,
             presence_penalty=presence_penalty,
             response_format=response_format,
             seed=seed,

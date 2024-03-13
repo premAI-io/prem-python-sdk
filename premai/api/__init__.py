@@ -5,6 +5,7 @@ from typing_extensions import Unpack
 
 from ..models import (
     ChatCompletionInputDict,
+    DocumentInputDict,
     EmbeddingsInputDict,
     FineTuningInputDict,
     InputDataPointDict,
@@ -22,6 +23,7 @@ from .finetuning.v1_finetuning_create import v1_finetuning_create_wrapper
 from .finetuning.v1_finetuning_retrieve import v1_finetuning_retrieve_wrapper
 from .models.v1_models_list import v1_models_list_wrapper
 from .models.v1_models_retrieve import v1_models_retrieve_wrapper
+from .repository_document.v1_repository_document_create import v1_repository_document_create_wrapper
 
 
 class ChatCompletionsModule:
@@ -109,8 +111,23 @@ class ModelsModule:
         )
 
 
+class RepositoryDocumentModule:
+    def __init__(self, client):
+        self._client = client
+
+    def create(self, repository_id: int, **kwargs: Unpack[DocumentInputDict]):
+        return v1_repository_document_create_wrapper(self._client)(repository_id, **kwargs)
+
+
 class ChatModuleWrapper:
     completions: ChatCompletionsModule
 
     def __init__(self, client):
         self.completions = ChatCompletionsModule(client)
+
+
+class RepositoryModuleWrapper:
+    document: RepositoryDocumentModule
+
+    def __init__(self, client):
+        self.document = RepositoryDocumentModule(client)

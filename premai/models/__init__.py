@@ -15,10 +15,15 @@ from .chat_completion_response import ChatCompletionResponse
 from .conflict_error import ConflictError
 from .conflict_error_code_enum import ConflictErrorCodeEnum
 from .data_point import DataPoint
+from .document_chunks import DocumentChunks
+from .document_input import DocumentInput, DocumentInputDict
+from .document_output import DocumentOutput
+from .document_type_enum import DocumentTypeEnum
 from .embedding import Embedding
 from .embeddings_input import EmbeddingsInput, EmbeddingsInputDict
 from .embeddings_response import EmbeddingsResponse
 from .encoding_format_enum import EncodingFormatEnum
+from .enhancement import Enhancement
 from .fine_tuning_input import FineTuningInput, FineTuningInputDict
 from .fine_tuning_response import FineTuningResponse
 from .fine_tuning_sample import FineTuningSample
@@ -47,6 +52,7 @@ from .rate_limit_error_code_enum import RateLimitErrorCodeEnum
 from .response_choice import ResponseChoice
 from .retrieve_fine_tuning_response import RetrieveFineTuningResponse
 from .role_enum import RoleEnum
+from .status_enum import StatusEnum
 from .unprocessable_entity_error import UnprocessableEntityError
 from .unprocessable_entity_error_code_enum import UnprocessableEntityErrorCodeEnum
 from .usage import Usage
@@ -72,10 +78,15 @@ __all__ = (
     "ConflictError",
     "ConflictErrorCodeEnum",
     "DataPoint",
+    "DocumentChunks",
+    "DocumentInput",
+    "DocumentOutput",
+    "DocumentTypeEnum",
     "Embedding",
     "EmbeddingsInput",
     "EmbeddingsResponse",
     "EncodingFormatEnum",
+    "Enhancement",
     "FineTuningInput",
     "FineTuningResponse",
     "FineTuningSample",
@@ -104,6 +115,7 @@ __all__ = (
     "ResponseChoice",
     "RetrieveFineTuningResponse",
     "RoleEnum",
+    "StatusEnum",
     "UnprocessableEntityError",
     "UnprocessableEntityErrorCodeEnum",
     "Usage",
@@ -130,4 +142,7 @@ __all__ = (
     "FineTuningInputDict",
     "FineTuningInputDict",
     "FineTuningInputDict",
+    "DocumentInputDict",
+    "DocumentInputDict",
+    "DocumentInputDict",
 )

@@ -13,6 +13,7 @@ from .api import (
     EmbeddingsModule,
     FinetuningModule,
     ModelsModule,
+    RepositoryDocumentModule,
 )
 
 
@@ -249,6 +250,7 @@ class Prem:
     embeddings: EmbeddingsModule
     finetuning: FinetuningModule
     models: ModelsModule
+    repository_document: RepositoryDocumentModule
 
     def __init__(self, api_key: str = "", base_url="https://app.premai.io"):
         client = AuthenticatedClient(token=api_key, base_url=base_url)
@@ -258,3 +260,4 @@ class Prem:
         self.embeddings = EmbeddingsModule(client)
         self.finetuning = FinetuningModule(client)
         self.models = ModelsModule(client)
+        self.repository_document = RepositoryDocumentModule(client)

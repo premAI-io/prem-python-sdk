@@ -13,6 +13,7 @@ from ...models.authentication_error import AuthenticationError
 from ...models.catch_all_error import CatchAllError
 from ...models.chat_completion_input import ChatCompletionInput
 from ...models.chat_completion_response import ChatCompletionResponse
+from ...models.document_chunks import DocumentChunks
 from ...models.conflict_error import ConflictError
 from ...models.model_not_found_error import ModelNotFoundError
 from ...models.permission_denied_error import PermissionDeniedError
@@ -172,6 +173,7 @@ import re
 class ChatCompletionResponseStreamContainer:
     _pattern = '(?<={key}: )(.*)'
     trace_id: str = None
+    document_chunks: DocumentChunks = None
 
     def __init__(self, stream: httpx.Response):  
         self._stream = stream
@@ -193,13 +195,23 @@ class ChatCompletionResponseStreamContainer:
         match = re.search(self._pattern.format(key='trace_id'), text)
         if match: return match.group(1)
         else:   return None
+
+    def _parse_document_chunks(self, text: str):
+        match = re.search(self._pattern.format(key='document_chunks'), text)
+        if match:
+            data = json.loads(match.group(1))
+            parsed_data: DocumentChunks = [DocumentChunks.from_dict(parsed_chunk) for parsed_chunk in data]
+            return parsed_data
+        else:   return None
     
+
     def __iter__(self):
         def generator():
             with self._stream as stream:
                 for text in stream.iter_text():
                     event = self._parse_event(text)
                     self.trace_id = self._parse_trace_id(text)
+                    self.document_chunks = self._parse_document_chunks(text)
                     if event == END_STREAM:
                         break
                     data = self._parse_data(text)
