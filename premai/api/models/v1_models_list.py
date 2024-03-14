@@ -5,7 +5,7 @@ import httpx
 from typing_extensions import Any
 
 from ... import errors
-from ...models.models import Models
+from ...models.model import Model
 
 # from ...client import AuthenticatedClient, Client
 from ...types import Response
@@ -20,12 +20,12 @@ def _get_kwargs() -> Dict[str, Any]:
     return _kwargs
 
 
-def _parse_response(*, client, response: httpx.Response) -> Optional[List["Models"]]:
+def _parse_response(*, client, response: httpx.Response) -> Optional[List["Model"]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
-            response_200_item = Models.from_dict(response_200_item_data)
+            response_200_item = Model.from_dict(response_200_item_data)
 
             response_200.append(response_200_item)
 
@@ -36,7 +36,7 @@ def _parse_response(*, client, response: httpx.Response) -> Optional[List["Model
         return None
 
 
-def _build_response(*, client, response: httpx.Response) -> Response[List["Models"]]:
+def _build_response(*, client, response: httpx.Response) -> Response[List["Model"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -46,14 +46,14 @@ def _build_response(*, client, response: httpx.Response) -> Response[List["Model
 
 
 def v1_models_list_wrapper(client):
-    def v1_models_list_wrapped() -> List["Models"]:
+    def v1_models_list_wrapped() -> List["Model"]:
         """
         Raises:
             errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
             httpx.TimeoutException: If the request takes longer than Client.timeout.
 
         Returns:
-            Response[List['Models']]
+            Response[List['Model']]
         """
 
         kwargs = _get_kwargs()

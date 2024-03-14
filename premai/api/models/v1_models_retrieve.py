@@ -5,7 +5,7 @@ import httpx
 from typing_extensions import Any
 
 from ... import errors
-from ...models.models import Models
+from ...models.model import Model
 
 # from ...client import AuthenticatedClient, Client
 from ...types import Response
@@ -22,9 +22,9 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client, response: httpx.Response) -> Optional[Models]:
+def _parse_response(*, client, response: httpx.Response) -> Optional[Model]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = Models.from_dict(response.json())
+        response_200 = Model.from_dict(response.json())
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -33,7 +33,7 @@ def _parse_response(*, client, response: httpx.Response) -> Optional[Models]:
         return None
 
 
-def _build_response(*, client, response: httpx.Response) -> Response[Models]:
+def _build_response(*, client, response: httpx.Response) -> Response[Model]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -45,7 +45,7 @@ def _build_response(*, client, response: httpx.Response) -> Response[Models]:
 def v1_models_retrieve_wrapper(client):
     def v1_models_retrieve_wrapped(
         id: int,
-    ) -> Models:
+    ) -> Model:
         """
         Args:
             id (int):
@@ -55,7 +55,7 @@ def v1_models_retrieve_wrapper(client):
             httpx.TimeoutException: If the request takes longer than Client.timeout.
 
         Returns:
-            Response[Models]
+            Response[Model]
         """
 
         kwargs = _get_kwargs(

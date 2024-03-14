@@ -29,11 +29,11 @@ from .fine_tuning_response import FineTuningResponse
 from .fine_tuning_sample import FineTuningSample
 from .input_data_point import InputDataPoint, InputDataPointDict
 from .message import Message
+from .model import Model
 from .model_not_found_error import ModelNotFoundError
 from .model_not_found_error_code_enum import ModelNotFoundErrorCodeEnum
 from .model_provider_enum import ModelProviderEnum
 from .model_type_enum import ModelTypeEnum
-from .models import Models
 from .patched_data_point import PatchedDataPoint, PatchedDataPointDict
 from .permission_denied_error import PermissionDeniedError
 from .permission_denied_error_code_enum import PermissionDeniedErrorCodeEnum
@@ -92,10 +92,10 @@ __all__ = (
     "FineTuningSample",
     "InputDataPoint",
     "Message",
+    "Model",
     "ModelNotFoundError",
     "ModelNotFoundErrorCodeEnum",
     "ModelProviderEnum",
-    "Models",
     "ModelTypeEnum",
     "PatchedDataPoint",
     "PermissionDeniedError",

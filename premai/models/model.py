@@ -9,23 +9,23 @@ from ..models.model_provider_enum import ModelProviderEnum
 from ..models.model_type_enum import ModelTypeEnum
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="Models")
+T = TypeVar("T", bound="Model")
 
 
-class ModelsDict(TypedDict):
+class ModelDict(TypedDict):
     id: int
-    slug: str
+    name: str
     model_type: NotRequired[Union[Unset, ModelTypeEnum]]
     model_provider: NotRequired[Union[BlankEnum, ModelProviderEnum, None, Unset]]
     pass
 
 
 @_attrs_define
-class Models:
+class Model:
     """
     Attributes:
         id (int):
-        slug (str):
+        name (str):
         model_type (Union[Unset, ModelTypeEnum]): * `text2text` - Text to Text
             * `text2image` - Text to Image
             * `text2vector` - Text to Vector
@@ -33,7 +33,7 @@ class Models:
     """
 
     id: int
-    slug: str
+    name: str
     model_type: Union[Unset, ModelTypeEnum] = UNSET
     model_provider: Union[BlankEnum, ModelProviderEnum, None, Unset] = UNSET
 
@@ -42,7 +42,7 @@ class Models:
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
 
-        slug = self.slug
+        name = self.name
 
         model_type: Union[Unset, str] = UNSET
         if not isinstance(self.model_type, Unset):
@@ -63,7 +63,7 @@ class Models:
         field_dict.update(
             {
                 "id": id,
-                "slug": slug,
+                "name": name,
             }
         )
         if model_type is not UNSET:
@@ -78,7 +78,7 @@ class Models:
         d = src_dict.copy() if src_dict else {}
         id = d.pop("id")
 
-        slug = d.pop("slug")
+        name = d.pop("name")
 
         _model_type = d.pop("model_type", UNSET)
         model_type: Union[Unset, ModelTypeEnum]
@@ -112,15 +112,15 @@ class Models:
 
         model_provider = _parse_model_provider(d.pop("model_provider", UNSET))
 
-        models = cls(
+        model = cls(
             id=id,
-            slug=slug,
+            name=name,
             model_type=model_type,
             model_provider=model_provider,
         )
 
-        models.additional_properties = d
-        return models
+        model.additional_properties = d
+        return model
 
     @property
     def additional_keys(self) -> List[str]:
