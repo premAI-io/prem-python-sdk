@@ -179,12 +179,15 @@ class ChatCompletionResponseStreamContainer:
         self._stream = stream
 
     def _parse_data(self, text: str):
-        match = re.search(self._pattern.format(key='data'), text)
-        if match:
-            data = json.loads(match.group(1))
-            parsed_data: ChatCompletionResponseStream = ChatCompletionResponseStream.from_dict(data)
-            return parsed_data
-        else:   return None
+        try:
+            match = re.search(self._pattern.format(key='data'), text)
+            if match:
+                data = json.loads(match.group(1))
+                parsed_data: ChatCompletionResponseStream = ChatCompletionResponseStream.from_dict(data)
+                return parsed_data
+            else:   return None
+        except Exception as e:
+            return None
 
     def _parse_event(self, text: str):
         match = re.search(self._pattern.format(key='event'), text)
@@ -208,15 +211,18 @@ class ChatCompletionResponseStreamContainer:
     def __iter__(self):
         def generator():
             with self._stream as stream:
-                for text in stream.iter_text():
-                    event = self._parse_event(text)
-                    self.trace_id = self._parse_trace_id(text)
-                    self.document_chunks = self._parse_document_chunks(text)
-                    if event == END_STREAM:
-                        break
-                    data = self._parse_data(text)
+                for texts in stream.iter_text():
+                    
+                    for text in texts.split('\n'):
+                        trace_id = self._parse_trace_id(text)
+                        self.trace_id = self.trace_id or trace_id
+                        
+                        self.document_chunks = self.document_chunks or self._parse_document_chunks(text)
 
-                    yield data
+                        data = self._parse_data(text)
+
+                        if data:
+                            yield data  
         return generator()
     
 
