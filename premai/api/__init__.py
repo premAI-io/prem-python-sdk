@@ -11,6 +11,7 @@ from ..models import (
     InputDataPointDict,
     PatchedDataPointDict,
 )
+from .api.api_projects_generate_description_retrieve import api_projects_generate_description_retrieve_wrapper
 from .chat_completions.v1_chat_completions_create import v1_chat_completions_create_wrapper
 from .datapoints.v1_data_points_create import v1_data_points_create_wrapper
 from .datapoints.v1_data_points_destroy import v1_data_points_destroy_wrapper
@@ -24,6 +25,19 @@ from .finetuning.v1_finetuning_retrieve import v1_finetuning_retrieve_wrapper
 from .models.v1_models_list import v1_models_list_wrapper
 from .models.v1_models_retrieve import v1_models_retrieve_wrapper
 from .repository_document.v1_repository_document_create import v1_repository_document_create_wrapper
+
+
+class ApiModule:
+    def __init__(self, client):
+        self._client = client
+
+    def retrieve(
+        self,
+        id: int,
+    ):
+        return api_projects_generate_description_retrieve_wrapper(self._client)(
+            id,
+        )
 
 
 class ChatCompletionsModule:
