@@ -5,7 +5,7 @@ import httpx
 from typing_extensions import Any, Unpack
 
 from ... import errors
-from ...models.input_data_point import InputDataPoint
+from ...models.data_point import DataPoint
 
 # from ...client import AuthenticatedClient, Client
 from ...types import Response
@@ -13,7 +13,7 @@ from ...types import Response
 
 def _get_kwargs(
     id: int,
-    **body: Unpack[InputDataPoint],
+    **body: Unpack[DataPoint],
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
@@ -31,9 +31,9 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client, response: httpx.Response) -> Optional[InputDataPoint]:
+def _parse_response(*, client, response: httpx.Response) -> Optional[DataPoint]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = InputDataPoint.from_dict(response.json())
+        response_200 = DataPoint.from_dict(response.json())
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -42,7 +42,7 @@ def _parse_response(*, client, response: httpx.Response) -> Optional[InputDataPo
         return None
 
 
-def _build_response(*, client, response: httpx.Response) -> Response[InputDataPoint]:
+def _build_response(*, client, response: httpx.Response) -> Response[DataPoint]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -54,21 +54,21 @@ def _build_response(*, client, response: httpx.Response) -> Response[InputDataPo
 def v1_data_points_update_wrapper(client):
     def v1_data_points_update_wrapped(
         id: int,
-        **body: Unpack[InputDataPoint],
-    ) -> InputDataPoint:
+        **body: Unpack[DataPoint],
+    ) -> DataPoint:
         """
         Args:
             id (int):
-            body (InputDataPoint):
-            body (InputDataPoint):
-            body (InputDataPoint):
+            body (DataPoint):
+            body (DataPoint):
+            body (DataPoint):
 
         Raises:
             errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
             httpx.TimeoutException: If the request takes longer than Client.timeout.
 
         Returns:
-            Response[InputDataPoint]
+            Response[DataPoint]
         """
 
         kwargs = _get_kwargs(

@@ -14,7 +14,7 @@ from .chat_completion_input_tools_item import ChatCompletionInputToolsItem
 from .chat_completion_response import ChatCompletionResponse
 from .conflict_error import ConflictError
 from .conflict_error_code_enum import ConflictErrorCodeEnum
-from .data_point import DataPoint
+from .data_point import DataPoint, DataPointDict
 from .document_chunks import DocumentChunks
 from .document_input import DocumentInput, DocumentInputDict
 from .document_output import DocumentOutput
@@ -130,9 +130,9 @@ __all__ = (
     "InputDataPointDict",
     "InputDataPointDict",
     "InputDataPointDict",
-    "InputDataPointDict",
-    "InputDataPointDict",
-    "InputDataPointDict",
+    "DataPointDict",
+    "DataPointDict",
+    "DataPointDict",
     "PatchedDataPointDict",
     "PatchedDataPointDict",
     "PatchedDataPointDict",

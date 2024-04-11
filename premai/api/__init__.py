@@ -5,6 +5,7 @@ from typing_extensions import Unpack
 
 from ..models import (
     ChatCompletionInputDict,
+    DataPointDict,
     DocumentInputDict,
     EmbeddingsInputDict,
     FineTuningInputDict,
@@ -54,7 +55,7 @@ class DatapointsModule:
             id,
         )
 
-    def update(self, id: int, **kwargs: Unpack[InputDataPointDict]):
+    def update(self, id: int, **kwargs: Unpack[DataPointDict]):
         return v1_data_points_update_wrapper(self._client)(id, **kwargs)
 
     def delete(

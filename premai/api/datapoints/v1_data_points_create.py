@@ -5,6 +5,7 @@ import httpx
 from typing_extensions import Any, Unpack
 
 from ... import errors
+from ...models.data_point import DataPoint
 from ...models.input_data_point import InputDataPoint
 
 # from ...client import AuthenticatedClient, Client
@@ -30,18 +31,18 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client, response: httpx.Response) -> Optional[InputDataPoint]:
-    if response.status_code == HTTPStatus.CREATED:
-        response_201 = InputDataPoint.from_dict(response.json())
+def _parse_response(*, client, response: httpx.Response) -> Optional[DataPoint]:
+    if response.status_code == HTTPStatus.OK:
+        response_200 = DataPoint.from_dict(response.json())
 
-        return response_201
+        return response_200
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(*, client, response: httpx.Response) -> Response[InputDataPoint]:
+def _build_response(*, client, response: httpx.Response) -> Response[DataPoint]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -53,7 +54,7 @@ def _build_response(*, client, response: httpx.Response) -> Response[InputDataPo
 def v1_data_points_create_wrapper(client):
     def v1_data_points_create_wrapped(
         **body: Unpack[InputDataPoint],
-    ) -> InputDataPoint:
+    ) -> DataPoint:
         """
         Args:
             body (InputDataPoint):
@@ -65,7 +66,7 @@ def v1_data_points_create_wrapper(client):
             httpx.TimeoutException: If the request takes longer than Client.timeout.
 
         Returns:
-            Response[InputDataPoint]
+            Response[DataPoint]
         """
 
         kwargs = _get_kwargs(
