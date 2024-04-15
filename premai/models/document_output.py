@@ -28,7 +28,9 @@ class DocumentOutput:
         repository_id (int):
         document_id (int):
         name (str):
-        document_type (DocumentTypeEnum): * `text` - text
+        document_type (DocumentTypeEnum): * `pdf` - PDF
+            * `docx` - Word
+            * `txt` - Text
         status (StatusEnum): * `PENDING` - Pending
             * `UPLOADED` - Uploaded
             * `PARSING` - Parsing

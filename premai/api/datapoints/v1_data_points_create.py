@@ -32,10 +32,10 @@ def _get_kwargs(
 
 
 def _parse_response(*, client, response: httpx.Response) -> Optional[DataPoint]:
-    if response.status_code == HTTPStatus.OK:
-        response_200 = DataPoint.from_dict(response.json())
+    if response.status_code == HTTPStatus.CREATED:
+        response_201 = DataPoint.from_dict(response.json())
 
-        return response_200
+        return response_201
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:

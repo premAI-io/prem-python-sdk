@@ -23,7 +23,9 @@ class DocumentInput:
     Attributes:
         name (str):
         content (str):
-        document_type (DocumentTypeEnum): * `text` - text
+        document_type (DocumentTypeEnum): * `pdf` - PDF
+            * `docx` - Word
+            * `txt` - Text
     """
 
     name: str
