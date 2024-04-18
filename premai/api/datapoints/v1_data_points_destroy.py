@@ -5,6 +5,7 @@ import httpx
 from typing_extensions import Any
 
 from ... import errors
+from ...models.data_point import DataPoint
 
 # from ...client import AuthenticatedClient, Client
 from ...types import Response
@@ -21,16 +22,18 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client, response: httpx.Response) -> Optional[Any]:
-    if response.status_code == HTTPStatus.NO_CONTENT:
-        return None
+def _parse_response(*, client, response: httpx.Response) -> Optional[DataPoint]:
+    if response.status_code == HTTPStatus.OK:
+        response_200 = DataPoint.from_dict(response.json())
+
+        return response_200
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(*, client, response: httpx.Response) -> Response[Any]:
+def _build_response(*, client, response: httpx.Response) -> Response[DataPoint]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -42,7 +45,7 @@ def _build_response(*, client, response: httpx.Response) -> Response[Any]:
 def v1_data_points_destroy_wrapper(client):
     def v1_data_points_destroy_wrapped(
         id: int,
-    ) -> Any:
+    ) -> DataPoint:
         """
         Args:
             id (int):
@@ -52,7 +55,7 @@ def v1_data_points_destroy_wrapper(client):
             httpx.TimeoutException: If the request takes longer than Client.timeout.
 
         Returns:
-            Response[Any]
+            Response[DataPoint]
         """
 
         kwargs = _get_kwargs(

@@ -5,6 +5,7 @@ class ModelProviderEnum(str, Enum):
     ANTHROPIC = "anthropic"
     ANYSCALE = "anyscale"
     AZURE = "azure"
+    AZURE_MISTRAL = "azure-mistral"
     CLOUDFLARE = "cloudflare"
     COHERE = "cohere"
     DEEPINFRA = "deepinfra"
