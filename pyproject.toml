@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "premai"
-version = "0.3.40"
+version = "0.3.41"
 description = "A client library for accessing Prem APIs"
 authors = []
 readme = "README.md"
