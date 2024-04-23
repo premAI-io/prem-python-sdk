@@ -6,12 +6,14 @@ from typing_extensions import Any, NotRequired, TypedDict, TypeVar
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="InputDataPoint")
+T = TypeVar("T", bound="DataPointRetrieveGymAdmin")
 
 
-class InputDataPointDict(TypedDict):
+class DataPointRetrieveGymAdminDict(TypedDict):
+    id: int
     positive: bool
-    project_id: int
+    override_input: str = "False"
+    override_output: str = "False"
     input_: NotRequired[Union[None, Unset, str]]
     output: NotRequired[Union[None, Unset, str]]
     trace: NotRequired[Union[None, Unset, str]]
@@ -19,18 +21,22 @@ class InputDataPointDict(TypedDict):
 
 
 @_attrs_define
-class InputDataPoint:
+class DataPointRetrieveGymAdmin:
     """
     Attributes:
+        id (int):
         positive (bool):
-        project_id (int):
+        override_input (str):  Default: 'False'.
+        override_output (str):  Default: 'False'.
         input_ (Union[None, Unset, str]):
         output (Union[None, Unset, str]):
         trace (Union[None, Unset, str]):
     """
 
+    id: int
     positive: bool
-    project_id: int
+    override_input: str = "False"
+    override_output: str = "False"
     input_: Union[None, Unset, str] = UNSET
     output: Union[None, Unset, str] = UNSET
     trace: Union[None, Unset, str] = UNSET
@@ -38,9 +44,13 @@ class InputDataPoint:
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        id = self.id
+
         positive = self.positive
 
-        project_id = self.project_id
+        override_input = self.override_input
+
+        override_output = self.override_output
 
         input_: Union[None, Unset, str]
         if isinstance(self.input_, Unset):
@@ -64,56 +74,10 @@ class InputDataPoint:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "id": id,
                 "positive": positive,
-                "project_id": project_id,
-            }
-        )
-        if input_ is not UNSET:
-            field_dict["input"] = input_
-        if output is not UNSET:
-            field_dict["output"] = output
-        if trace is not UNSET:
-            field_dict["trace"] = trace
-
-        return field_dict
-
-    def to_multipart(self) -> Dict[str, Any]:
-        positive = (
-            self.positive if isinstance(self.positive, Unset) else (None, str(self.positive).encode(), "text/plain")
-        )
-
-        project_id = (
-            self.project_id
-            if isinstance(self.project_id, Unset)
-            else (None, str(self.project_id).encode(), "text/plain")
-        )
-
-        input_: Union[None, Unset, str]
-        if isinstance(self.input_, Unset):
-            input_ = UNSET
-        else:
-            input_ = self.input_
-
-        output: Union[None, Unset, str]
-        if isinstance(self.output, Unset):
-            output = UNSET
-        else:
-            output = self.output
-
-        trace: Union[None, Unset, str]
-        if isinstance(self.trace, Unset):
-            trace = UNSET
-        else:
-            trace = self.trace
-
-        field_dict: Dict[str, Any] = {}
-        field_dict.update(
-            {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
-        )
-        field_dict.update(
-            {
-                "positive": positive,
-                "project_id": project_id,
+                "override_input": override_input,
+                "override_output": override_output,
             }
         )
         if input_ is not UNSET:
@@ -128,9 +92,13 @@ class InputDataPoint:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy() if src_dict else {}
+        id = d.pop("id")
+
         positive = d.pop("positive")
 
-        project_id = d.pop("project_id")
+        override_input = d.pop("override_input")
+
+        override_output = d.pop("override_output")
 
         def _parse_input_(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -159,16 +127,18 @@ class InputDataPoint:
 
         trace = _parse_trace(d.pop("trace", UNSET))
 
-        input_data_point = cls(
+        data_point_retrieve_gym_admin = cls(
+            id=id,
             positive=positive,
-            project_id=project_id,
+            override_input=override_input,
+            override_output=override_output,
             input_=input_,
             output=output,
             trace=trace,
         )
 
-        input_data_point.additional_properties = d
-        return input_data_point
+        data_point_retrieve_gym_admin.additional_properties = d
+        return data_point_retrieve_gym_admin
 
     @property
     def additional_keys(self) -> List[str]:

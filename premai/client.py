@@ -11,6 +11,7 @@ from .api import (
     ChatCompletionsModule,
     DatapointsModule,
     EmbeddingsModule,
+    FinetuningAdminModule,
     FinetuningModule,
     ModelsModule,
     RepositoryDocumentModule,
@@ -245,6 +246,7 @@ class AuthenticatedClient:
 
 
 class Prem:
+    finetuning_admin: FinetuningAdminModule
     chat_completions: ChatCompletionsModule
     datapoints: DatapointsModule
     embeddings: EmbeddingsModule
@@ -255,6 +257,7 @@ class Prem:
     def __init__(self, api_key: str = "", base_url="https://app.premai.io"):
         client = AuthenticatedClient(token=api_key, base_url=base_url)
         # Init modules
+        self.finetuning_admin = FinetuningAdminModule(client)
         self.chat_completions = ChatCompletionsModule(client)
         self.datapoints = DatapointsModule(client)
         self.embeddings = EmbeddingsModule(client)

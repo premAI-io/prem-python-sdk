@@ -1,6 +1,7 @@
 from .client import AuthenticatedClient
 
 from .api import (
+    FinetuningAdminModule,
     DatapointsModule,
     EmbeddingsModule,
     FinetuningModule,
@@ -10,6 +11,7 @@ from .api import (
 )
 
 class Prem:
+    finetuning-admin: FinetuningAdminModule
     datapoints: DatapointsModule
     embeddings: EmbeddingsModule
     finetuning: FinetuningModule
@@ -20,6 +22,7 @@ class Prem:
     def __init__(self, api_key: str, base_url='https://app.premai.io'):
         client = AuthenticatedClient(token=api_key, base_url=base_url)
         # Init modules
+        self.finetuning-admin = FinetuningAdminModule(client)
         self.datapoints = DatapointsModule(client)
         self.embeddings = EmbeddingsModule(client)
         self.finetuning = FinetuningModule(client)
