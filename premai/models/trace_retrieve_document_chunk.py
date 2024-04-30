@@ -6,88 +6,70 @@ from typing_extensions import Any, NotRequired, TypedDict, TypeVar
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="FineTuningRequestFineTuningMessage")
+T = TypeVar("T", bound="TraceRetrieveDocumentChunk")
 
 
-class FineTuningRequestFineTuningMessageDict(TypedDict):
-    id: int
-    title: str
-    message: str
-    user_prompt: NotRequired[Union[None, Unset, str]]
+class TraceRetrieveDocumentChunkDict(TypedDict):
+    document_id: int
+    content: NotRequired[Union[None, Unset, str]]
     pass
 
 
 @_attrs_define
-class FineTuningRequestFineTuningMessage:
+class TraceRetrieveDocumentChunk:
     """
     Attributes:
-        id (int):
-        title (str):
-        message (str):
-        user_prompt (Union[None, Unset, str]):
+        document_id (int):
+        content (Union[None, Unset, str]):
     """
 
-    id: int
-    title: str
-    message: str
-    user_prompt: Union[None, Unset, str] = UNSET
+    document_id: int
+    content: Union[None, Unset, str] = UNSET
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        id = self.id
+        document_id = self.document_id
 
-        title = self.title
-
-        message = self.message
-
-        user_prompt: Union[None, Unset, str]
-        if isinstance(self.user_prompt, Unset):
-            user_prompt = UNSET
+        content: Union[None, Unset, str]
+        if isinstance(self.content, Unset):
+            content = UNSET
         else:
-            user_prompt = self.user_prompt
+            content = self.content
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "id": id,
-                "title": title,
-                "message": message,
+                "document_id": document_id,
             }
         )
-        if user_prompt is not UNSET:
-            field_dict["user_prompt"] = user_prompt
+        if content is not UNSET:
+            field_dict["content"] = content
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy() if src_dict else {}
-        id = d.pop("id")
+        document_id = d.pop("document_id")
 
-        title = d.pop("title")
-
-        message = d.pop("message")
-
-        def _parse_user_prompt(data: object) -> Union[None, Unset, str]:
+        def _parse_content(data: object) -> Union[None, Unset, str]:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
             return cast(Union[None, Unset, str], data)
 
-        user_prompt = _parse_user_prompt(d.pop("user_prompt", UNSET))
+        content = _parse_content(d.pop("content", UNSET))
 
-        fine_tuning_request_fine_tuning_message = cls(
-            id=id,
-            title=title,
-            message=message,
-            user_prompt=user_prompt,
+        trace_retrieve_document_chunk = cls(
+            document_id=document_id,
+            content=content,
         )
 
-        fine_tuning_request_fine_tuning_message.additional_properties = d
-        return fine_tuning_request_fine_tuning_message
+        trace_retrieve_document_chunk.additional_properties = d
+        return trace_retrieve_document_chunk
 
     @property
     def additional_keys(self) -> List[str]:

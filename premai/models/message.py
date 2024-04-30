@@ -4,13 +4,13 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.role_enum import RoleEnum
+from ..models.message_role_enum import MessageRoleEnum
 
 T = TypeVar("T", bound="Message")
 
 
 class MessageDict(TypedDict):
-    role: RoleEnum
+    role: MessageRoleEnum
     content: str
     pass
 
@@ -19,12 +19,12 @@ class MessageDict(TypedDict):
 class Message:
     """
     Attributes:
-        role (RoleEnum): * `user` - user
+        role (MessageRoleEnum): * `user` - user
             * `assistant` - assistant
         content (str): The content of the message.
     """
 
-    role: RoleEnum
+    role: MessageRoleEnum
     content: str
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -48,7 +48,7 @@ class Message:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy() if src_dict else {}
-        role = RoleEnum(d.pop("role"))
+        role = MessageRoleEnum(d.pop("role"))
 
         content = d.pop("content")
 

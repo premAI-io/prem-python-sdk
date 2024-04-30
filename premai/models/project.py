@@ -6,33 +6,33 @@ from typing_extensions import Any, NotRequired, TypedDict, TypeVar
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="FineTuningRequestProject")
+T = TypeVar("T", bound="Project")
 
 
-class FineTuningRequestProjectDict(TypedDict):
-    id: int
+class ProjectDict(TypedDict):
+    project_id: int
     name: str
     description: NotRequired[Union[None, Unset, str]]
     pass
 
 
 @_attrs_define
-class FineTuningRequestProject:
+class Project:
     """
     Attributes:
-        id (int):
+        project_id (int):
         name (str):
         description (Union[None, Unset, str]):
     """
 
-    id: int
+    project_id: int
     name: str
     description: Union[None, Unset, str] = UNSET
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        id = self.id
+        project_id = self.project_id
 
         name = self.name
 
@@ -46,7 +46,7 @@ class FineTuningRequestProject:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "id": id,
+                "project_id": project_id,
                 "name": name,
             }
         )
@@ -58,7 +58,7 @@ class FineTuningRequestProject:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy() if src_dict else {}
-        id = d.pop("id")
+        project_id = d.pop("project_id")
 
         name = d.pop("name")
 
@@ -71,14 +71,14 @@ class FineTuningRequestProject:
 
         description = _parse_description(d.pop("description", UNSET))
 
-        fine_tuning_request_project = cls(
-            id=id,
+        project = cls(
+            project_id=project_id,
             name=name,
             description=description,
         )
 
-        fine_tuning_request_project.additional_properties = d
-        return fine_tuning_request_project
+        project.additional_properties = d
+        return project
 
     @property
     def additional_keys(self) -> List[str]:

@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class DocumentOutputStatusEnum(str, Enum):
+class StatusEnum(str, Enum):
     CHUNKING = "CHUNKING"
     COMPLETED = "COMPLETED"
     FAILED = "FAILED"

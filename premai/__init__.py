@@ -1,32 +1,32 @@
 from .client import AuthenticatedClient
 
 from .api import (
-    FinetuningAdminModule,
-    DatapointsModule,
     EmbeddingsModule,
     FinetuningModule,
     ModelsModule,
+    FeedbacksModule,
+    TracesModule,
     ChatModuleWrapper,
     RepositoryModuleWrapper,
 )
 
 class Prem:
-    finetuning-admin: FinetuningAdminModule
-    datapoints: DatapointsModule
     embeddings: EmbeddingsModule
     finetuning: FinetuningModule
     models: ModelsModule
+    feedbacks: FeedbacksModule
+    traces: TracesModule
     chat: ChatModuleWrapper
     repository: RepositoryModuleWrapper
 
     def __init__(self, api_key: str, base_url='https://app.premai.io'):
         client = AuthenticatedClient(token=api_key, base_url=base_url)
         # Init modules
-        self.finetuning-admin = FinetuningAdminModule(client)
-        self.datapoints = DatapointsModule(client)
         self.embeddings = EmbeddingsModule(client)
         self.finetuning = FinetuningModule(client)
         self.models = ModelsModule(client)
+        self.feedbacks = FeedbacksModule(client)
+        self.traces = TracesModule(client)
         self.chat = ChatModuleWrapper(client)
         self.repository = RepositoryModuleWrapper(client)
 

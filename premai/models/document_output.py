@@ -4,8 +4,8 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.document_output_status_enum import DocumentOutputStatusEnum
 from ..models.document_type_enum import DocumentTypeEnum
+from ..models.status_enum import StatusEnum
 
 T = TypeVar("T", bound="DocumentOutput")
 
@@ -15,7 +15,7 @@ class DocumentOutputDict(TypedDict):
     document_id: int
     name: str
     document_type: DocumentTypeEnum
-    status: DocumentOutputStatusEnum
+    status: StatusEnum
     error: Union[None, str]
     chunk_count: int = 0
     pass
@@ -31,7 +31,7 @@ class DocumentOutput:
         document_type (DocumentTypeEnum): * `pdf` - PDF
             * `docx` - Word
             * `txt` - Text
-        status (DocumentOutputStatusEnum): * `PENDING` - Pending
+        status (StatusEnum): * `PENDING` - Pending
             * `UPLOADED` - Uploaded
             * `PARSING` - Parsing
             * `CHUNKING` - Chunking
@@ -47,7 +47,7 @@ class DocumentOutput:
     document_id: int
     name: str
     document_type: DocumentTypeEnum
-    status: DocumentOutputStatusEnum
+    status: StatusEnum
     error: Union[None, str]
     chunk_count: int = 0
 
@@ -96,7 +96,7 @@ class DocumentOutput:
 
         document_type = DocumentTypeEnum(d.pop("document_type"))
 
-        status = DocumentOutputStatusEnum(d.pop("status"))
+        status = StatusEnum(d.pop("status"))
 
         def _parse_error(data: object) -> Union[None, str]:
             if data is None:

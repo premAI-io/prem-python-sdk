@@ -1,8 +1,9 @@
 from enum import Enum
 
 
-class RoleEnum(str, Enum):
+class MessagesRoleEnum(str, Enum):
     ASSISTANT = "assistant"
+    SYSTEM = "system"
     USER = "user"
 
     def __str__(self) -> str:

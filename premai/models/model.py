@@ -17,6 +17,7 @@ class ModelDict(TypedDict):
     name: str
     model_type: NotRequired[Union[Unset, ModelTypeEnum]]
     model_provider: NotRequired[Union[BlankEnum, ModelProviderEnum, None, Unset]]
+    deprecated: NotRequired[Union[Unset, bool]]
     pass
 
 
@@ -30,12 +31,14 @@ class Model:
             * `text2image` - Text to Image
             * `text2vector` - Text to Vector
         model_provider (Union[BlankEnum, ModelProviderEnum, None, Unset]):
+        deprecated (Union[Unset, bool]):
     """
 
     id: int
     name: str
     model_type: Union[Unset, ModelTypeEnum] = UNSET
     model_provider: Union[BlankEnum, ModelProviderEnum, None, Unset] = UNSET
+    deprecated: Union[Unset, bool] = UNSET
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -58,6 +61,8 @@ class Model:
         else:
             model_provider = self.model_provider
 
+        deprecated = self.deprecated
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -70,6 +75,8 @@ class Model:
             field_dict["model_type"] = model_type
         if model_provider is not UNSET:
             field_dict["model_provider"] = model_provider
+        if deprecated is not UNSET:
+            field_dict["deprecated"] = deprecated
 
         return field_dict
 
@@ -112,11 +119,14 @@ class Model:
 
         model_provider = _parse_model_provider(d.pop("model_provider", UNSET))
 
+        deprecated = d.pop("deprecated", UNSET)
+
         model = cls(
             id=id,
             name=name,
             model_type=model_type,
             model_provider=model_provider,
+            deprecated=deprecated,
         )
 
         model.additional_properties = d

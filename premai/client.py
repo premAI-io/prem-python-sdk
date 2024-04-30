@@ -9,12 +9,12 @@ from typing_extensions import Any
 
 from .api import (
     ChatCompletionsModule,
-    DatapointsModule,
     EmbeddingsModule,
-    FinetuningAdminModule,
+    FeedbacksModule,
     FinetuningModule,
     ModelsModule,
     RepositoryDocumentModule,
+    TracesModule,
 )
 
 
@@ -246,21 +246,21 @@ class AuthenticatedClient:
 
 
 class Prem:
-    finetuning_admin: FinetuningAdminModule
     chat_completions: ChatCompletionsModule
-    datapoints: DatapointsModule
     embeddings: EmbeddingsModule
     finetuning: FinetuningModule
     models: ModelsModule
     repository_document: RepositoryDocumentModule
+    feedbacks: FeedbacksModule
+    traces: TracesModule
 
     def __init__(self, api_key: str = "", base_url="https://app.premai.io"):
         client = AuthenticatedClient(token=api_key, base_url=base_url)
         # Init modules
-        self.finetuning_admin = FinetuningAdminModule(client)
         self.chat_completions = ChatCompletionsModule(client)
-        self.datapoints = DatapointsModule(client)
         self.embeddings = EmbeddingsModule(client)
         self.finetuning = FinetuningModule(client)
         self.models = ModelsModule(client)
         self.repository_document = RepositoryDocumentModule(client)
+        self.feedbacks = FeedbacksModule(client)
+        self.traces = TracesModule(client)

@@ -1,39 +1,42 @@
 from http import HTTPStatus
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
 import httpx
-from typing_extensions import Any, Unpack
+from typing_extensions import Any
 
 from ... import errors
-from ...models.data_point import DataPoint
+from ...models.trace_list import TraceList
 
 # from ...client import AuthenticatedClient, Client
-from ...types import Response
+from ...types import UNSET, Response
 
 
 def _get_kwargs(
-    id: int,
-    **body: Unpack[DataPoint],
+    project_id: str,
 ) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
+    params: Dict[str, Any] = {}
+
+    params["project_id"] = project_id
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: Dict[str, Any] = {
-        "method": "put",
-        "url": f"/v1/data-points/{id}/",
+        "method": "get",
+        "url": "/v1/traces/",
+        "params": params,
     }
 
-    _json_body = body
-
-    _kwargs["json"] = _json_body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
     return _kwargs
 
 
-def _parse_response(*, client, response: httpx.Response) -> Optional[DataPoint]:
+def _parse_response(*, client, response: httpx.Response) -> Optional[List["TraceList"]]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = DataPoint.from_dict(response.json())
+        response_200 = []
+        _response_200 = response.json()
+        for response_200_item_data in _response_200:
+            response_200_item = TraceList.from_dict(response_200_item_data)
+
+            response_200.append(response_200_item)
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -42,7 +45,7 @@ def _parse_response(*, client, response: httpx.Response) -> Optional[DataPoint]:
         return None
 
 
-def _build_response(*, client, response: httpx.Response) -> Response[DataPoint]:
+def _build_response(*, client, response: httpx.Response) -> Response[List["TraceList"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -51,29 +54,24 @@ def _build_response(*, client, response: httpx.Response) -> Response[DataPoint]:
     )
 
 
-def v1_data_points_update_wrapper(client):
-    def v1_data_points_update_wrapped(
-        id: int,
-        **body: Unpack[DataPoint],
-    ) -> DataPoint:
+def v1_traces_list_wrapper(client):
+    def v1_traces_list_wrapped(
+        project_id: str,
+    ) -> List["TraceList"]:
         """
         Args:
-            id (int):
-            body (DataPoint):
-            body (DataPoint):
-            body (DataPoint):
+            project_id (str):
 
         Raises:
             errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
             httpx.TimeoutException: If the request takes longer than Client.timeout.
 
         Returns:
-            Response[DataPoint]
+            Response[List['TraceList']]
         """
 
         kwargs = _get_kwargs(
-            id=id,
-            **body,
+            project_id=project_id,
         )
 
         httpx_client = client.get_httpx_client()
@@ -84,4 +82,4 @@ def v1_data_points_update_wrapper(client):
 
         return _build_response(client=client, response=response).parsed
 
-    return v1_data_points_update_wrapped
+    return v1_traces_list_wrapped
