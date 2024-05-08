@@ -25,9 +25,6 @@ from .encoding_format_enum import EncodingFormatEnum
 from .enhancement import Enhancement
 from .feedback_create import FeedbackCreate, FeedbackCreateDict
 from .feedback_create_feedback import FeedbackCreateFeedback
-from .fine_tuning_input import FineTuningInput, FineTuningInputDict
-from .fine_tuning_response import FineTuningResponse
-from .fine_tuning_sample import FineTuningSample
 from .message import Message
 from .message_role_enum import MessageRoleEnum
 from .messages import Messages
@@ -53,7 +50,6 @@ from .provider_not_found_error_code_enum import ProviderNotFoundErrorCodeEnum
 from .rate_limit_error import RateLimitError
 from .rate_limit_error_code_enum import RateLimitErrorCodeEnum
 from .response_choice import ResponseChoice
-from .retrieve_fine_tuning_response import RetrieveFineTuningResponse
 from .status_enum import StatusEnum
 from .trace_feedback import TraceFeedback
 from .trace_list import TraceList
@@ -94,9 +90,6 @@ __all__ = (
     "Enhancement",
     "FeedbackCreate",
     "FeedbackCreateFeedback",
-    "FineTuningInput",
-    "FineTuningResponse",
-    "FineTuningSample",
     "Message",
     "MessageRoleEnum",
     "Messages",
@@ -122,7 +115,6 @@ __all__ = (
     "RateLimitError",
     "RateLimitErrorCodeEnum",
     "ResponseChoice",
-    "RetrieveFineTuningResponse",
     "StatusEnum",
     "TraceFeedback",
     "TraceList",
@@ -142,11 +134,6 @@ __all__ = (
     "EmbeddingsInputDict",
     "EmbeddingsInputDict",
     "EmbeddingsInputDict",
-    "FineTuningInputDict",
-    "FineTuningInputDict",
-    "FineTuningInputDict",
-    "DocumentInputDict",
-    "DocumentInputDict",
     "DocumentInputDict",
     "FeedbackCreateDict",
     "FeedbackCreateDict",

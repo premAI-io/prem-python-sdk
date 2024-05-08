@@ -11,7 +11,7 @@ T = TypeVar("T", bound="TraceFeedback")
 
 class TraceFeedbackDict(TypedDict):
     positive: bool
-    used_datapoint_messages: str
+    used_datapoint_messages: bool
     messages: List["Messages"]
     pass
 
@@ -21,12 +21,12 @@ class TraceFeedback:
     """
     Attributes:
         positive (bool):
-        used_datapoint_messages (str):
+        used_datapoint_messages (bool):
         messages (List['Messages']):
     """
 
     positive: bool
-    used_datapoint_messages: str
+    used_datapoint_messages: bool
     messages: List["Messages"]
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)

@@ -8,13 +8,10 @@ from ..models import (
     DocumentInputDict,
     EmbeddingsInputDict,
     FeedbackCreateDict,
-    FineTuningInputDict,
 )
 from .chat_completions.v1_chat_completions_create import v1_chat_completions_create_wrapper
 from .embeddings.v1_embeddings_create import v1_embeddings_create_wrapper
 from .feedbacks.v1_set_trace_feedback_create import v1_set_trace_feedback_create_wrapper
-from .finetuning.v1_finetuning_create import v1_finetuning_create_wrapper
-from .finetuning.v1_finetuning_retrieve import v1_finetuning_retrieve_wrapper
 from .models.v1_models_list import v1_models_list_wrapper
 from .models.v1_models_retrieve import v1_models_retrieve_wrapper
 from .repository_document.v1_repository_document_create import v1_repository_document_create_wrapper
@@ -36,22 +33,6 @@ class EmbeddingsModule:
 
     def create(self, **kwargs: Unpack[EmbeddingsInputDict]):
         return v1_embeddings_create_wrapper(self._client)(**kwargs)
-
-
-class FinetuningModule:
-    def __init__(self, client):
-        self._client = client
-
-    def create(self, **kwargs: Unpack[FineTuningInputDict]):
-        return v1_finetuning_create_wrapper(self._client)(**kwargs)
-
-    def retrieve(
-        self,
-        job_id: str,
-    ):
-        return v1_finetuning_retrieve_wrapper(self._client)(
-            job_id,
-        )
 
 
 class ModelsModule:

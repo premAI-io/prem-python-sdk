@@ -11,7 +11,6 @@ from .api import (
     ChatCompletionsModule,
     EmbeddingsModule,
     FeedbacksModule,
-    FinetuningModule,
     ModelsModule,
     RepositoryDocumentModule,
     TracesModule,
@@ -248,7 +247,6 @@ class AuthenticatedClient:
 class Prem:
     chat_completions: ChatCompletionsModule
     embeddings: EmbeddingsModule
-    finetuning: FinetuningModule
     models: ModelsModule
     repository_document: RepositoryDocumentModule
     feedbacks: FeedbacksModule
@@ -259,7 +257,6 @@ class Prem:
         # Init modules
         self.chat_completions = ChatCompletionsModule(client)
         self.embeddings = EmbeddingsModule(client)
-        self.finetuning = FinetuningModule(client)
         self.models = ModelsModule(client)
         self.repository_document = RepositoryDocumentModule(client)
         self.feedbacks = FeedbacksModule(client)

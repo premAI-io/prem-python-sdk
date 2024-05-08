@@ -4,16 +4,13 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-from ..models.document_type_enum import DocumentTypeEnum
 from ..types import Unset
 
 T = TypeVar("T", bound="DocumentInput")
 
 
 class DocumentInputDict(TypedDict):
-    name: str
-    content: str
-    document_type: DocumentTypeEnum
+    file: str
     pass
 
 
@@ -21,44 +18,28 @@ class DocumentInputDict(TypedDict):
 class DocumentInput:
     """
     Attributes:
-        name (str):
-        content (str):
-        document_type (DocumentTypeEnum): * `pdf` - PDF
-            * `docx` - Word
-            * `txt` - Text
+        file (str):
     """
 
-    name: str
-    content: str
-    document_type: DocumentTypeEnum
+    file: str
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        name = self.name
-
-        content = self.content
-
-        document_type = self.document_type.value
+        file = self.file
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "name": name,
-                "content": content,
-                "document_type": document_type,
+                "file": file,
             }
         )
 
         return field_dict
 
     def to_multipart(self) -> Dict[str, Any]:
-        name = self.name if isinstance(self.name, Unset) else (None, str(self.name).encode(), "text/plain")
-
-        content = self.content if isinstance(self.content, Unset) else (None, str(self.content).encode(), "text/plain")
-
-        document_type = (None, str(self.document_type.value).encode(), "text/plain")
+        file = self.file if isinstance(self.file, Unset) else (None, str(self.file).encode(), "text/plain")
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(
@@ -66,9 +47,7 @@ class DocumentInput:
         )
         field_dict.update(
             {
-                "name": name,
-                "content": content,
-                "document_type": document_type,
+                "file": file,
             }
         )
 
@@ -77,16 +56,10 @@ class DocumentInput:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy() if src_dict else {}
-        name = d.pop("name")
-
-        content = d.pop("content")
-
-        document_type = DocumentTypeEnum(d.pop("document_type"))
+        file = d.pop("file")
 
         document_input = cls(
-            name=name,
-            content=content,
-            document_type=document_type,
+            file=file,
         )
 
         document_input.additional_properties = d

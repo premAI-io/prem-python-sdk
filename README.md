@@ -25,9 +25,14 @@ client = Prem(
 
 ## Chat completion
 
-The `chat.completions` module allows you to generate completions based on user input. Here's an example:
+The `chat.completions` module allows you to generate completions based on user input.
+
+Note that `system` is NOT an acceptable role: to use a system prompt you should define and pass `system_prompt`.
+
+Here's an example:
 
 ```python
+system_prompt = "You're an helpful assistant"
 messages = [
     {"role": "user", "content": "Who won the world series in 2020?"},
 ]
@@ -36,6 +41,7 @@ project_id = PROJECT_ID
 # Create completion
 response = client.chat.completions.create(
     project_id=project_id,
+    system_prompt=system_prompt,
     messages=messages,
 )
 
@@ -139,13 +145,12 @@ Repositories act as storage for documents, organized to facilitate efficient inf
 To add a document to a repository, you can use the `create` method provided by the `document` API. Here's an example of how to create and upload a document:
 
 ```python
-FILE_CONTENT = "My friend Jack has a beautiful pet, he gave it the name Sparky, [...]"
+FILE_PATH = "pets_and_their_owners.txt"
+# Content: "My friend Jack has a beautiful pet, he gave it the name Sparky, [...]"
 
 response = client.repository.document.create(
 	repository_id=REPOSITORY_ID,
-	name="pets_and_their_owners.txt",
-	content=FILE_CONTENT,
-	document_type="text",
+	file=FILE_PATH
 )
 
 print(response)
@@ -157,3 +162,8 @@ After uploading, the document state is reflected in fields such as:
 -   `status`: Shows `UPLOADED` initially, changes once processed (e.g., `PROCESSING`).
 -   `chunk_count`: Number of data chunks; starts at 0 and increases post-processing.
 -   `error`: Non-null if an error arose during processing.
+
+We currently support below file formats for document uploads:
+-   `.txt`
+-   `.pdf`
+-   `.docx`

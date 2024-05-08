@@ -2,7 +2,6 @@ from .client import AuthenticatedClient
 
 from .api import (
     EmbeddingsModule,
-    FinetuningModule,
     ModelsModule,
     FeedbacksModule,
     TracesModule,
@@ -12,7 +11,6 @@ from .api import (
 
 class Prem:
     embeddings: EmbeddingsModule
-    finetuning: FinetuningModule
     models: ModelsModule
     feedbacks: FeedbacksModule
     traces: TracesModule
@@ -23,7 +21,6 @@ class Prem:
         client = AuthenticatedClient(token=api_key, base_url=base_url)
         # Init modules
         self.embeddings = EmbeddingsModule(client)
-        self.finetuning = FinetuningModule(client)
         self.models = ModelsModule(client)
         self.feedbacks = FeedbacksModule(client)
         self.traces = TracesModule(client)

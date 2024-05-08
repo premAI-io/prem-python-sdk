@@ -23,10 +23,12 @@ def _get_kwargs(
         "url": f"/v1/repository/{repository_id}/document",
     }
 
-    _json_body = body
-
-    _kwargs["json"] = _json_body
-    headers["Content-Type"] = "application/json"
+    try:
+        file_path = body.pop("file")
+    except KeyError:
+        raise ValueError("file is a required parameter")
+    
+    _kwargs["files"] = {"file": open(file_path, "rb")}
 
     _kwargs["headers"] = headers
     return _kwargs
@@ -71,12 +73,10 @@ def v1_repository_document_create_wrapper(client):
         Returns:
             Response[DocumentOutput]
         """
-
         kwargs = _get_kwargs(
             repository_id=repository_id,
             **body,
         )
-
         httpx_client = client.get_httpx_client()
 
         response = httpx_client.request(
