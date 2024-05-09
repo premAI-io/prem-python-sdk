@@ -75,7 +75,7 @@ class TracesModule:
 
     def list(
         self,
-        project_id: str,
+        project_id: int,
     ):
         return v1_traces_list_wrapper(self._client)(
             project_id,

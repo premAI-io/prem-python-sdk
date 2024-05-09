@@ -12,7 +12,7 @@ from ...types import UNSET, Response
 
 
 def _get_kwargs(
-    project_id: str,
+    project_id: int,
 ) -> Dict[str, Any]:
     params: Dict[str, Any] = {}
 
@@ -56,11 +56,11 @@ def _build_response(*, client, response: httpx.Response) -> Response[List["Trace
 
 def v1_traces_list_wrapper(client):
     def v1_traces_list_wrapped(
-        project_id: str,
+        project_id: int,
     ) -> List["TraceList"]:
         """
         Args:
-            project_id (str):
+            project_id (int):
 
         Raises:
             errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
