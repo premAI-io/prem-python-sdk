@@ -65,6 +65,64 @@ for chunk in response:
         print(chunk.choices[0].delta["content"], end="")
 ```
 
+### Prompt Templates
+
+Should your operations entail the frequent utilization of identical prompt structures, the **Prompt Template** functionality facilitates the streamlining of this process. It enables the instantiation and subsequent reuse of predefined prompts, thereby optimizing efficiency and maintaining uniformity across interactions.
+
+#### Creating a Prompt Template
+Create your own Prompt Template in just a few steps:
+
+- Navigate to the **Launchpad** section of your project.
+- Click on the **Templates** tab.
+- Hit the button to create a new Prompt Template.
+
+From here, you can either create your custom Prompt Template or choose one of our default presets.
+
+Within the template, you can include placeholders for dynamic content by using the `${placeholder_name}` syntax, as illustrated below:
+
+```markdown
+Summarize the following text:
+"""
+${text}
+"""
+```
+
+In this example, we have a placeholder named `text`. To implement this through our SDK, follow this sample code:
+
+```python
+# Text you want to summarize
+text_to_summarize = "This is the great tale of ... "
+# Construct the message with the template
+messages = [
+    {
+        "role": "user",
+        "template_id": TEMPLATE_ID,  # Your template's ID
+        "params": {"text": text_to_summarize}
+    }
+]
+
+response = client.chat.completions.create(
+    project_id=project_id,
+    messages=messages
+)
+```
+
+#### Key Points for Using Prompt Templates
+When using prompt templates, remember these important guidelines:
+- Replace the `content` field with `template_id` and `params`.
+- Both `template_id` (the unique ID of your prompt template) and `params` (a key-value object mapping your placeholders to their desired values) are required to utilize prompt templates.
+
+Any keys in `params` not matching placeholders will be ignored. If a placeholder is omitted in `params`, it defaults to an empty string. For instance, if you provide the following message set, the `${text}` placeholder will be left empty:
+
+```python
+messages = [
+    {
+        "role": "user",
+        "template_id": TEMPLATE_ID,
+        "params": {}  # No parameters provided for placeholders
+    }
+]
+```
 ### Optional parameters
 
 By default, the `chat.completions` module uses the default launchpad parameters. You can also specify the following optional parameters:
@@ -74,9 +132,6 @@ By default, the `chat.completions` module uses the default launchpad parameters.
 - `session_id`: A unique identifier to maintain session context, useful for tracking conversations or data across multiple requests.
 - `temperature`: The temperature to use for completion. If omitted, the default launchpad temperature will be used.
 - `max_tokens`: The maximum number of tokens to generate for completion. If omitted, the default launchpad max tokens will be used.
-- `top_p`: The nucleus sampling probability to use for completion. If omitted, the default launchpad top p will be used.
-- `frequency_penalty`: The frequency penalty to use for completion. If omitted, the default launchpad frequency penalty will be used.
-- `presence_penalty`: The presence penalty to use for completion. If omitted, the default launchpad presence penalty will be used.
 
 Example:
 

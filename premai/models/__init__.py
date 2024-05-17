@@ -8,9 +8,6 @@ from .blank_enum import BlankEnum
 from .catch_all_error import CatchAllError
 from .catch_all_error_code_enum import CatchAllErrorCodeEnum
 from .chat_completion_input import ChatCompletionInput, ChatCompletionInputDict
-from .chat_completion_input_logit_bias_type_0 import ChatCompletionInputLogitBiasType0
-from .chat_completion_input_response_format_type_0 import ChatCompletionInputResponseFormatType0
-from .chat_completion_input_tools_item import ChatCompletionInputToolsItem
 from .chat_completion_response import ChatCompletionResponse
 from .conflict_error import ConflictError
 from .conflict_error_code_enum import ConflictErrorCodeEnum
@@ -26,6 +23,7 @@ from .enhancement import Enhancement
 from .feedback_create import FeedbackCreate, FeedbackCreateDict
 from .feedback_create_feedback import FeedbackCreateFeedback
 from .message import Message
+from .message_params import MessageParams
 from .message_role_enum import MessageRoleEnum
 from .messages import Messages
 from .messages_role_enum import MessagesRoleEnum
@@ -73,9 +71,6 @@ __all__ = (
     "CatchAllError",
     "CatchAllErrorCodeEnum",
     "ChatCompletionInput",
-    "ChatCompletionInputLogitBiasType0",
-    "ChatCompletionInputResponseFormatType0",
-    "ChatCompletionInputToolsItem",
     "ChatCompletionResponse",
     "ConflictError",
     "ConflictErrorCodeEnum",
@@ -91,6 +86,7 @@ __all__ = (
     "FeedbackCreate",
     "FeedbackCreateFeedback",
     "Message",
+    "MessageParams",
     "MessageRoleEnum",
     "Messages",
     "MessagesRoleEnum",

@@ -4,16 +4,16 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, TypedDict, TypeVar
 
-T = TypeVar("T", bound="ChatCompletionInputResponseFormatType0")
+T = TypeVar("T", bound="MessageParams")
 
 
-class ChatCompletionInputResponseFormatType0Dict(TypedDict):
+class MessageParamsDict(TypedDict):
     pass
 
 
 @_attrs_define
-class ChatCompletionInputResponseFormatType0:
-    """An object specifying the format that the model must output."""
+class MessageParams:
+    """The parameters (key: value) to use with the given template."""
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -27,10 +27,10 @@ class ChatCompletionInputResponseFormatType0:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy() if src_dict else {}
-        chat_completion_input_response_format_type_0 = cls()
+        message_params = cls()
 
-        chat_completion_input_response_format_type_0.additional_properties = d
-        return chat_completion_input_response_format_type_0
+        message_params.additional_properties = d
+        return message_params
 
     @property
     def additional_keys(self) -> List[str]:
