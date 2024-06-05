@@ -47,6 +47,7 @@ from .provider_not_found_error import ProviderNotFoundError
 from .provider_not_found_error_code_enum import ProviderNotFoundErrorCodeEnum
 from .rate_limit_error import RateLimitError
 from .rate_limit_error_code_enum import RateLimitErrorCodeEnum
+from .repository import Repository, RepositoryDict
 from .response_choice import ResponseChoice
 from .status_enum import StatusEnum
 from .trace_feedback import TraceFeedback
@@ -110,6 +111,7 @@ __all__ = (
     "ProviderNotFoundErrorCodeEnum",
     "RateLimitError",
     "RateLimitErrorCodeEnum",
+    "Repository",
     "ResponseChoice",
     "StatusEnum",
     "TraceFeedback",
@@ -130,6 +132,9 @@ __all__ = (
     "EmbeddingsInputDict",
     "EmbeddingsInputDict",
     "EmbeddingsInputDict",
+    "RepositoryDict",
+    "RepositoryDict",
+    "RepositoryDict",
     "DocumentInputDict",
     "FeedbackCreateDict",
     "FeedbackCreateDict",

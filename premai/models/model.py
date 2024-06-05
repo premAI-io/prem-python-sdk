@@ -30,6 +30,7 @@ class Model:
         model_type (Union[Unset, ModelTypeEnum]): * `text2text` - Text to Text
             * `text2image` - Text to Image
             * `text2vector` - Text to Vector
+            * `autopilot` - Autopilot
         model_provider (Union[BlankEnum, ModelProviderEnum, None, Unset]):
         deprecated (Union[Unset, bool]):
     """

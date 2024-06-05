@@ -196,6 +196,16 @@ print(response.document_chunks)
 
 ## Repositories
 Repositories act as storage for documents, organized to facilitate efficient information retrieval. Manipulating repository content is straightforward.
+### Repository  creation
+To create a repository, you can use the `create` method provided by the `repositories` API. Here's an example of how to create a repository:
+```python
+
+response = client.repositories.create(
+	name="Test",
+	description="Test Repository",
+    organization="org-test@premai.io"
+)
+```
 ### Document creation
 To add a document to a repository, you can use the `create` method provided by the `document` API. Here's an example of how to create and upload a document:
 

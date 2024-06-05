@@ -8,12 +8,14 @@ from ..models import (
     DocumentInputDict,
     EmbeddingsInputDict,
     FeedbackCreateDict,
+    RepositoryDict,
 )
 from .chat_completions.v1_chat_completions_create import v1_chat_completions_create_wrapper
 from .embeddings.v1_embeddings_create import v1_embeddings_create_wrapper
 from .feedbacks.v1_set_trace_feedback_create import v1_set_trace_feedback_create_wrapper
 from .models.v1_models_list import v1_models_list_wrapper
 from .models.v1_models_retrieve import v1_models_retrieve_wrapper
+from .repositories.v1_repositories_create import v1_repositories_create_wrapper
 from .repository_document.v1_repository_document_create import v1_repository_document_create_wrapper
 from .traces.v1_traces_list import v1_traces_list_wrapper
 from .traces.v1_traces_retrieve import v1_traces_retrieve_wrapper
@@ -51,6 +53,14 @@ class ModelsModule:
         return v1_models_retrieve_wrapper(self._client)(
             id,
         )
+
+
+class RepositoriesModule:
+    def __init__(self, client):
+        self._client = client
+
+    def create(self, **kwargs: Unpack[RepositoryDict]):
+        return v1_repositories_create_wrapper(self._client)(**kwargs)
 
 
 class RepositoryDocumentModule:

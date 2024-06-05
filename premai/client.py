@@ -12,6 +12,7 @@ from .api import (
     EmbeddingsModule,
     FeedbacksModule,
     ModelsModule,
+    RepositoriesModule,
     RepositoryDocumentModule,
     TracesModule,
 )
@@ -248,6 +249,7 @@ class Prem:
     chat_completions: ChatCompletionsModule
     embeddings: EmbeddingsModule
     models: ModelsModule
+    repositories: RepositoriesModule
     repository_document: RepositoryDocumentModule
     feedbacks: FeedbacksModule
     traces: TracesModule
@@ -258,6 +260,7 @@ class Prem:
         self.chat_completions = ChatCompletionsModule(client)
         self.embeddings = EmbeddingsModule(client)
         self.models = ModelsModule(client)
+        self.repositories = RepositoriesModule(client)
         self.repository_document = RepositoryDocumentModule(client)
         self.feedbacks = FeedbacksModule(client)
         self.traces = TracesModule(client)
