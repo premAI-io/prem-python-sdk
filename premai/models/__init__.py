@@ -22,6 +22,7 @@ from .encoding_format_enum import EncodingFormatEnum
 from .enhancement import Enhancement
 from .feedback_create import FeedbackCreate, FeedbackCreateDict
 from .feedback_create_feedback import FeedbackCreateFeedback
+from .function import Function
 from .message import Message
 from .message_params import MessageParams
 from .message_role_enum import MessageRoleEnum
@@ -32,6 +33,11 @@ from .model_not_found_error import ModelNotFoundError
 from .model_not_found_error_code_enum import ModelNotFoundErrorCodeEnum
 from .model_provider_enum import ModelProviderEnum
 from .model_type_enum import ModelTypeEnum
+from .output_function import OutputFunction
+from .output_function_arguments import OutputFunctionArguments
+from .parameter_properties import ParameterProperties
+from .parameters import Parameters
+from .parameters_properties import ParametersProperties
 from .permission_denied_error import PermissionDeniedError
 from .permission_denied_error_code_enum import PermissionDeniedErrorCodeEnum
 from .project import Project
@@ -50,10 +56,13 @@ from .rate_limit_error_code_enum import RateLimitErrorCodeEnum
 from .repository import Repository, RepositoryDict
 from .response_choice import ResponseChoice
 from .status_enum import StatusEnum
+from .tool import Tool
+from .tool_call import ToolCall
 from .trace_feedback import TraceFeedback
 from .trace_list import TraceList
 from .trace_retrieve import TraceRetrieve
 from .trace_retrieve_document_chunk import TraceRetrieveDocumentChunk
+from .type_enum import TypeEnum
 from .unprocessable_entity_error import UnprocessableEntityError
 from .unprocessable_entity_error_code_enum import UnprocessableEntityErrorCodeEnum
 from .usage import Usage
@@ -86,6 +95,7 @@ __all__ = (
     "Enhancement",
     "FeedbackCreate",
     "FeedbackCreateFeedback",
+    "Function",
     "Message",
     "MessageParams",
     "MessageRoleEnum",
@@ -96,6 +106,11 @@ __all__ = (
     "ModelNotFoundErrorCodeEnum",
     "ModelProviderEnum",
     "ModelTypeEnum",
+    "OutputFunction",
+    "OutputFunctionArguments",
+    "ParameterProperties",
+    "Parameters",
+    "ParametersProperties",
     "PermissionDeniedError",
     "PermissionDeniedErrorCodeEnum",
     "Project",
@@ -114,10 +129,13 @@ __all__ = (
     "Repository",
     "ResponseChoice",
     "StatusEnum",
+    "Tool",
+    "ToolCall",
     "TraceFeedback",
     "TraceList",
     "TraceRetrieve",
     "TraceRetrieveDocumentChunk",
+    "TypeEnum",
     "UnprocessableEntityError",
     "UnprocessableEntityErrorCodeEnum",
     "Usage",

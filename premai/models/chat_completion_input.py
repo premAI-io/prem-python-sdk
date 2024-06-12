@@ -7,6 +7,7 @@ from typing_extensions import Any, NotRequired, TypedDict, TypeVar
 
 from ..models.enhancement import Enhancement
 from ..models.message import Message
+from ..models.tool import Tool
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="ChatCompletionInput")
@@ -22,6 +23,7 @@ class ChatCompletionInputDict(TypedDict):
     max_tokens: NotRequired[Union[None, Unset, int]]
     stream: NotRequired[Union[Unset, bool]]
     temperature: NotRequired[Union[None, Unset, float]]
+    tools: NotRequired[Union[List["Tool"], None, Unset]]
     pass
 
 
@@ -38,6 +40,7 @@ class ChatCompletionInput:
         max_tokens (Union[None, Unset, int]): The maximum number of tokens to generate in the chat completion.
         stream (Union[Unset, bool]): If set, partial message deltas will be sent, like in ChatGPT.
         temperature (Union[None, Unset, float]): What sampling temperature to use, between 0 and 2.
+        tools (Union[List['Tool'], None, Unset]): The tools to use in the completion.
     """
 
     project_id: int
@@ -49,6 +52,7 @@ class ChatCompletionInput:
     max_tokens: Union[None, Unset, int] = UNSET
     stream: Union[Unset, bool] = UNSET
     temperature: Union[None, Unset, float] = UNSET
+    tools: Union[List["Tool"], None, Unset] = UNSET
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -84,6 +88,18 @@ class ChatCompletionInput:
         else:
             temperature = self.temperature
 
+        tools: Union[List[Dict[str, Any]], None, Unset]
+        if isinstance(self.tools, Unset):
+            tools = UNSET
+        elif isinstance(self.tools, list):
+            tools = []
+            for tools_type_0_item_data in self.tools:
+                tools_type_0_item = tools_type_0_item_data.to_dict()
+                tools.append(tools_type_0_item)
+
+        else:
+            tools = self.tools
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -106,6 +122,8 @@ class ChatCompletionInput:
             field_dict["stream"] = stream
         if temperature is not UNSET:
             field_dict["temperature"] = temperature
+        if tools is not UNSET:
+            field_dict["tools"] = tools
 
         return field_dict
 
@@ -154,6 +172,19 @@ class ChatCompletionInput:
         else:
             temperature = self.temperature
 
+        tools: Union[None, Tuple[None, bytes, str], Unset]
+        if isinstance(self.tools, Unset):
+            tools = UNSET
+        elif isinstance(self.tools, list):
+            _temp_tools = []
+            for tools_type_0_item_data in self.tools:
+                tools_type_0_item = tools_type_0_item_data.to_dict()
+                _temp_tools.append(tools_type_0_item)
+            tools = (None, json.dumps(_temp_tools).encode(), "application/json")
+
+        else:
+            tools = self.tools
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(
             {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
@@ -178,6 +209,8 @@ class ChatCompletionInput:
             field_dict["stream"] = stream
         if temperature is not UNSET:
             field_dict["temperature"] = temperature
+        if tools is not UNSET:
+            field_dict["tools"] = tools
 
         return field_dict
 
@@ -185,6 +218,7 @@ class ChatCompletionInput:
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.enhancement import Enhancement
         from ..models.message import Message
+        from ..models.tool import Tool
 
         d = src_dict.copy() if src_dict else {}
         project_id = d.pop("project_id")
@@ -229,6 +263,28 @@ class ChatCompletionInput:
 
         temperature = _parse_temperature(d.pop("temperature", UNSET))
 
+        def _parse_tools(data: object) -> Union[List["Tool"], None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                tools_type_0 = []
+                _tools_type_0 = data
+                for tools_type_0_item_data in _tools_type_0:
+                    tools_type_0_item = Tool.from_dict(tools_type_0_item_data)
+
+                    tools_type_0.append(tools_type_0_item)
+
+                return tools_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[List["Tool"], None, Unset], data)
+
+        tools = _parse_tools(d.pop("tools", UNSET))
+
         chat_completion_input = cls(
             project_id=project_id,
             messages=messages,
@@ -239,6 +295,7 @@ class ChatCompletionInput:
             max_tokens=max_tokens,
             stream=stream,
             temperature=temperature,
+            tools=tools,
         )
 
         chat_completion_input.additional_properties = d
