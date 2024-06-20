@@ -22,7 +22,7 @@ class ChatCompletionInputDict(TypedDict):
     system_prompt: NotRequired[Union[Unset, str]]
     max_tokens: NotRequired[Union[None, Unset, int]]
     stream: NotRequired[Union[Unset, bool]]
-    temperature: NotRequired[Union[None, Unset, float]]
+    temperature: Union[Unset, float] = 1.0
     tools: NotRequired[Union[List["Tool"], None, Unset]]
     pass
 
@@ -39,7 +39,7 @@ class ChatCompletionInput:
         system_prompt (Union[Unset, str]): The system prompt to use.
         max_tokens (Union[None, Unset, int]): The maximum number of tokens to generate in the chat completion.
         stream (Union[Unset, bool]): If set, partial message deltas will be sent, like in ChatGPT.
-        temperature (Union[None, Unset, float]): What sampling temperature to use, between 0 and 2.
+        temperature (Union[Unset, float]): What sampling temperature to use, between 0 and 2. Default: 1.0.
         tools (Union[List['Tool'], None, Unset]): The tools to use in the completion.
     """
 
@@ -51,7 +51,7 @@ class ChatCompletionInput:
     system_prompt: Union[Unset, str] = UNSET
     max_tokens: Union[None, Unset, int] = UNSET
     stream: Union[Unset, bool] = UNSET
-    temperature: Union[None, Unset, float] = UNSET
+    temperature: Union[Unset, float] = 1.0
     tools: Union[List["Tool"], None, Unset] = UNSET
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -82,11 +82,7 @@ class ChatCompletionInput:
 
         stream = self.stream
 
-        temperature: Union[None, Unset, float]
-        if isinstance(self.temperature, Unset):
-            temperature = UNSET
-        else:
-            temperature = self.temperature
+        temperature = self.temperature
 
         tools: Union[List[Dict[str, Any]], None, Unset]
         if isinstance(self.tools, Unset):
@@ -166,11 +162,11 @@ class ChatCompletionInput:
 
         stream = self.stream if isinstance(self.stream, Unset) else (None, str(self.stream).encode(), "text/plain")
 
-        temperature: Union[None, Unset, float]
-        if isinstance(self.temperature, Unset):
-            temperature = UNSET
-        else:
-            temperature = self.temperature
+        temperature = (
+            self.temperature
+            if isinstance(self.temperature, Unset)
+            else (None, str(self.temperature).encode(), "text/plain")
+        )
 
         tools: Union[None, Tuple[None, bytes, str], Unset]
         if isinstance(self.tools, Unset):
@@ -254,14 +250,7 @@ class ChatCompletionInput:
 
         stream = d.pop("stream", UNSET)
 
-        def _parse_temperature(data: object) -> Union[None, Unset, float]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(Union[None, Unset, float], data)
-
-        temperature = _parse_temperature(d.pop("temperature", UNSET))
+        temperature = d.pop("temperature", UNSET)
 
         def _parse_tools(data: object) -> Union[List["Tool"], None, Unset]:
             if data is None:
