@@ -8,6 +8,7 @@ from .blank_enum import BlankEnum
 from .catch_all_error import CatchAllError
 from .catch_all_error_code_enum import CatchAllErrorCodeEnum
 from .chat_completion_input import ChatCompletionInput, ChatCompletionInputDict
+from .chat_completion_input_response_format_type_0 import ChatCompletionInputResponseFormatType0
 from .chat_completion_response import ChatCompletionResponse
 from .conflict_error import ConflictError
 from .conflict_error_code_enum import ConflictErrorCodeEnum
@@ -81,6 +82,7 @@ __all__ = (
     "CatchAllError",
     "CatchAllErrorCodeEnum",
     "ChatCompletionInput",
+    "ChatCompletionInputResponseFormatType0",
     "ChatCompletionResponse",
     "ConflictError",
     "ConflictErrorCodeEnum",

@@ -5,6 +5,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, NotRequired, TypedDict, TypeVar
 
+from ..models.chat_completion_input_response_format_type_0 import ChatCompletionInputResponseFormatType0
 from ..models.enhancement import Enhancement
 from ..models.message import Message
 from ..models.tool import Tool
@@ -24,6 +25,7 @@ class ChatCompletionInputDict(TypedDict):
     stream: NotRequired[Union[Unset, bool]]
     temperature: Union[Unset, float] = 1.0
     tools: NotRequired[Union[List["Tool"], None, Unset]]
+    response_format: NotRequired[Union["ChatCompletionInputResponseFormatType0", None, Unset]]
     pass
 
 
@@ -41,6 +43,8 @@ class ChatCompletionInput:
         stream (Union[Unset, bool]): If set, partial message deltas will be sent, like in ChatGPT.
         temperature (Union[Unset, float]): What sampling temperature to use, between 0 and 2. Default: 1.0.
         tools (Union[List['Tool'], None, Unset]): The tools to use in the completion.
+        response_format (Union['ChatCompletionInputResponseFormatType0', None, Unset]): The format of the response. Can
+            be a JSON schema or a simple `json_object` type
     """
 
     project_id: int
@@ -53,10 +57,13 @@ class ChatCompletionInput:
     stream: Union[Unset, bool] = UNSET
     temperature: Union[Unset, float] = 1.0
     tools: Union[List["Tool"], None, Unset] = UNSET
+    response_format: Union["ChatCompletionInputResponseFormatType0", None, Unset] = UNSET
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        from ..models.chat_completion_input_response_format_type_0 import ChatCompletionInputResponseFormatType0
+
         project_id = self.project_id
 
         messages = []
@@ -96,6 +103,14 @@ class ChatCompletionInput:
         else:
             tools = self.tools
 
+        response_format: Union[Dict[str, Any], None, Unset]
+        if isinstance(self.response_format, Unset):
+            response_format = UNSET
+        elif isinstance(self.response_format, ChatCompletionInputResponseFormatType0):
+            response_format = self.response_format.to_dict()
+        else:
+            response_format = self.response_format
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -120,6 +135,8 @@ class ChatCompletionInput:
             field_dict["temperature"] = temperature
         if tools is not UNSET:
             field_dict["tools"] = tools
+        if response_format is not UNSET:
+            field_dict["response_format"] = response_format
 
         return field_dict
 
@@ -181,6 +198,14 @@ class ChatCompletionInput:
         else:
             tools = self.tools
 
+        response_format: Union[None, Tuple[None, bytes, str], Unset]
+        if isinstance(self.response_format, Unset):
+            response_format = UNSET
+        elif isinstance(self.response_format, ChatCompletionInputResponseFormatType0):
+            response_format = (None, json.dumps(self.response_format.to_dict()).encode(), "application/json")
+        else:
+            response_format = self.response_format
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(
             {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
@@ -207,11 +232,14 @@ class ChatCompletionInput:
             field_dict["temperature"] = temperature
         if tools is not UNSET:
             field_dict["tools"] = tools
+        if response_format is not UNSET:
+            field_dict["response_format"] = response_format
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.chat_completion_input_response_format_type_0 import ChatCompletionInputResponseFormatType0
         from ..models.enhancement import Enhancement
         from ..models.message import Message
         from ..models.tool import Tool
@@ -274,6 +302,23 @@ class ChatCompletionInput:
 
         tools = _parse_tools(d.pop("tools", UNSET))
 
+        def _parse_response_format(data: object) -> Union["ChatCompletionInputResponseFormatType0", None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                response_format_type_0 = ChatCompletionInputResponseFormatType0.from_dict(data)
+
+                return response_format_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union["ChatCompletionInputResponseFormatType0", None, Unset], data)
+
+        response_format = _parse_response_format(d.pop("response_format", UNSET))
+
         chat_completion_input = cls(
             project_id=project_id,
             messages=messages,
@@ -285,6 +330,7 @@ class ChatCompletionInput:
             stream=stream,
             temperature=temperature,
             tools=tools,
+            response_format=response_format,
         )
 
         chat_completion_input.additional_properties = d
