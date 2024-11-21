@@ -18,7 +18,7 @@ def _get_kwargs(
 
     _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/v1/repositories/",
+        "url": "/api/repositories/repositories/",
     }
 
     _json_body = body
@@ -50,8 +50,8 @@ def _build_response(*, client, response: httpx.Response) -> Response[Repository]
     )
 
 
-def v1_repositories_create_wrapper(client):
-    def v1_repositories_create_wrapped(
+def api_repositories_repositories_create_wrapper(client):
+    def api_repositories_repositories_create_wrapped(
         **body: Unpack[Repository],
     ) -> Repository:
         """
@@ -80,4 +80,4 @@ def v1_repositories_create_wrapper(client):
 
         return _build_response(client=client, response=response).parsed
 
-    return v1_repositories_create_wrapped
+    return api_repositories_repositories_create_wrapped

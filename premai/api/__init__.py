@@ -15,10 +15,28 @@ from .embeddings.v1_embeddings_create import v1_embeddings_create_wrapper
 from .feedbacks.v1_set_trace_feedback_create import v1_set_trace_feedback_create_wrapper
 from .models.v1_models_list import v1_models_list_wrapper
 from .models.v1_models_retrieve import v1_models_retrieve_wrapper
-from .repositories.v1_repositories_create import v1_repositories_create_wrapper
-from .repository_document.v1_repository_document_create import v1_repository_document_create_wrapper
+from .repositories.api_repositories_repositories_create import api_repositories_repositories_create_wrapper
+from .repository_document.api_repositories_repository_document_create import (
+    api_repositories_repository_document_create_wrapper,
+)
 from .traces.v1_traces_list import v1_traces_list_wrapper
 from .traces.v1_traces_retrieve import v1_traces_retrieve_wrapper
+
+
+class RepositoriesModule:
+    def __init__(self, client):
+        self._client = client
+
+    def create(self, **kwargs: Unpack[RepositoryDict]):
+        return api_repositories_repositories_create_wrapper(self._client)(**kwargs)
+
+
+class RepositoryDocumentModule:
+    def __init__(self, client):
+        self._client = client
+
+    def create(self, repository_id: int, **kwargs: Unpack[DocumentInputDict]):
+        return api_repositories_repository_document_create_wrapper(self._client)(repository_id, **kwargs)
 
 
 class ChatCompletionsModule:
@@ -55,22 +73,6 @@ class ModelsModule:
         )
 
 
-class RepositoriesModule:
-    def __init__(self, client):
-        self._client = client
-
-    def create(self, **kwargs: Unpack[RepositoryDict]):
-        return v1_repositories_create_wrapper(self._client)(**kwargs)
-
-
-class RepositoryDocumentModule:
-    def __init__(self, client):
-        self._client = client
-
-    def create(self, repository_id: int, **kwargs: Unpack[DocumentInputDict]):
-        return v1_repository_document_create_wrapper(self._client)(repository_id, **kwargs)
-
-
 class FeedbacksModule:
     def __init__(self, client):
         self._client = client
@@ -100,15 +102,15 @@ class TracesModule:
         )
 
 
-class ChatModuleWrapper:
-    completions: ChatCompletionsModule
-
-    def __init__(self, client):
-        self.completions = ChatCompletionsModule(client)
-
-
 class RepositoryModuleWrapper:
     document: RepositoryDocumentModule
 
     def __init__(self, client):
         self.document = RepositoryDocumentModule(client)
+
+
+class ChatModuleWrapper:
+    completions: ChatCompletionsModule
+
+    def __init__(self, client):
+        self.completions = ChatCompletionsModule(client)

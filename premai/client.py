@@ -246,21 +246,21 @@ class AuthenticatedClient:
 
 
 class Prem:
+    repositories: RepositoriesModule
+    repository_document: RepositoryDocumentModule
     chat_completions: ChatCompletionsModule
     embeddings: EmbeddingsModule
     models: ModelsModule
-    repositories: RepositoriesModule
-    repository_document: RepositoryDocumentModule
     feedbacks: FeedbacksModule
     traces: TracesModule
 
     def __init__(self, api_key: str = "", base_url="https://app.premai.io"):
         client = AuthenticatedClient(token=api_key, base_url=base_url)
         # Init modules
+        self.repositories = RepositoriesModule(client)
+        self.repository_document = RepositoryDocumentModule(client)
         self.chat_completions = ChatCompletionsModule(client)
         self.embeddings = EmbeddingsModule(client)
         self.models = ModelsModule(client)
-        self.repositories = RepositoriesModule(client)
-        self.repository_document = RepositoryDocumentModule(client)
         self.feedbacks = FeedbacksModule(client)
         self.traces = TracesModule(client)

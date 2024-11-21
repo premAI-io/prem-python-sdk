@@ -33,10 +33,7 @@ class DocumentOutput:
             * `txt` - Text
         status (StatusEnum): * `PENDING` - Pending
             * `UPLOADED` - Uploaded
-            * `PARSING` - Parsing
-            * `CHUNKING` - Chunking
-            * `WAITING_FOR_CHUNKS_COMPLETION` - Waiting for chunks completion
-            * `PROCESSING` - Processing
+            * `INDEXING` - Indexing
             * `COMPLETED` - Completed
             * `FAILED` - Failed
         error (Union[None, str]):
