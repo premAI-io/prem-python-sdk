@@ -21,6 +21,7 @@ from .repository_document.api_repositories_repository_document_create import (
 )
 from .traces.v1_traces_list import v1_traces_list_wrapper
 from .traces.v1_traces_retrieve import v1_traces_retrieve_wrapper
+from .v1.v1_ping_retrieve import v1_ping_retrieve_wrapper
 
 
 class RepositoriesModule:
@@ -71,6 +72,16 @@ class ModelsModule:
         return v1_models_retrieve_wrapper(self._client)(
             id,
         )
+
+
+class V1Module:
+    def __init__(self, client):
+        self._client = client
+
+    def retrieve(
+        self,
+    ):
+        return v1_ping_retrieve_wrapper(self._client)()
 
 
 class FeedbacksModule:

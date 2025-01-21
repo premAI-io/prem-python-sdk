@@ -25,6 +25,9 @@ from .feedback_create import FeedbackCreate, FeedbackCreateDict
 from .feedback_create_feedback import FeedbackCreateFeedback
 from .function import Function
 from .message import Message
+from .message_content_type_1_item import MessageContentType1Item
+from .message_content_type_1_item_image_url import MessageContentType1ItemImageUrl
+from .message_content_type_1_item_type import MessageContentType1ItemType
 from .message_params import MessageParams
 from .message_role_enum import MessageRoleEnum
 from .messages import Messages
@@ -99,6 +102,9 @@ __all__ = (
     "FeedbackCreateFeedback",
     "Function",
     "Message",
+    "MessageContentType1Item",
+    "MessageContentType1ItemImageUrl",
+    "MessageContentType1ItemType",
     "MessageParams",
     "MessageRoleEnum",
     "Messages",

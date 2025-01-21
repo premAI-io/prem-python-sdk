@@ -1,9 +1,10 @@
-from typing import Dict, List, Type, Union
+from typing import Dict, List, Type, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Any, NotRequired, TypedDict, TypeVar
 
+from ..models.message_content_type_1_item import MessageContentType1Item
 from ..models.message_params import MessageParams
 from ..models.message_role_enum import MessageRoleEnum
 from ..types import UNSET, Unset
@@ -13,7 +14,7 @@ T = TypeVar("T", bound="Message")
 
 class MessageDict(TypedDict):
     role: MessageRoleEnum
-    content: NotRequired[Union[Unset, str]]
+    content: NotRequired[Union[List["MessageContentType1Item"], Unset, str]]
     template_id: NotRequired[Union[Unset, str]]
     params: NotRequired[Union[Unset, MessageParams]]
     pass
@@ -25,13 +26,13 @@ class Message:
     Attributes:
         role (MessageRoleEnum): * `user` - user
             * `assistant` - assistant
-        content (Union[Unset, str]): The content of the message.
+        content (Union[List['MessageContentType1Item'], Unset, str]): The content of the message.
         template_id (Union[Unset, str]): The ID of the template to use.
         params (Union[Unset, MessageParams]): The parameters (key: value) to use with the given template.
     """
 
     role: MessageRoleEnum
-    content: Union[Unset, str] = UNSET
+    content: Union[List["MessageContentType1Item"], Unset, str] = UNSET
     template_id: Union[Unset, str] = UNSET
     params: Union[Unset, "MessageParams"] = UNSET
 
@@ -40,7 +41,17 @@ class Message:
     def to_dict(self) -> Dict[str, Any]:
         role = self.role.value
 
-        content = self.content
+        content: Union[List[Dict[str, Any]], Unset, str]
+        if isinstance(self.content, Unset):
+            content = UNSET
+        elif isinstance(self.content, list):
+            content = []
+            for content_type_1_item_data in self.content:
+                content_type_1_item = content_type_1_item_data.to_dict()
+                content.append(content_type_1_item)
+
+        else:
+            content = self.content
 
         template_id = self.template_id
 
@@ -66,12 +77,31 @@ class Message:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.message_content_type_1_item import MessageContentType1Item
         from ..models.message_params import MessageParams
 
         d = src_dict.copy() if src_dict else {}
         role = MessageRoleEnum(d.pop("role"))
 
-        content = d.pop("content", UNSET)
+        def _parse_content(data: object) -> Union[List["MessageContentType1Item"], Unset, str]:
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                content_type_1 = []
+                _content_type_1 = data
+                for content_type_1_item_data in _content_type_1:
+                    content_type_1_item = MessageContentType1Item.from_dict(content_type_1_item_data)
+
+                    content_type_1.append(content_type_1_item)
+
+                return content_type_1
+            except:  # noqa: E722
+                pass
+            return cast(Union[List["MessageContentType1Item"], Unset, str], data)
+
+        content = _parse_content(d.pop("content", UNSET))
 
         template_id = d.pop("template_id", UNSET)
 

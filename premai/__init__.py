@@ -4,6 +4,7 @@ from .api import (
     RepositoriesModule,
     EmbeddingsModule,
     ModelsModule,
+    V1Module,
     FeedbacksModule,
     TracesModule,
     RepositoryModuleWrapper,
@@ -14,6 +15,7 @@ class Prem:
     repositories: RepositoriesModule
     embeddings: EmbeddingsModule
     models: ModelsModule
+    v1: V1Module
     feedbacks: FeedbacksModule
     traces: TracesModule
     repository: RepositoryModuleWrapper
@@ -25,6 +27,7 @@ class Prem:
         self.repositories = RepositoriesModule(client)
         self.embeddings = EmbeddingsModule(client)
         self.models = ModelsModule(client)
+        self.v1 = V1Module(client)
         self.feedbacks = FeedbacksModule(client)
         self.traces = TracesModule(client)
         self.repository = RepositoryModuleWrapper(client)
