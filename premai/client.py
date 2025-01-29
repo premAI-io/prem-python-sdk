@@ -15,6 +15,7 @@ from .api import (
     RepositoriesModule,
     RepositoryDocumentModule,
     TracesModule,
+    V1Module,
 )
 
 
@@ -250,6 +251,7 @@ class Prem:
     repository_document: RepositoryDocumentModule
     chat_completions: ChatCompletionsModule
     embeddings: EmbeddingsModule
+    v1: V1Module
     models: ModelsModule
     feedbacks: FeedbacksModule
     traces: TracesModule
@@ -261,6 +263,7 @@ class Prem:
         self.repository_document = RepositoryDocumentModule(client)
         self.chat_completions = ChatCompletionsModule(client)
         self.embeddings = EmbeddingsModule(client)
+        self.v1 = V1Module(client)
         self.models = ModelsModule(client)
         self.feedbacks = FeedbacksModule(client)
         self.traces = TracesModule(client)

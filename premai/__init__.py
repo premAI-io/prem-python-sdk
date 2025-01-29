@@ -3,6 +3,7 @@ from .client import AuthenticatedClient
 from .api import (
     RepositoriesModule,
     EmbeddingsModule,
+    V1Module,
     ModelsModule,
     FeedbacksModule,
     TracesModule,
@@ -13,6 +14,7 @@ from .api import (
 class Prem:
     repositories: RepositoriesModule
     embeddings: EmbeddingsModule
+    v1: V1Module
     models: ModelsModule
     feedbacks: FeedbacksModule
     traces: TracesModule
@@ -24,6 +26,7 @@ class Prem:
         # Init modules
         self.repositories = RepositoriesModule(client)
         self.embeddings = EmbeddingsModule(client)
+        self.v1 = V1Module(client)
         self.models = ModelsModule(client)
         self.feedbacks = FeedbacksModule(client)
         self.traces = TracesModule(client)

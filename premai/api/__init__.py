@@ -21,6 +21,7 @@ from .repository_document.api_repositories_repository_document_create import (
 )
 from .traces.v1_traces_list import v1_traces_list_wrapper
 from .traces.v1_traces_retrieve import v1_traces_retrieve_wrapper
+from .v1.v1_get_dataset_retrieve import v1_get_dataset_retrieve_wrapper
 
 
 class RepositoriesModule:
@@ -53,6 +54,16 @@ class EmbeddingsModule:
 
     def create(self, **kwargs: Unpack[EmbeddingsInputDict]):
         return v1_embeddings_create_wrapper(self._client)(**kwargs)
+
+
+class V1Module:
+    def __init__(self, client):
+        self._client = client
+
+    def retrieve(
+        self,
+    ):
+        return v1_get_dataset_retrieve_wrapper(self._client)()
 
 
 class ModelsModule:
