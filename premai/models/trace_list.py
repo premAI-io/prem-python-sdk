@@ -2,9 +2,11 @@ from typing import Dict, List, Type, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from typing_extensions import Any, TypedDict, TypeVar
+from typing_extensions import Any, NotRequired, TypedDict, TypeVar
 
+from ..models.messages import Messages
 from ..models.trace_feedback import TraceFeedback
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="TraceList")
 
@@ -14,6 +16,7 @@ class TraceListDict(TypedDict):
     project_id: int
     model_id: int
     feedback: Union["TraceFeedback", None]
+    messages: NotRequired[Union[Unset, List["Messages"]]]
     pass
 
 
@@ -25,12 +28,14 @@ class TraceList:
         project_id (int):
         model_id (int):
         feedback (Union['TraceFeedback', None]):
+        messages (Union[Unset, List['Messages']]):
     """
 
     trace_id: str
     project_id: int
     model_id: int
     feedback: Union["TraceFeedback", None]
+    messages: Union[Unset, List["Messages"]] = UNSET
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -49,6 +54,13 @@ class TraceList:
         else:
             feedback = self.feedback
 
+        messages: Union[Unset, List[Dict[str, Any]]] = UNSET
+        if not isinstance(self.messages, Unset):
+            messages = []
+            for messages_item_data in self.messages:
+                messages_item = messages_item_data.to_dict()
+                messages.append(messages_item)
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -59,11 +71,14 @@ class TraceList:
                 "feedback": feedback,
             }
         )
+        if messages is not UNSET:
+            field_dict["messages"] = messages
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.messages import Messages
         from ..models.trace_feedback import TraceFeedback
 
         d = src_dict.copy() if src_dict else {}
@@ -88,11 +103,19 @@ class TraceList:
 
         feedback = _parse_feedback(d.pop("feedback"))
 
+        messages = []
+        _messages = d.pop("messages", UNSET)
+        for messages_item_data in _messages or []:
+            messages_item = Messages.from_dict(messages_item_data)
+
+            messages.append(messages_item)
+
         trace_list = cls(
             trace_id=trace_id,
             project_id=project_id,
             model_id=model_id,
             feedback=feedback,
+            messages=messages,
         )
 
         trace_list.additional_properties = d

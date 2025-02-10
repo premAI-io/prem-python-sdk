@@ -70,6 +70,8 @@ from .type_enum import TypeEnum
 from .unprocessable_entity_error import UnprocessableEntityError
 from .unprocessable_entity_error_code_enum import UnprocessableEntityErrorCodeEnum
 from .usage import Usage
+from .v1_traces_list_admin_filter import V1TracesListAdminFilter
+from .v1_traces_list_date_filter import V1TracesListDateFilter
 from .validation_detail import ValidationDetail
 from .validation_detail_error_messages_item import ValidationDetailErrorMessagesItem
 from .validation_error import ValidationError
@@ -147,6 +149,8 @@ __all__ = (
     "UnprocessableEntityError",
     "UnprocessableEntityErrorCodeEnum",
     "Usage",
+    "V1TracesListAdminFilter",
+    "V1TracesListDateFilter",
     "ValidationDetail",
     "ValidationDetailErrorMessagesItem",
     "ValidationError",
