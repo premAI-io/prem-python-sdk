@@ -13,6 +13,7 @@ from .chat_completion_response import ChatCompletionResponse
 from .conflict_error import ConflictError
 from .conflict_error_code_enum import ConflictErrorCodeEnum
 from .datapoint import Datapoint
+from .delete_finetuning_job_request import DeleteFinetuningJobRequest, DeleteFinetuningJobRequestDict
 from .document_chunks import DocumentChunks
 from .document_input import DocumentInput, DocumentInputDict
 from .document_output import DocumentOutput
@@ -107,6 +108,7 @@ __all__ = (
     "ConflictError",
     "ConflictErrorCodeEnum",
     "Datapoint",
+    "DeleteFinetuningJobRequest",
     "DocumentChunks",
     "DocumentInput",
     "DocumentOutput",
@@ -196,6 +198,9 @@ __all__ = (
     "FineTuningJobCreateDict",
     "FineTuningJobCreateDict",
     "FineTuningJobCreateDict",
+    "DeleteFinetuningJobRequestDict",
+    "DeleteFinetuningJobRequestDict",
+    "DeleteFinetuningJobRequestDict",
     "FineTunedModelTryRequestDict",
     "FineTunedModelTryRequestDict",
     "FineTunedModelTryRequestDict",
