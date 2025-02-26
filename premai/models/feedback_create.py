@@ -12,7 +12,6 @@ T = TypeVar("T", bound="FeedbackCreate")
 
 
 class FeedbackCreateDict(TypedDict):
-    trace_id: str
     feedback: NotRequired[Union["FeedbackCreateFeedback", None, Unset]]
     pass
 
@@ -21,19 +20,15 @@ class FeedbackCreateDict(TypedDict):
 class FeedbackCreate:
     """
     Attributes:
-        trace_id (str):
         feedback (Union['FeedbackCreateFeedback', None, Unset]):
     """
 
-    trace_id: str
     feedback: Union["FeedbackCreateFeedback", None, Unset] = UNSET
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         from ..models.feedback_create_feedback import FeedbackCreateFeedback
-
-        trace_id = self.trace_id
 
         feedback: Union[Dict[str, Any], None, Unset]
         if isinstance(self.feedback, Unset):
@@ -45,21 +40,13 @@ class FeedbackCreate:
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "trace_id": trace_id,
-            }
-        )
+        field_dict.update({})
         if feedback is not UNSET:
             field_dict["feedback"] = feedback
 
         return field_dict
 
     def to_multipart(self) -> Dict[str, Any]:
-        trace_id = (
-            self.trace_id if isinstance(self.trace_id, Unset) else (None, str(self.trace_id).encode(), "text/plain")
-        )
-
         feedback: Union[None, Tuple[None, bytes, str], Unset]
         if isinstance(self.feedback, Unset):
             feedback = UNSET
@@ -72,11 +59,7 @@ class FeedbackCreate:
         field_dict.update(
             {key: (None, str(value).encode(), "text/plain") for key, value in self.additional_properties.items()}
         )
-        field_dict.update(
-            {
-                "trace_id": trace_id,
-            }
-        )
+        field_dict.update({})
         if feedback is not UNSET:
             field_dict["feedback"] = feedback
 
@@ -87,7 +70,6 @@ class FeedbackCreate:
         from ..models.feedback_create_feedback import FeedbackCreateFeedback
 
         d = src_dict.copy() if src_dict else {}
-        trace_id = d.pop("trace_id")
 
         def _parse_feedback(data: object) -> Union["FeedbackCreateFeedback", None, Unset]:
             if data is None:
@@ -107,7 +89,6 @@ class FeedbackCreate:
         feedback = _parse_feedback(d.pop("feedback", UNSET))
 
         feedback_create = cls(
-            trace_id=trace_id,
             feedback=feedback,
         )
 

@@ -2,6 +2,7 @@ from .client import AuthenticatedClient
 
 from .api import (
     RepositoriesModule,
+    FinetuningModule,
     EmbeddingsModule,
     V1Module,
     ModelsModule,
@@ -13,6 +14,7 @@ from .api import (
 
 class Prem:
     repositories: RepositoriesModule
+    finetuning: FinetuningModule
     embeddings: EmbeddingsModule
     v1: V1Module
     models: ModelsModule
@@ -25,6 +27,7 @@ class Prem:
         client = AuthenticatedClient(token=api_key, base_url=base_url)
         # Init modules
         self.repositories = RepositoriesModule(client)
+        self.finetuning = FinetuningModule(client)
         self.embeddings = EmbeddingsModule(client)
         self.v1 = V1Module(client)
         self.models = ModelsModule(client)
