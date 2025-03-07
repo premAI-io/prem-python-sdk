@@ -7,6 +7,7 @@ from ..models import (
     ChatCompletionInputDict,
     DeleteFinetuningJobRequestDict,
     DocumentInputDict,
+    DownloadFinetunedModelRequestDict,
     EmbeddingsInputDict,
     FeedbackCreateDict,
     FineTunedModelTryRequestDict,
@@ -23,6 +24,7 @@ from .embeddings.v1_embeddings_create import v1_embeddings_create_wrapper
 from .feedbacks.v1_set_trace_feedback_create import v1_set_trace_feedback_create_wrapper
 from .finetuning.v1_create_finetuning_job_create import v1_create_finetuning_job_create_wrapper
 from .finetuning.v1_delete_finetuning_job_create import v1_delete_finetuning_job_create_wrapper
+from .finetuning.v1_download_finetuned_model_create import v1_download_finetuned_model_create_wrapper
 from .finetuning.v1_finetuned_model_try_create import v1_finetuned_model_try_create_wrapper
 from .finetuning.v1_finetuning_job_details_create import v1_finetuning_job_details_create_wrapper
 from .finetuning.v1_init_page_data_create import v1_init_page_data_create_wrapper
@@ -70,6 +72,9 @@ class FinetuningModule:
 
     def create(self, **kwargs: Unpack[DeleteFinetuningJobRequestDict]):
         return v1_delete_finetuning_job_create_wrapper(self._client)(**kwargs)
+
+    def create(self, **kwargs: Unpack[DownloadFinetunedModelRequestDict]):
+        return v1_download_finetuned_model_create_wrapper(self._client)(**kwargs)
 
     def create(self, **kwargs: Unpack[FineTunedModelTryRequestDict]):
         return v1_finetuned_model_try_create_wrapper(self._client)(**kwargs)

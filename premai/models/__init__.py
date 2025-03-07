@@ -18,6 +18,7 @@ from .document_chunks import DocumentChunks
 from .document_input import DocumentInput, DocumentInputDict
 from .document_output import DocumentOutput
 from .document_type_enum import DocumentTypeEnum
+from .download_finetuned_model_request import DownloadFinetunedModelRequest, DownloadFinetunedModelRequestDict
 from .embedding import Embedding
 from .embeddings_input import EmbeddingsInput, EmbeddingsInputDict
 from .embeddings_response import EmbeddingsResponse
@@ -113,6 +114,7 @@ __all__ = (
     "DocumentInput",
     "DocumentOutput",
     "DocumentTypeEnum",
+    "DownloadFinetunedModelRequest",
     "Embedding",
     "EmbeddingsInput",
     "EmbeddingsResponse",
@@ -201,6 +203,9 @@ __all__ = (
     "DeleteFinetuningJobRequestDict",
     "DeleteFinetuningJobRequestDict",
     "DeleteFinetuningJobRequestDict",
+    "DownloadFinetunedModelRequestDict",
+    "DownloadFinetunedModelRequestDict",
+    "DownloadFinetunedModelRequestDict",
     "FineTunedModelTryRequestDict",
     "FineTunedModelTryRequestDict",
     "FineTunedModelTryRequestDict",
