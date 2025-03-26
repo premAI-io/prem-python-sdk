@@ -10,10 +10,7 @@ from ..models import (
     DownloadFinetunedModelRequestDict,
     EmbeddingsInputDict,
     FeedbackCreateDict,
-    FineTunedModelTryRequestDict,
     FineTuningJobCreateDict,
-    FineTuningJobDetailsRequestDict,
-    InitPageDataRequestDict,
     RepositoryDict,
 )
 from ..models.v1_traces_list_admin_filter import V1TracesListAdminFilter
@@ -25,9 +22,6 @@ from .feedbacks.v1_set_trace_feedback_create import v1_set_trace_feedback_create
 from .finetuning.v1_create_finetuning_job_create import v1_create_finetuning_job_create_wrapper
 from .finetuning.v1_delete_finetuning_job_create import v1_delete_finetuning_job_create_wrapper
 from .finetuning.v1_download_finetuned_model_create import v1_download_finetuned_model_create_wrapper
-from .finetuning.v1_finetuned_model_try_create import v1_finetuned_model_try_create_wrapper
-from .finetuning.v1_finetuning_job_details_create import v1_finetuning_job_details_create_wrapper
-from .finetuning.v1_init_page_data_create import v1_init_page_data_create_wrapper
 from .models.v1_models_list import v1_models_list_wrapper
 from .models.v1_models_retrieve import v1_models_retrieve_wrapper
 from .repositories.api_repositories_repositories_create import api_repositories_repositories_create_wrapper
@@ -75,15 +69,6 @@ class FinetuningModule:
 
     def create(self, **kwargs: Unpack[DownloadFinetunedModelRequestDict]):
         return v1_download_finetuned_model_create_wrapper(self._client)(**kwargs)
-
-    def create(self, **kwargs: Unpack[FineTunedModelTryRequestDict]):
-        return v1_finetuned_model_try_create_wrapper(self._client)(**kwargs)
-
-    def create(self, **kwargs: Unpack[FineTuningJobDetailsRequestDict]):
-        return v1_finetuning_job_details_create_wrapper(self._client)(**kwargs)
-
-    def v1_init_page_data_create(self, **kwargs: Unpack[InitPageDataRequestDict]):
-        return v1_init_page_data_create_wrapper(self._client)(**kwargs)
 
 
 class EmbeddingsModule:
